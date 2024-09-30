@@ -1,0 +1,12 @@
+.docView{
+    border-width: 1px;
+    color: #0062F0;
+    /* color: white; */
+    padding: 0px;
+    font-size: 0.8rem;
+}
+.docPanel{
+    display: flex;
+    flex-direction: column;
+    
+}

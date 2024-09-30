@@ -1,0 +1,153 @@
+/* General Layout */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navigation Bar */
+.navbar {
+    background-color: #91cef4;
+    padding: 1rem;
+    width: 100%;
+    height: 120px;
+
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+.nav-list > li {
+    position: relative; /* Required for positioning dropdowns */
+    padding: 0 5.5rem;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 800;
+    border-radius: 10px;
+    display: flex; 
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+    height: 45px; 
+}
+
+
+
+/* Dropdown Menu Styles */
+.nav-list li ul.dropdown-menu {
+    display: none; /* Hide by default */
+    position: absolute;
+    top: 100%; /* Align below the parent li */
+    left: 10;
+    background-color: #4CAF50;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 180px;
+    z-index: 1000;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Flexbox layout for images and headings */
+.header-container {
+    display: flex;
+    align-items: center;
+    margin-left: 9%;
+    margin-top: 1%;
+}
+
+.header-image {
+    width: 3%;
+    height: 3%;
+}
+
+
+
+
+.header-row {
+    display: flex;
+    align-items: center; /* Vertically align the items */
+    gap: 20px; /* Optional: Add space between the logo and title */
+    justify-content: center; /* Center align them horizontally */
+    background-color: #91cef4;
+   
+    
+}
+
+.title {
+    font-size: 28px;
+    color: #0f0f0f;
+    font-weight: 900;
+}
+
+/* Form Container */
+.container {
+    margin: rem auto;
+    width: 60%;
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group {
+    width: 48%;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.form-control, .form-control-file {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+/* Submit Button */
+.btn-submit {
+    background-color: #113fd5;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: center;
+    font-size: 17px;
+}
+
+.btn-submit:hover {
+    background-color: #45a049;
+}
+
+.error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
