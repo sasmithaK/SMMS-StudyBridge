@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -28,7 +29,7 @@ function UcourseView() {
       axios.delete(`http://localhost:5000/courses/${id}`)
         .then(response => {
           alert('Course deleted successfully!');
-          navigate('/university-portfolio'); // Redirect after deletion
+          navigate('/course-page'); // Redirect after deletion
         })
         .catch(error => {
           console.error('Error deleting course:', error);
@@ -48,7 +49,7 @@ function UcourseView() {
           <h1 className="card-title">{course.coursetitle || 'Untitled Course'}</h1>
         </div>
         <div className="card-body">
-          <p><strong>University:</strong> {course.universityName || 'N/A'}</p> {/* Display university name */}
+          {/* Removed the 'University' section because Uid is no longer available */}
           <p><strong>Course Type:</strong> {course.coursetype || 'N/A'}</p>
           <p><strong>Faculty:</strong> {course.faculty || 'N/A'}</p>
           <p><strong>Total Fee:</strong> {course.totalfee ? `$${parseInt(course.totalfee).toLocaleString()}` : 'N/A'}</p>

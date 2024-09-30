@@ -11,15 +11,13 @@ function UpdateCourseForm() {
     coursetype: '',
     faculty: '',
     totalfee: '',
-    semesterfee: '',
-    universityName: '' // Include university name
+    semesterfee: ''
   });
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setIsLoading(true);
     axios.get(`http://localhost:5000/courses/${id}`)
       .then(response => {
         setCourseData(response.data.course);
@@ -44,7 +42,7 @@ function UpdateCourseForm() {
     axios.put(`http://localhost:5000/courses/${id}`, courseData)
       .then(response => {
         alert('Course updated successfully!');
-        navigate(`/university-Course/${id}`); // Redirect back to course view
+        navigate(`/university-course/${id}`); // Redirect back to course view
       })
       .catch(error => {
         console.error('Error updating course:', error);
@@ -91,7 +89,7 @@ function UpdateCourseForm() {
         <div className="mb-3">
           <label className="form-label">Total Fee</label>
           <input
-            type="text"
+            type="number"
             className="form-control"
             name="totalfee"
             value={courseData.totalfee}
@@ -101,23 +99,14 @@ function UpdateCourseForm() {
         <div className="mb-3">
           <label className="form-label">Semester Fee</label>
           <input
-            type="text"
+            type="number"
             className="form-control"
             name="semesterfee"
             value={courseData.semesterfee}
             onChange={handleChange}
           />
         </div>
-        <div className="mb-3">
-          <label className="form-label">University Name</label>
-          <input
-            type="text"
-            className="form-control"
-            name="universityName"
-            value={courseData.universityName}
-            onChange={handleChange}
-          />
-        </div>
+
         <button type="submit" className="btn btn-primary">Update Course</button>
       </form>
     </div>

@@ -1,19 +1,20 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function AddCourseForm() {
+  const navigate = useNavigate();
+
   const [courseData, setCourseData] = useState({
     coursetitle: '',
     coursetype: '',
     faculty: '',
     totalfee: '',
-    semesterfee: '',
-    universityName: '' // Add university name field
+    semesterfee: ''
   });
 
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setCourseData({
@@ -27,7 +28,7 @@ function AddCourseForm() {
     axios.post('http://localhost:5000/courses', courseData)
       .then(response => {
         alert('Course added successfully!');
-        navigate(`/university-portfolio`); // Redirect to the portfolio
+        navigate(`/university-portfolio`); // Redirect to the newly added course view
       })
       .catch(error => {
         console.error('Error adding course:', error);
@@ -95,17 +96,7 @@ function AddCourseForm() {
             required
           />
         </div>
-        <div className="mb-3">
-          <label className="form-label">University Name</label>
-          <input
-            type="text"
-            className="form-control"
-            name="universityName"
-            value={courseData.universityName}
-            onChange={handleChange}
-            required
-          />
-        </div>
+
         <button type="submit" className="btn btn-primary">Add Course</button>
       </form>
     </div>

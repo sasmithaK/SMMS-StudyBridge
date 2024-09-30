@@ -1,3 +1,6 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
 const courseSchema = new Schema({
     coursetitle: {
         type: String,
@@ -19,11 +22,7 @@ const courseSchema = new Schema({
         type: Number,
         required: true,
     },
-    university: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'posts', // Assuming this is the name of your university model
-        required: true,
-    }
+
 });
 
 module.exports = mongoose.model("CourseModel", courseSchema);
