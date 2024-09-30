@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -54,6 +53,8 @@ function AddUser() {
     signature: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -61,13 +62,66 @@ function AddUser() {
     }));
   };
 
+  const validate = () => {
+    let tempErrors = {};
+  
+    // Full Name Validation: First letter must be capital, no numbers allowed
+    const nameRegex = /^[A-Z][a-zA-Z\s]*$/;
+    if (!inputs.fullname) {
+      tempErrors.fullname = "Full name is required";
+    } else if (!nameRegex.test(inputs.fullname)) {
+      tempErrors.fullname = "Full name must start with a capital letter and contain no numbers";
+    }
+  
+    // Passport Expiry should be after issue date
+    if (inputs.passportissuedate && inputs.passportexpirydate) {
+      const issueDate = new Date(inputs.passportissuedate);
+      const expiryDate = new Date(inputs.passportexpirydate);
+      if (expiryDate <= issueDate) {
+        tempErrors.passportexpirydate = "Expiry date must be after issue date";
+      }
+    }
+  
+    // Email Validation
+    if (!/\S+@\S+\.\S+/.test(inputs.email)) {
+      tempErrors.email = "Email is not valid";
+    }
+  
+    // Phone Number Validation
+    if (!/^\d{10,15}$/.test(inputs.phonenumber)) {
+      tempErrors.phonenumber = "Phone number should be 10-15 digits";
+    }
+  
+    // Emergency Contact Validation
+    if (!/^\d{10,15}$/.test(inputs.emergencycontact)) {
+      tempErrors.emergencycontact = "Emergency contact should be 10-15 digits";
+    }
+  
+    // Intended Duration Validation (must be an integer)
+    if (!inputs.intendedduration || !Number.isInteger(Number(inputs.intendedduration))) {
+      tempErrors.intendedduration = "Intended duration must be an integer";
+    }
+  
+    // Study Duration Validation (must be an integer)
+    if (!inputs.studyduration || !Number.isInteger(Number(inputs.studyduration))) {
+      tempErrors.studyduration = "Study duration must be an integer";
+    }
+  
+    setErrors(tempErrors);
+  
+    return Object.keys(tempErrors).length === 0;
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await sendRequest();
-      navigate("/userdetails");
-    } catch (error) {
-      console.error("Error submitting form:", error);
+    if (validate()) {
+      try {
+        await sendRequest();
+        navigate("/userdetails");
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
     }
   };
 
@@ -266,6 +320,8 @@ function AddUser() {
                 value={inputs.fullname}
                 onChange={handleChange}
                 required
+                error={Boolean(errors.fullname)}
+                helperText={errors.fullname}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -345,6 +401,9 @@ function AddUser() {
                 value={inputs.passportnumber}
                 onChange={handleChange}
                 required
+                error={Boolean(errors.passportnumber)}
+                helperText={errors.passportnumber}
+                
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -357,6 +416,8 @@ function AddUser() {
                 onChange={handleChange}
                 InputLabelProps={{ shrink: true }}
                 required
+                error={Boolean(errors.passportissuedate)}
+                helperText={errors.passportissuedate}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -369,6 +430,8 @@ function AddUser() {
                 onChange={handleChange}
                 InputLabelProps={{ shrink: true }}
                 required
+                error={Boolean(errors.passportexpirydate)}
+                helperText={errors.passportexpirydate}
               />
             </Grid>
           </Grid>
@@ -402,6 +465,9 @@ function AddUser() {
                 value={inputs.email}
                 onChange={handleChange}
                 required
+                error={Boolean(errors.email)}
+                helperText={errors.email}
+                
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -413,6 +479,8 @@ function AddUser() {
                 value={inputs.phonenumber}
                 onChange={handleChange}
                 required
+                error={Boolean(errors.phonenumber)}
+                helperText={errors.phonenumber}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -424,6 +492,8 @@ function AddUser() {
                 value={inputs.emergencycontact}
                 onChange={handleChange}
                 required
+                error={Boolean(errors.emergencycontact)}
+                helperText={errors.emergencycontact}
               />
             </Grid>
           </Grid>
@@ -456,6 +526,8 @@ function AddUser() {
                 value={inputs.intendedduration}
                 onChange={handleChange}
                 required
+                error={Boolean(errors.intendedduration)}
+                helperText={errors.intendedduration}
               />
             </Grid>
             <Grid item xs={12}>
@@ -532,6 +604,8 @@ function AddUser() {
                 value={inputs.studyduration}
                 onChange={handleChange}
                 required
+                error={Boolean(errors.studyduration)}
+                helperText={errors.studyduration}
               />
             </Grid>
             <Grid item xs={12}>
