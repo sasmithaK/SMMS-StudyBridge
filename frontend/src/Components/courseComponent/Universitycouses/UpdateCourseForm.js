@@ -42,7 +42,7 @@ function UpdateCourseForm() {
     axios.put(`http://localhost:5000/courses/${id}`, courseData)
       .then(response => {
         alert('Course updated successfully!');
-        navigate(`/course-view/${id}`); // Redirect back to course view
+        navigate(`/university-course/${id}`); // Redirect back to course view
       })
       .catch(error => {
         console.error('Error updating course:', error);

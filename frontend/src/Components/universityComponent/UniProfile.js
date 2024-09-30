@@ -60,7 +60,8 @@ function UniProfile() {
             <nav className="navbar">
                 <ul className="nav-list">
                     <li style={{backgroundColor:"#113fd5",width:"2px",marginLeft:"36%"}} onClick={() => navigate("/profile")}>Profile</li>
-                    &ensp;<li style={{backgroundColor:"#113fd5",width:"2px",marginLeft:"10%"}} >Course</li>
+                    &ensp;<li style={{backgroundColor:"#113fd5",width:"2px",marginLeft:"10%"}} onClick={() => navigate("/university-portfolio")}>Course</li>
+                    &ensp;<li style={{backgroundColor:"#113fd5",width:"2px",marginLeft:"10%"}} onClick={() => navigate("/add-course")}>Add Course</li>
                     &ensp;<li style={{backgroundColor:"#113fd5",width:"2px",marginLeft:"10%"}}>Report</li>
                     &ensp;<li style={{backgroundColor:"#113fd5",width:"2px",marginLeft:"10%"}} onClick={() => navigate("/")}>Home</li>
 

@@ -27,7 +27,7 @@ function AddCourseForm() {
     axios.post('http://localhost:5000/courses', courseData)
       .then(response => {
         alert('Course added successfully!');
-        navigate(`/course-view/${response.data.course._id}`); // Redirect to the newly added course view
+        navigate(`/university-portfolio`); // Redirect to the newly added course view
       })
       .catch(error => {
         console.error('Error adding course:', error);
