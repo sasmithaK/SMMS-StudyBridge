@@ -1,0 +1,64 @@
+/* Container for the list of issues */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Card for each issue */
+.issue-card {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 35px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.issue-card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #113fd5;
+    font-weight: 700;
+}
+
+.issue-card p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Button to view details */
+.btn-view-details {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-view-details:hover {
+    background-color: #45a049;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .issue-card {
+        padding: 10px;
+    }
+
+    .btn-view-details {
+        width: 100%;
+        text-align: center;
+    }
+}
