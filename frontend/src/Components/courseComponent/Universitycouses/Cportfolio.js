@@ -41,29 +41,26 @@ function Cportfolio() {
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4 text-center">Portfolio</h1> 
+      <h1 className="mb-4 text-center">Portfolio</h1>
       <div className="row">
-        {courses.map((course) => {
-          console.log("Individual course:", JSON.stringify(course, null, 2));
-          return (
-            <div key={course._id} className="col-md-4 mb-4">
-              <div className="card h-100 shadow-sm">
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{course.coursetitle}</h5>
-                  <p className="card-text"><strong>University:</strong> {'N/A'}</p>
-                  <p className="card-text"><strong>Faculty:</strong> {course.faculty}</p>
-                  <p className="card-text"><strong>Type:</strong> {course.coursetype}</p>
-                  <Link
-                    to={`/university-Course/${course._id}`}
-                    className="btn btn-primary mt-auto"
-                  >
-                    View Details
-                  </Link>
-                </div>
+        {courses.map((course) => (
+          <div key={course._id} className="col-md-4 mb-4">
+            <div className="card h-100 shadow-sm">
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">{course.coursetitle}</h5>
+                <p className="card-text"><strong>University:</strong> {course.university?.name || 'N/A'}</p> {/* Display university name */}
+                <p className="card-text"><strong>Faculty:</strong> {course.faculty}</p>
+                <p className="card-text"><strong>Type:</strong> {course.coursetype}</p>
+                <Link
+                  to={`/university-Course/${course._id}`}
+                  className="btn btn-primary mt-auto"
+                >
+                  View Details
+                </Link>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );

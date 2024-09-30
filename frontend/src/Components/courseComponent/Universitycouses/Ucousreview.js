@@ -48,7 +48,7 @@ function UcourseView() {
           <h1 className="card-title">{course.coursetitle || 'Untitled Course'}</h1>
         </div>
         <div className="card-body">
-          {/* Removed the 'University' section because Uid is no longer available */}
+          <p><strong>University:</strong> {course.universityName || 'N/A'}</p> {/* Display university name */}
           <p><strong>Course Type:</strong> {course.coursetype || 'N/A'}</p>
           <p><strong>Faculty:</strong> {course.faculty || 'N/A'}</p>
           <p><strong>Total Fee:</strong> {course.totalfee ? `$${parseInt(course.totalfee).toLocaleString()}` : 'N/A'}</p>
