@@ -28,7 +28,7 @@ function UcourseView() {
       axios.delete(`http://localhost:5000/courses/${id}`)
         .then(response => {
           alert('Course deleted successfully!');
-          navigate('/course-page'); // Redirect after deletion
+          navigate('/university-portfolio'); // Redirect after deletion
         })
         .catch(error => {
           console.error('Error deleting course:', error);
