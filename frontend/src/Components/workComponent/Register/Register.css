@@ -1,0 +1,117 @@
+.confirmContainer{
+    height: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    color: black;
+         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+
+}
+
+.confirmContainer select{
+    padding: 0.6rem;
+    width: 20svw;
+
+}
+.sectionTitle{
+    display: flex;
+    align-self: flex-start;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+    margin-top: 1rem;
+}
+.leftSide{
+width: 65svw;
+padding-left: 2rem;
+padding-right: 10rem;
+display: flex;
+
+/* justify-content: center; */
+flex-direction: column;
+}
+.confirmBarLogo{
+    height: 4.5rem;
+    width: 3.5rem;
+}
+.leftTitle{
+    font-size: 32px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-around;
+    /* background-color: blue; */
+
+}
+.rightSide{
+    width: 35svw;
+    display: flex;
+    background-color: #113d6f2c;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.doubleInput{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.inputItem{
+    display: flex;
+    flex-direction: column;
+    width: 20svw;
+    margin-left: 4rem;
+    margin-right: 5rem;
+    margin-bottom: 0.5rem;
+}
+.inputItem.multiline{
+    display: flex;
+    flex-direction: column;
+    width: 50svw;
+    margin-left: 4rem;
+    margin-right: 5rem;
+}
+.inputBanner{
+    font-size: 15px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items:flex-start;
+}
+.inputText{
+    padding: 10px;
+    margin-bottom: 7px;
+}
+
+.confirmButton{
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    width: 20svw;
+    border-width: 0px;
+    background-color: #113D6F;
+    color: white;
+}
+
+.rightTitle{
+    font-size: 32px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-around;
+}
+.rightMiddle{
+    display: flex;
+    flex-direction: column;
+}
+
+.confirmButtonPannel{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    align-items: center;
+
+}
+
