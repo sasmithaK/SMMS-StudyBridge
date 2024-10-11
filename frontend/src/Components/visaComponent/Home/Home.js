@@ -18,7 +18,6 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Link } from "react-router-dom";
 
-
 const steps = [
   {
     label: "Document Upload",
@@ -55,9 +54,9 @@ export default function VerticalLinearStepper() {
 
   return (
     <div
-    style={{
-      backgroundColor:"#E6F7FF"
-    }}
+      style={{
+        backgroundColor: "#E6F7FF",
+      }}
     >
       {/* Navigation Bar */}
       <AppBar
@@ -112,38 +111,40 @@ export default function VerticalLinearStepper() {
             >
               Visa Guidance
             </Button>
-            <Button
-              color="inherit"
-              sx={{
-                margin: 1,
-                minWidth: 120,
-                backgroundColor: "transparent",
-                color: "#003366", // Dark blue color
-                "&:hover": {
-                  backgroundColor: "orange",
-                  color: "white",
-                },
-              }}
-            >
-              Contact Us
-            </Button>
+            <Link to="/contactUs">
+              <Button
+                color="inherit"
+                sx={{
+                  margin: 1,
+                  minWidth: 120,
+                  backgroundColor: "transparent",
+                  color: "#003366", // Dark blue color
+                  "&:hover": {
+                    backgroundColor: "orange",
+                    color: "white",
+                  },
+                }}
+              >
+                Contact Us
+              </Button>
+            </Link>
 
             <Link to="/userdetails">
-            <Button
-              color="inherit"
-              sx={{
-                margin: 1,
-                minWidth: 120,
-                backgroundColor: "transparent",
-                color: "#003366", // Dark blue color
-                "&:hover": {
-                  backgroundColor: "orange",
-                  color: "white",
-                },
-              }}
-            >
-              Visa manager
-            </Button>
+              <Button
+                color="inherit"
+                sx={{
+                  margin: 1,
+                  minWidth: 120,
+                  backgroundColor: "transparent",
+                  color: "#003366", // Dark blue color
+                  "&:hover": {
+                    backgroundColor: "orange",
+                    color: "white",
+                  },
+                }}
+              >
+                Visa manager
+              </Button>
             </Link>
           </Box>
           <IconButton
@@ -351,203 +352,218 @@ export default function VerticalLinearStepper() {
         />
       </div>
 
-<div
-style={{
-  marginTop:"120px",
-  textAlign:"center"
-}}
->
-  <h1>Ultimate Access for Visa Management.</h1>
-  <h3>Manage all your visa processes in one place.</h3>
-</div>
+      <div
+        style={{
+          marginTop: "420px",
+          textAlign: "center",
+        }}
+      >
+        <h1>Ultimate Access for Visa Management.</h1>
+        <h3>Manage all your visa processes in one place.</h3>
+      </div>
       <Box
-  sx={{
-    display: "flex",
-    flexWrap: "nowrap", // Ensure cards stay in one row
-    marginTop: "60px",
-    textAlign: "center",
-    padding: "40px",
-    
-  }}
->
-  <div style={{ width: "17%", padding: "0 10px", marginRight: "30px" , marginLeft:"50px"}}>
-    <Card
-      sx={{
-        backgroundColor: "#B5E0B5",
-        borderRadius: "20px",
-        
-      }}
-    >
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="260"
-          image="rule.png"
-          alt="Card 1"
-        />
-      </CardActionArea>
-    </Card>
-    <h2 style={{ marginTop: "20px" ,fontSize:"18px"}}>Visa Rules</h2>
-  </div>
-
-  <div style={{ width: "17%", padding: "0 10px", marginRight: "30px" }}>
-    <Card
-      sx={{
-        backgroundColor: "#F6DBDB",
-        borderRadius: "20px",
-      }}
-    >
-      <CardActionArea>
-      <Link to="/Tracking">
-        <CardMedia
-          component="img"
-          height="260"
-          image="process.png"
-          alt="Card 2"
-        />
-        </Link>
-      </CardActionArea>
-    </Card>
-    <h2 style={{ marginTop: "20px" ,fontSize:"18px"}}>Process Tracking</h2>
-  </div>
-
-  <div style={{ width: "17%", padding: "0 10px", marginRight: "30px" }}>
-    <Card
-      sx={{
-        backgroundColor: "#F2E0B4",
-        borderRadius: "20px",
-      }}
-    >
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="260"
-          image="country.png"
-          alt="Card 3"
-        />
-      </CardActionArea>
-    </Card>
-    <h2 style={{ marginTop: "20px" ,fontSize:"18px"}}>Available Countries</h2>
-  </div>
-
-  <div style={{ width: "17%", padding: "0 10px", marginRight: "30px" }}>
-    <Card
-      sx={{
-        borderRadius: "20px",
-        backgroundColor: "#FCD0FF",
-      }}
-    >
-      <CardActionArea>
-      <Link to="/Evisa">
-        <CardMedia
-          component="img"
-          height="260"
-          image="download.png"
-          alt="Card 4"
-        />
-        </Link>
-      </CardActionArea>
-    </Card>
-    <h2 style={{ marginTop: "20px" ,fontSize:"18px"}}>Visa Download</h2>
-  </div>
-
-  <div style={{ width: "17%", padding: "0 10px" }}>
-    <Card
-      sx={{
-        borderRadius: "20px",
-        backgroundColor: "#F2E0B4",
-      }}
-    >
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="260"
-          image="country.png"
-          alt="Card 5"
-        />
-      </CardActionArea>
-    </Card>
-    <h2 style={{ marginTop: "20px",fontSize:"18px" }}>Visa Download</h2>
-  </div>
-</Box>
-
-<footer className="bg-body-tertiary text-center">
-  {/* Grid container */}
-  <div className="container p-4 pb-0">
-    {/* Section: Social media */}
-    <section className="mb-4">
-      {/* Facebook */}
-      <a
-        className="btn text-white btn-floating m-1"
-        style={{ backgroundColor: "#3b5998" }}
-        href="#!"
-        role="button"
+        sx={{
+          display: "flex",
+          flexWrap: "nowrap", // Ensure cards stay in one row
+          marginTop: "60px",
+          textAlign: "center",
+          padding: "40px",
+        }}
       >
-        <i className="fab fa-facebook-f"></i>
-      </a>
+        <div
+          style={{
+            width: "17%",
+            padding: "0 10px",
+            marginRight: "30px",
+            marginLeft: "50px",
+          }}
+        >
+          <Card
+            sx={{
+              backgroundColor: "#B5E0B5",
+              borderRadius: "20px",
+            }}
+          >
+            <CardActionArea>
+              <Link to="/visaRules">
+                <CardMedia
+                  component="img"
+                  height="260"
+                  image="rule.png"
+                  alt="Card 1"
+                />
+              </Link>
+            </CardActionArea>
+          </Card>
+          <h2 style={{ marginTop: "20px", fontSize: "18px" }}>Visa Rules</h2>
+        </div>
 
-      {/* Twitter */}
-      <a
-        className="btn text-white btn-floating m-1"
-        style={{ backgroundColor: "#55acee" }}
-        href="#!"
-        role="button"
-      >
-        <i className="fab fa-twitter"></i>
-      </a>
+        <div style={{ width: "17%", padding: "0 10px", marginRight: "30px" }}>
+          <Card
+            sx={{
+              backgroundColor: "#F6DBDB",
+              borderRadius: "20px",
+            }}
+          >
+            <CardActionArea>
+              <Link to="/Tracking">
+                <CardMedia
+                  component="img"
+                  height="260"
+                  image="process.png"
+                  alt="Card 2"
+                />
+              </Link>
+            </CardActionArea>
+          </Card>
+          <h2 style={{ marginTop: "20px", fontSize: "18px" }}>
+            Process Tracking
+          </h2>
+        </div>
 
-      {/* Google */}
-      <a
-        className="btn text-white btn-floating m-1"
-        style={{ backgroundColor: "#dd4b39" }}
-        href="#!"
-        role="button"
-      >
-        <i className="fab fa-google"></i>
-      </a>
+        <div style={{ width: "17%", padding: "0 10px", marginRight: "30px" }}>
+          <Card
+            sx={{
+              backgroundColor: "#F2E0B4",
+              borderRadius: "20px",
+            }}
+          >
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="260"
+                image="country.png"
+                alt="Card 3"
+              />
+            </CardActionArea>
+          </Card>
+          <h2 style={{ marginTop: "20px", fontSize: "18px" }}>
+            Available Countries
+          </h2>
+        </div>
 
-      {/* Instagram */}
-      <a
-        className="btn text-white btn-floating m-1"
-        style={{ backgroundColor: "#ac2bac" }}
-        href="#!"
-        role="button"
-      >
-        <i className="fab fa-instagram"></i>
-      </a>
+        <div style={{ width: "17%", padding: "0 10px", marginRight: "30px" }}>
+          <Card
+            sx={{
+              borderRadius: "20px",
+              backgroundColor: "#FCD0FF",
+            }}
+          >
+            <CardActionArea>
+              <Link to="/Evisa">
+                <CardMedia
+                  component="img"
+                  height="260"
+                  image="download.png"
+                  alt="Card 4"
+                />
+              </Link>
+            </CardActionArea>
+          </Card>
+          <h2 style={{ marginTop: "20px", fontSize: "18px" }}>Visa Download</h2>
+        </div>
 
-      {/* Linkedin */}
-      <a
-        className="btn text-white btn-floating m-1"
-        style={{ backgroundColor: "#0082ca" }}
-        href="#!"
-        role="button"
-      >
-        <i className="fab fa-linkedin-in"></i>
-      </a>
+        <div style={{ width: "17%", padding: "0 10px" }}>
+          <Card
+            sx={{
+              borderRadius: "20px",
+              backgroundColor: "#F2E0B4",
+            }}
+          >
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="260"
+                image="country.png"
+                alt="Card 5"
+              />
+            </CardActionArea>
+          </Card>
+          <h2 style={{ marginTop: "20px", fontSize: "18px" }}>Visa Download</h2>
+        </div>
+      </Box>
 
-      {/* Github */}
-      <a
-        className="btn text-white btn-floating m-1"
-        style={{ backgroundColor: "#333333" }}
-        href="#!"
-        role="button"
-      >
-        <i className="fab fa-github"></i>
-      </a>
-    </section>
-    {/* Section: Social media */}
-  </div>
-  {/* Grid container */}
+      <footer className="bg-body-tertiary text-center">
+        {/* Grid container */}
+        <div className="container p-4 pb-0">
+          {/* Section: Social media */}
+          <section className="mb-4">
+            {/* Facebook */}
+            <a
+              className="btn text-white btn-floating m-1"
+              style={{ backgroundColor: "#3b5998" }}
+              href="#!"
+              role="button"
+            >
+              <i className="fab fa-facebook-f"></i>
+            </a>
 
-  {/* Copyright */}
-  <div className="text-center p-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}>
-    © 2020 Copyright:
-    <a className="text-body" href=" StudyBridge">StudyBridge</a>
-  </div>
-  {/* Copyright */}
-</footer>
+            {/* Twitter */}
+            <a
+              className="btn text-white btn-floating m-1"
+              style={{ backgroundColor: "#55acee" }}
+              href="#!"
+              role="button"
+            >
+              <i className="fab fa-twitter"></i>
+            </a>
 
+            {/* Google */}
+            <a
+              className="btn text-white btn-floating m-1"
+              style={{ backgroundColor: "#dd4b39" }}
+              href="#!"
+              role="button"
+            >
+              <i className="fab fa-google"></i>
+            </a>
+
+            {/* Instagram */}
+            <a
+              className="btn text-white btn-floating m-1"
+              style={{ backgroundColor: "#ac2bac" }}
+              href="#!"
+              role="button"
+            >
+              <i className="fab fa-instagram"></i>
+            </a>
+
+            {/* Linkedin */}
+            <a
+              className="btn text-white btn-floating m-1"
+              style={{ backgroundColor: "#0082ca" }}
+              href="#!"
+              role="button"
+            >
+              <i className="fab fa-linkedin-in"></i>
+            </a>
+
+            {/* Github */}
+            <a
+              className="btn text-white btn-floating m-1"
+              style={{ backgroundColor: "#333333" }}
+              href="#!"
+              role="button"
+            >
+              <i className="fab fa-github"></i>
+            </a>
+          </section>
+          {/* Section: Social media */}
+        </div>
+        {/* Grid container */}
+
+        {/* Copyright */}
+        <div
+          className="text-center p-3"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
+        >
+          © 2020 Copyright:
+          <a className="text-body" href=" StudyBridge">
+            StudyBridge
+          </a>
+        </div>
+        {/* Copyright */}
+      </footer>
     </div>
   );
 }

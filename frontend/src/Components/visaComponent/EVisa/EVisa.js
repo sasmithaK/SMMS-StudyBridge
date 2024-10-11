@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -9,17 +9,32 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import QRCode from "qrcode";
+import axios from "axios";
+
+const URL = "http://localhost:5000/Users";
+
+const fetchHandler = async () => {
+  return await axios.get(URL).then((res) => res.data);
+};
 
 function EVisa() {
+
+  const [Users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetchHandler().then((data) => setUsers(data.Users));
+  }, []);
 
   const generateReport = async () => {
     const doc = new jsPDF();
   
+    const user = Users.length > 0 ? Users[Users.length - 1] : {};
+
     // Adding Logo
-    const img = new Image();
-    img.src = "slLogo.png";
-    img.onload = async () => {
-      doc.addImage(img, "PNG", 0, 10, 50, 30); // x, y, width, height
+    //const img = new Image();
+   // img.src = "slLogo.png";
+    //img.onload = async () => {
+     // doc.addImage(img, "PNG", 0, 10, 50, 30); // x, y, width, height
   
       // Title
       doc.setFontSize(15);
@@ -52,8 +67,8 @@ function EVisa() {
   
       doc.setFont("helvetica", "normal");
       doc.setFontSize(13);
-      doc.text("Visa Number: ", 10, 98);
-      doc.text("Visa Type: ", 10, 106);
+      doc.text("Visa Number: 123456", 10, 98);
+      doc.text("Visa Type: Study", 10, 106);
   
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
@@ -61,10 +76,10 @@ function EVisa() {
       doc.setFont("helvetica", "normal");
   
       doc.setFontSize(13);
-      doc.text("Date of Birth: ", 10, 129);
-      doc.text("Full Name: ", 10, 138);
-      doc.text("Passport Number: ", 10, 146);
-      doc.text("Nationality: ", 10, 154);
+      doc.text(`Date of Birth:${user.dob || "N/A"}`, 10, 129);
+      doc.text(`Full Name: ${user.fullname || "N/A"}`, 10, 138);
+      doc.text(`Passport Number: ${user.passportnumber || "N/A"}`, 10, 146);
+      doc.text(`Nationality: ${user.nationality || "N/A"}`, 10, 154);
   
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
@@ -72,10 +87,10 @@ function EVisa() {
   
       doc.setFont("helvetica", "normal");
       doc.setFontSize(13);
-      doc.text("Date Issued: ", 10, 176);
-      doc.text("Duration of Stay: ", 10, 184);
-      doc.text("Visa Issuing Authority: ", 10, 192);
-      doc.text("Validity Period: ", 10, 200);
+      doc.text(`Date Issued: ${user.passportissuedate || "N/A"}`, 10, 176);
+      doc.text(`Duration of Stay: ${user.intendedduration || "N/A"}`, 10, 184);
+      doc.text("Visa Issuing Authority: Department of Immigration", 10, 192);
+      doc.text(`Expiry Date: ${user.passportexpirydate || "N/A"}`, 10, 200);
   
       doc.setFont("helvetica", "bold");
       doc.setFontSize(13);
@@ -112,7 +127,7 @@ function EVisa() {
       
       // Save the PDF
       doc.save("e-visa-report.pdf");
-    };
+    //};
   };
   
 

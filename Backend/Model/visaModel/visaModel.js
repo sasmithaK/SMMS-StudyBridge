@@ -2,22 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    /*name:{
-        type:String,//DataType
-        required:true,//Validate
-    },
-    gmail:{
-        type:String,//DataType
-        required:true,//Validate
-    },
-    age:{
-        type:Number,//DataType
-        required:true,//Validate
-    },
-    address:{
-        type:String,//DataType
-        required:true,//Validate
-    }*/
 
     //visa
     //personal information
@@ -139,6 +123,10 @@ const userSchema = new Schema({
         required:true,//Validate
     },
     signature:{
+        type:String,//DataType
+        required:true,//Validate
+    },
+    visaID:{
         type:String,//DataType
         required:true,//Validate
     }

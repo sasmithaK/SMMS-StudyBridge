@@ -48,6 +48,7 @@ function User(props) {
     declaration,
     dateofapplication,
     signature,
+    visaID,
   } = props.user;
 
   //Delete function
@@ -64,46 +65,6 @@ function User(props) {
   return (
     <div>
       <br></br>
-      {/*<h2>ID:{_id}</h2>
-      <h2>Name:{name}</h2>
-      <h2>Gmail:{gmail}</h2>
-      <h2>Age:{age}</h2>
-      <h2>Address:{address}</h2>*/}
-
-      {/* <h1>Personal details</h1>
-      <h3>ID: {_id}</h3>
-      <h3>FullName:{fullname}</h3>
-      <h3>DateofBirth: {dob}</h3>
-      <h3>Gender: {gender}</h3>
-      <h3>CountryResidence: {countryresidence}</h3>
-      <h3>PlaceOfBirth: {placeofbirth}</h3>
-      <h3>Nationality: {nationality}</h3>
-      <h3>PassportNumber: {passportnumber}</h3>
-      <h3>PassportIssueDate: {passportissuedate}</h3>
-      <h3>PassportExpiryDate: {passportexpirydate}</h3>
-      <h3>ResidetialAddress: {residetialaddress}</h3>
-      <h3>Email: {email}</h3>
-      <h3>PhoneNumber: {phonenumber}</h3>
-      <h3>EmergencyContact: {emergencycontact}</h3>
-      <h3>PurposeOfVisit: {purposeofvisit}</h3>
-      <h3>IntendedDuration: {intendedduration}</h3>
-      <h3>AddressInTheDestination: {addressinthedestination}</h3>
-      <h3>ArrivalDate: {arrivaldate}</h3>
-      <h3>DepatureDate: {depaturedate}</h3>
-      <h3>SchoolName: {schoolname}</h3>
-      <h3>CourseOfStudy: {courseofstudy}</h3>
-      <h3>StudyDuration: {studyduration}</h3>
-      <h3>SchoolAddress: {schooladdress}</h3>
-      <h3>MedicalInsurance: {medicalinsurance}</h3>
-      <h3>HealthDeclaration: {healthdeclaration}</h3>
-      <h3>AccommodationDetails: {accommodationdetails}</h3>
-      <h3>TravelItinerary: {travelitinerary}</h3>
-      <h3>Declaration: {declaration}</h3>
-      <h3>DateOfApplication: {dateofapplication}</h3>
-      <h3>Signature:{signature}</h3>
-      <Link to={`/userdetails/${_id}`}>Update</Link>
-      <button onClick={deleteHandler}>Delete</button>*/}
-
      
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -111,6 +72,14 @@ function User(props) {
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={2}>
+
+          <Grid item xs={12} sm={6}>
+              <Typography variant="subtitle2" color="textSecondary">
+                Visa ID
+              </Typography>
+              <Typography variant="body1">{visaID}</Typography>
+            </Grid>
+
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 ID

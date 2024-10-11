@@ -30,6 +30,8 @@ import UpdateUser from "./Components/visaComponent/UpdateUser/UpdateUser";
 import DocumentUpload from "./Components/visaComponent/DocumentUpload/DocumentUpload";
 import ProcessTracking from "./Components/visaComponent/ProcessTracking/ProcessTracking";
 import EVisa from "./Components/visaComponent/EVisa/EVisa";
+import ContactUs from "./Components/visaComponent/contactUs/contactUs";
+import VisaRules from "./Components/visaComponent/visaRules/visaRules";
 
 // University Components
 import Add from "./Components/universityComponent/Add";
@@ -94,6 +96,8 @@ function App() {
         <Route path="/userdetails/:id" element={<UpdateUser />} />
         <Route path="/Tracking" element={<ProcessTracking />} />
         <Route path="/Evisa" element={<EVisa />} />
+        <Route path="/contactUs" element={<ContactUs />} />
+        <Route path="/visaRules" element={<VisaRules />} />
       </Routes>
     </>
   );

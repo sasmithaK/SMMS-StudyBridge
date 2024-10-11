@@ -51,6 +51,7 @@ function AddUser() {
     declaration: "",
     dateofapplication: "",
     signature: "",
+    visaID: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -158,6 +159,7 @@ function AddUser() {
         declaration: inputs.declaration,
         dateofapplication: inputs.dateofapplication,
         signature: inputs.signature,
+        visaID: inputs.visaID,
       });
     } catch (error) {
       console.error("Error sending request:", error);
@@ -312,6 +314,18 @@ function AddUser() {
             Personal Details
           </Typography>
           <Grid container spacing={4}>
+
+          <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Visa ID"
+                name="visaID"
+                value={inputs.visaID}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -401,8 +415,6 @@ function AddUser() {
                 value={inputs.passportnumber}
                 onChange={handleChange}
                 required
-                error={Boolean(errors.passportnumber)}
-                helperText={errors.passportnumber}
                 
               />
             </Grid>

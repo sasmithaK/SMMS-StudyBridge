@@ -55,6 +55,7 @@ const addUsers = async (req, res, next) => {
     declaration,
     dateofapplication,
     signature,
+    visaID,
   } = req.body;
 
   let users;
@@ -91,6 +92,7 @@ const addUsers = async (req, res, next) => {
       declaration,
       dateofapplication,
       signature,
+      visaID,
     });
 
     await users.save();
@@ -160,6 +162,7 @@ const updateUser = async (req, res, next) => {
     declaration,
     dateofapplication,
     signature,
+    visaID,
   } = req.body;
 
   let users;
@@ -199,6 +202,7 @@ const updateUser = async (req, res, next) => {
       declaration: declaration,
       dateofapplication: dateofapplication,
       signature: signature,
+      visaID: visaID,
     });
     users = await users.save();
   } catch (err) {
