@@ -77,6 +77,7 @@ function Maincview() {
                     <h5 className="card-title">{course.coursetitle}</h5>
                     <p className="card-text"><strong>Faculty:</strong> {course.faculty}</p>
                     <p className="card-text"><strong>Type:</strong> {course.coursetype}</p>
+                    <p className="card-text"><strong>Duration:</strong> {course.courseduration} years</p> {/* Display duration */}
                     <Link
                       to={`/course-view/${course._id}`}
                       className="btn btn-primary mt-auto"
