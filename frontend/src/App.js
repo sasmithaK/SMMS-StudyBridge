@@ -48,15 +48,26 @@ import Navbar from "./Components/examComponent/Navbar"; // Adjust the path as ne
 function App() {
   return (
     <>
-      {/* Display the header on all course-related pages */}
-      <Routes>
-        {/* Course Routes */}
-        <Route path="/course-page" element={<><Header /><Maincview /></>} />
-        <Route path="/course-view/:id" element={<><Header /><CourseView /></>} />
-        <Route path="/university-portfolio/:universityId" element={<><Header /><Cportfolio /></>} />
-        <Route path="university-course/:id/:universityId" element={<><Header /><UcourseView /></>} />
-        <Route path="course-update/:id/:universityId" element={<><Header /><UpdateCourseForm /></>} />
-        <Route path="add-course" element={<><Header /><AddCourseForm /></>} />
+      
+    <Routes>
+        <Route path="/course-page" element={<Maincview />} />
+        <Route path="/course-view/:id" element={<CourseView />} />
+      {/* <Header /> */}
+     
+      
+      {/* Course Routes */}
+      <Route path="/course-page" element={<Maincview />} />
+      <Route path="/course-view/:id" element={<CourseView />} />
+      <Route path="/university-portfolio/:universityId" element={<Cportfolio />} />
+      <Route path="university-course/:id/:universityId" element={<UcourseView />} />
+      <Route path="course-update/:id/:universityId" element={<UpdateCourseForm />} />
+      <Route path="add-course" element={<AddCourseForm />} />
+
+      {/* Work Routes */}
+      <Route path="/workregister" element={<Register />} />
+      <Route path="/addworkers" element={<Home />} />
+      <Route path="/workersupdate" element={<Update />} />
+      <Route path="/adduser" element={<AddUser/>} />
 
         {/* Work Routes */}
         <Route path="/workregister" element={<Register />} />
@@ -82,6 +93,7 @@ function App() {
         <Route path="/uniProfile" element={<UniProfile />} />
         <Route path="/updateUni/:id" element={<UpdateUniversity />} />
         <Route path="/adminProfile" element={<AdminProfile />} />
+        <Route path="/profile" element={<AdminProfile />} />
         <Route path="/allUniversities" element={<AllUniversities />} />
         <Route path="/allStudents" element={<AllStudents />} />
 
