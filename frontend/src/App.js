@@ -53,9 +53,9 @@ function App() {
       {/* Course Routes */}
       <Route path="/course-page" element={<Maincview />} />
       <Route path="/course-view/:id" element={<CourseView />} />
-      <Route path="university-portfolio" element={<Cportfolio />} />
-      <Route path="university-course/:id" element={<UcourseView />} />
-      <Route path="course-update/:id" element={<UpdateCourseForm />} />
+      <Route path="/university-portfolio/:universityId" element={<Cportfolio />} />
+      <Route path="university-course/:id/:universityId" element={<UcourseView />} />
+      <Route path="course-update/:id/:universityId" element={<UpdateCourseForm />} />
       <Route path="add-course" element={<AddCourseForm />} />
 
       {/* Work Routes */}
