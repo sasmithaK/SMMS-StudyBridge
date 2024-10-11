@@ -1,5 +1,8 @@
 import React from "react";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
+
+// Import your components
 import Maincview from "./Components/courseComponent/Studentcourseview/Maincview";
 import Header from "./Components/courseComponent/Nav/Header";
 import CourseView from "./Components/courseComponent/Studentcourseview/CourseView";
@@ -18,15 +21,17 @@ import GeneratedPaper from "./Components/examComponent/GeneratedPaper";
 import StudentResults from "./Components/examComponent/StudentResults";
 import ExamView from "./Components/examComponent/examandResultComponent/ExamView";
 import Results from "./Components/examComponent/examandResultComponent/Results";
-//visa
+
+// Visa Components
 import Visa from "./Components/visaComponent/Home/Home";
-import UserDeatils from "./Components/visaComponent/UserDetails/UserDetails";
+import UserDetails from "./Components/visaComponent/UserDetails/UserDetails";
 import AddUser from "./Components/visaComponent/AddUser/AddUser";
 import UpdateUser from "./Components/visaComponent/UpdateUser/UpdateUser";
 import DocumentUpload from "./Components/visaComponent/DocumentUpload/DocumentUpload";
-import ProcessTracking from "./Components/visaComponent/ProcessTracking/ProcessTracking"
+import ProcessTracking from "./Components/visaComponent/ProcessTracking/ProcessTracking";
 import EVisa from "./Components/visaComponent/EVisa/EVisa";
 
+// University Components
 import Add from "./Components/universityComponent/Add";
 import AdminProfile from "./Components/universityComponent/AdminProfile";
 import AllUniversities from "./Components/universityComponent/AllUniversities";
@@ -36,69 +41,60 @@ import UniversityLogin from "./Components/universityComponent/UniversityLogin";
 import UniProfile from "./Components/universityComponent/UniProfile";
 import UpdateUniversity from "./Components/universityComponent/UpdateUniversity";
 import Menu from "./Components/universityComponent/Menu";
-import { Route, Routes } from "react-router-dom";
 
-
+// Importing the Navbar for Exam routes
+import Navbar from "./Components/examComponent/Navbar"; // Adjust the path as necessary
 
 function App() {
   return (
     <>
-      
-    <Routes>
-        <Route path="/course-page" element={<Maincview />} />
-        <Route path="/course-view/:id" element={<CourseView />} />
-      {/* <Header /> */}
-     
-      
-      {/* Course Routes */}
-      <Route path="/course-page" element={<Maincview />} />
-      <Route path="/course-view/:id" element={<CourseView />} />
-      <Route path="university-portfolio" element={<Cportfolio />} />
-      <Route path="university-course/:id" element={<UcourseView />} />
-      <Route path="course-update/:id" element={<UpdateCourseForm />} />
-      <Route path="add-course" element={<AddCourseForm />} />
+       {/* Display the header on all pages */}
+      <Routes>
+        {/* Course Routes */}
+        <Route path="/course-page" element={<><Header /><Maincview /></>} />
+        <Route path="/course-view/:id" element={<><Header /><CourseView /></>} />
+        <Route path="/university-portfolio" element={<><Header /><Cportfolio /></>} />
+        <Route path="/university-course/:id" element={<><Header /><UcourseView /></>} />
+        <Route path="/course-update/:id" element={<><Header /><UpdateCourseForm /></>} />
+        <Route path="/add-course" element={<><Header /><AddCourseForm /></>} />
 
-      {/* Work Routes */}
-      <Route path="/workregister" element={<Register />} />
-      <Route path="/addworkers" element={<Home />} />
-      <Route path="/workersupdate" element={<Update />} />
-      <Route path="/adduser" element={<AddUser/>} />
+        {/* Work Routes */}
+        <Route path="/workregister" element={<Register />} />
+        <Route path="/addworkers" element={<Home />} />
+        <Route path="/workersupdate" element={<Update />} />
+        <Route path="/adduser" element={<AddUser />} />
 
-      {/* examination route */}
-      <Route path="/questionlist" element={<QuestionList />} />
-      <Route path="/create" element={<QuestionForm />} />
-      <Route path="/update/:id" element={<QuestionForm />} />
-      <Route path="/question/:id" element={<QuestionDetail />} />
-      <Route path="/generated-paper" element={<GeneratedPaper />} />
-      <Route path="/student-results" element={<StudentResults />} />
+        {/* Examination Routes */}
+        <Route path="/questionlist" element={<><Navbar /><QuestionList /></>} />
+        <Route path="/create" element={<><Navbar /><QuestionForm /></>} />
+        <Route path="/update/:id" element={<><Navbar /><QuestionForm /></>} />
+        <Route path="/question/:id" element={<><Navbar /><QuestionDetail /></>} />
+        <Route path="/generated-paper" element={<><Navbar /><GeneratedPaper /></>} />
+        <Route path="/student-results" element={<><Navbar /><StudentResults /></>} />
+        <Route path="/examview" element={<ExamView />} />
+        <Route path="/results" element={<Results />} />
 
-      <Route path="/examview" element={<ExamView />} />
-      <Route path="/results" element={<Results />} />
+        {/* University Routes */}
+        <Route path="/unihome" element={<Menu />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/add" element={<Add />} />
+        <Route path="/uniLog" element={<UniversityLogin />} />
+        <Route path="/uniProfile" element={<UniProfile />} />
+        <Route path="/updateUni/:id" element={<UpdateUniversity />} />
+        <Route path="/adminProfile" element={<AdminProfile />} />
+        <Route path="/profile" element={<AdminProfile />} />
+        <Route path="/allUniversities" element={<AllUniversities />} />
+        <Route path="/allStudents" element={<AllStudents />} />
 
-      {/* uni route */}
-      <Route path="/unihome" element={<Menu />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/add" element={<Add />} />
-      <Route path="/uniLog" element={<UniversityLogin />} />
-      <Route path="/uniProfile" element={<UniProfile />} />
-      <Route path="/updateUni/:id" element={<UpdateUniversity />} />
-      <Route path="/adminProfile" element={<AdminProfile />} />
-      <Route path="/profile" element={<AdminProfile />} />
-      <Route path="/allUniversities" element={<AllUniversities />} />
-      <Route path="/allStudents" element={<AllStudents />} />
-    
-      {/*Visa Routes */}
-      <Route path="/visa" element={<Visa/>} />
-      <Route path="/mainhome" element={<Home />} />
-      <Route path="/userdetails" element={<UserDeatils/>} />
-      <Route path="/docupload" element={<DocumentUpload />} />
-      <Route path="/userdetails/:id" element={<UpdateUser />} />
-      <Route path="/adduser" element={<AddUser/>} />
-      <Route path="/Tracking" element={<ProcessTracking />} />
-      <Route path="/Evisa" element={<EVisa />} />
-
-    </Routes>
-     
+        {/* Visa Routes */}
+        <Route path="/visa" element={<Visa />} />
+        <Route path="/mainhome" element={<Home />} />
+        <Route path="/userdetails" element={<UserDetails />} />
+        <Route path="/docupload" element={<DocumentUpload />} />
+        <Route path="/userdetails/:id" element={<UpdateUser />} />
+        <Route path="/Tracking" element={<ProcessTracking />} />
+        <Route path="/Evisa" element={<EVisa />} />
+      </Routes>
     </>
   );
 }

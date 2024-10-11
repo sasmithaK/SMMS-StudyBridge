@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../examComponent/api/api";
+import uniis from "./uniis.png";
 
 const QuestionForm = () => {
   const [question, setQuestion] = useState({
@@ -43,7 +44,7 @@ const QuestionForm = () => {
       } else {
         await api.post("/api/questions", question);
       }
-      navigate("/");
+      navigate("/QuestionList");
     } catch (error) {
       console.error("Error saving question:", error);
       setError("Failed to save question. Please try again later.");
@@ -63,6 +64,12 @@ const QuestionForm = () => {
   };
 
   const styles = {
+    backgroundWrapper: {
+      backgroundImage: `url(${uniis})`, // Apply the background here
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      padding: "20px",
+    },
     form: {
       maxWidth: "600px",
       margin: "0 auto",
@@ -105,6 +112,7 @@ const QuestionForm = () => {
   };
 
   return (
+    <div style={styles.backgroundWrapper}>
     <form onSubmit={handleSubmit} style={styles.form}>
       <h2 style={styles.title}>
         {id ? "Update Question" : "Create New Question"}
@@ -186,6 +194,7 @@ const QuestionForm = () => {
       </button>
       {error && <p style={styles.error}>{error}</p>}
     </form>
+    </div>
   );
 };
 

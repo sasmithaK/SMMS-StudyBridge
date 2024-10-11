@@ -74,6 +74,12 @@ const QuestionDetail = () => {
   };
 
   const styles = {
+    backgroundWrapper: {// Apply the background here
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundColor:'lightblue',
+      padding: "20px",
+    },
     container: {
       maxWidth: "600px",
       margin: "0 auto",
@@ -140,6 +146,7 @@ const QuestionDetail = () => {
   if (!question) return <div style={styles.container}>Question not found.</div>;
 
   return (
+    <div style={styles.backgroundWrapper}>
     <div style={styles.container}>
       <h2 style={styles.title}>Question Detail</h2>
       {editMode ? (
@@ -237,6 +244,7 @@ const QuestionDetail = () => {
           </button>
         </div>
       )}
+    </div>
     </div>
   );
 };
