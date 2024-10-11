@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+// Import the background image
+import backgroundImage from './back.jpg';
 
 const Results = () => {
   const location = useLocation();
   const report = location.state?.report;
 
+  useEffect(() => {
+    // Set the background image for the body
+    document.body.style.backgroundImage = `url(${backgroundImage})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundRepeat = 'no-repeat';
+
+    // Cleanup: remove background image when component unmounts
+    return () => {
+      document.body.style.backgroundImage = '';
+    };
+  }, []);
+
   if (!report) {
-    return <div>No results available. Please take the exam first.</div>;
+    return <div style={styles.tag}>No results available. Please take the exam first.</div>;
   }
 
   return (
@@ -25,7 +40,7 @@ const Results = () => {
           </div>
         ))}
       </div>
-      <Link to="/" style={styles.backButton}>Back to Exam</Link>
+      <Link to="/examview" style={styles.backButton}>Back to Exam</Link>
     </div>
   );
 };
@@ -36,6 +51,7 @@ const styles = {
     margin: '0 auto',
     padding: '20px',
     fontFamily: 'Arial, sans-serif',
+    backgroundColor: 'lightblue', // Optional background color for the results section
   },
   title: {
     textAlign: 'center',
@@ -56,14 +72,31 @@ const styles = {
     padding: '15px 0',
   },
   backButton: {
-    display: 'inline-block',
+    display: 'block',           
     backgroundColor: '#4CAF50',
     color: 'white',
     padding: '10px 20px',
     textDecoration: 'none',
     borderRadius: '4px',
     marginTop: '20px',
+    marginLeft: 'auto',         
+    marginRight: 'auto',        
+    textAlign: 'center',        
+    width: 'fit-content',       
   },
+  tag:{
+    backgroundColor:'white',
+    display: 'block', 
+    padding: '10px 20px',
+    textDecoration: 'none',
+    borderRadius: '4px',
+    marginTop: '20px',
+    marginLeft: 'auto',         
+    marginRight: 'auto',        
+    textAlign: 'center',        
+    width: 'fit-content',   
+  },
+
 };
 
 export default Results;
