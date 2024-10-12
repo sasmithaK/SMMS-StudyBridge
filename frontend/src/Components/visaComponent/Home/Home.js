@@ -146,6 +146,24 @@ export default function VerticalLinearStepper() {
                 Visa manager
               </Button>
             </Link>
+
+            <Link to="/uploadPdf">
+              <Button
+                color="inherit"
+                sx={{
+                  margin: 1,
+                  minWidth: 120,
+                  backgroundColor: "transparent",
+                  color: "#003366", // Dark blue color
+                  "&:hover": {
+                    backgroundColor: "orange",
+                    color: "white",
+                  },
+                }}
+              >
+                Doc
+              </Button>
+            </Link>
           </Box>
           <IconButton
             size="large"
