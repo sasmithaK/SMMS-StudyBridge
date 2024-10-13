@@ -33,7 +33,7 @@ const QuestionDetail = () => {
     if (window.confirm("Are you sure you want to delete this question?")) {
       try {
         await api.delete(`/api/questions/${id}`);
-        navigate("/");
+        navigate("/QuestionList");
       } catch (error) {
         console.error("Error deleting question:", error);
         setError("Failed to delete question. Please try again later.");
