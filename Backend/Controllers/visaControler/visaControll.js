@@ -169,10 +169,7 @@ const updateUser = async (req, res, next) => {
 
   try {
     users = await User.findByIdAndUpdate(id, {
-      /*name: name,
-      gmail: gmail,
-      age: age,
-      address: address*/
+
       fullname: fullname,
       dob: dob,
       gender: gender,

@@ -11,6 +11,10 @@ import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
+import contactImg from "./contactImg.jpeg";
+import call from "./call.png";
+import location from "./location.png";
+import message from "./message.png";
 
 function ContactUs() {
   return (
@@ -38,21 +42,23 @@ function ContactUs() {
             Study Bridge
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1 }}>
-            <Button
-              color="inherit"
-              sx={{
-                margin: 1,
-                minWidth: 120,
-                backgroundColor: "transparent",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "orange",
+            <Link to="/visa">
+              <Button
+                color="inherit"
+                sx={{
+                  margin: 1,
+                  minWidth: 120,
+                  backgroundColor: "transparent",
                   color: "white",
-                },
-              }}
-            >
-              Home
-            </Button>
+                  "&:hover": {
+                    backgroundColor: "orange",
+                    color: "white",
+                  },
+                }}
+              >
+                Home
+              </Button>
+            </Link>
             <Button
               color="inherit"
               sx={{
@@ -68,21 +74,23 @@ function ContactUs() {
             >
               Visa Guidance
             </Button>
-            <Button
-              color="inherit"
-              sx={{
-                margin: 1,
-                minWidth: 120,
-                backgroundColor: "transparent",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "orange",
+            <Link to="/contactUs">
+              <Button
+                color="inherit"
+                sx={{
+                  margin: 1,
+                  minWidth: 120,
+                  backgroundColor: "transparent",
                   color: "white",
-                },
-              }}
-            >
-              Contact Us
-            </Button>
+                  "&:hover": {
+                    backgroundColor: "orange",
+                    color: "white",
+                  },
+                }}
+              >
+                Contact Us
+              </Button>
+            </Link>
 
             <Link to="/userdetails">
               <Button
@@ -135,7 +143,10 @@ function ContactUs() {
           }}
         >
           <Box sx={{ maxWidth: "600px" }}>
-            <Typography variant="h3" sx={{ marginBottom: "10px", marginTop: "50px" }}>
+            <Typography
+              variant="h3"
+              sx={{ marginBottom: "10px", marginTop: "50px" }}
+            >
               Your Queries, Our Priority
             </Typography>
             <p
@@ -174,7 +185,12 @@ function ContactUs() {
             <CardActionArea>
               <CardContent>
                 {/* Changed text color to white */}
-                <Typography gutterBottom variant="h5" component="div" sx={{ color: "white" }}>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  sx={{ color: "white" }}
+                >
                   Contact Information
                 </Typography>
                 <Typography variant="body1" sx={{ color: "white" }}>
@@ -182,20 +198,28 @@ function ContactUs() {
                   processing times, or documentation requirements.
                 </Typography>
 
-                <Box sx={{ marginTop: "50px", display: "flex", alignItems: "center" }}>
-                  <img
-                    src="call.png"
-                    alt="Call"
-                    style={{ marginRight: "16px" }}
-                  />
+                <Box
+                  sx={{
+                    marginTop: "50px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <img src={call} alt="Call" style={{ marginRight: "16px" }} />
                   <Typography variant="body2" sx={{ color: "white" }}>
                     +9477 472 7777 <br /> +9477 592 7667
                   </Typography>
                 </Box>
 
-                <Box sx={{ marginTop: "50px", display: "flex", alignItems: "center" }}>
+                <Box
+                  sx={{
+                    marginTop: "50px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
                   <img
-                    src="message.png"
+                    src={message}
                     alt="Message"
                     style={{ marginRight: "16px" }}
                   />
@@ -204,9 +228,15 @@ function ContactUs() {
                   </Typography>
                 </Box>
 
-                <Box sx={{ marginTop: "50px", display: "flex", alignItems: "center" }}>
+                <Box
+                  sx={{
+                    marginTop: "50px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
                   <img
-                    src="location.png"
+                    src={location}
                     alt="Location"
                     style={{ marginRight: "16px" }}
                   />
@@ -220,7 +250,7 @@ function ContactUs() {
 
           <Box>
             <img
-              src="contactImg.jpeg"
+              src={contactImg}
               alt="Contact Us"
               style={{
                 width: "800px",
@@ -253,10 +283,11 @@ function ContactUs() {
       </Box>
 
       {/* Footer */}
-      <footer className="bg-body-tertiary text-center"
-       style={{
-        marginTop:"60px"
-      }}
+      <footer
+        className="bg-body-tertiary text-center"
+        style={{
+          marginTop: "60px",
+        }}
       >
         <div className="container p-4 pb-0">
           <section className="mb-4">

@@ -15,7 +15,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 
-
 function User(props) {
   const {
     _id,
@@ -64,81 +63,147 @@ function User(props) {
 
   return (
     <div>
+      
       <br></br>
-     
+
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography variant="h6">Personal Details</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container spacing={2}>
-
-          <Grid item xs={12} sm={6}>
+          <Grid container spacing={7}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Visa ID
               </Typography>
-              <Typography variant="body1">{visaID}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {visaID}
+              </Typography>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <Typography variant="subtitle2" color="textSecondary">
-                ID
-              </Typography>
-              <Typography variant="body1">{_id}</Typography>
-            </Grid>
+            
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Full Name
               </Typography>
-              <Typography variant="body1">{fullname}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {fullname}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Date of Birth
               </Typography>
-              <Typography variant="body1">{dob}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {dob}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Gender
               </Typography>
-              <Typography variant="body1">{gender}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {gender}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Country of Residence
               </Typography>
-              <Typography variant="body1">{countryresidence}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {countryresidence}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Place of Birth
               </Typography>
-              <Typography variant="body1">{placeofbirth}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {placeofbirth}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Nationality
               </Typography>
-              <Typography variant="body1">{nationality}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {nationality}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Passport Number
               </Typography>
-              <Typography variant="body1">{passportnumber}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {passportnumber}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Passport Issue Date
               </Typography>
-              <Typography variant="body1">{passportissuedate}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {passportissuedate}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Passport Expiry Date
               </Typography>
-              <Typography variant="body1">{passportexpirydate}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                  marginBottom:"10px"
+                }}
+              >
+                {passportexpirydate}
+              </Typography>
             </Grid>
           </Grid>
         </AccordionDetails>
@@ -149,30 +214,59 @@ function User(props) {
           <Typography variant="h6">Contact Information</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container spacing={2}>
+          <Grid container spacing={7}>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Residential Address
               </Typography>
-              <Typography variant="body1">{residetialaddress}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {residetialaddress}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Email
               </Typography>
-              <Typography variant="body1">{email}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {email}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Phone Number
               </Typography>
-              <Typography variant="body1">{phonenumber}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {phonenumber}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Emergency Contact
               </Typography>
-              <Typography variant="body1">{emergencycontact}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                   marginBottom:"10px"
+                }}
+              >
+                {emergencycontact}
+              </Typography>
             </Grid>
           </Grid>
         </AccordionDetails>
@@ -183,36 +277,72 @@ function User(props) {
           <Typography variant="h6">Travel Details</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container spacing={2}>
+          <Grid container spacing={7}>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Purpose of Visit
               </Typography>
-              <Typography variant="body1">{purposeofvisit}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {purposeofvisit}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Intended Duration
               </Typography>
-              <Typography variant="body1">{intendedduration}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {intendedduration}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Address in Destination
               </Typography>
-              <Typography variant="body1">{addressinthedestination}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {addressinthedestination}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Arrival Date
               </Typography>
-              <Typography variant="body1">{arrivaldate}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {arrivaldate}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Departure Date
               </Typography>
-              <Typography variant="body1">{depaturedate}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                   marginBottom:"10px"
+                }}
+              >
+                {depaturedate}
+              </Typography>
             </Grid>
           </Grid>
         </AccordionDetails>
@@ -223,30 +353,59 @@ function User(props) {
           <Typography variant="h6">Education Details</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container spacing={2}>
+          <Grid container spacing={7}>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 School Name
               </Typography>
-              <Typography variant="body1">{schoolname}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {schoolname}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Course of Study
               </Typography>
-              <Typography variant="body1">{courseofstudy}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {courseofstudy}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Study Duration
               </Typography>
-              <Typography variant="body1">{studyduration}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {studyduration}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 School Address
               </Typography>
-              <Typography variant="body1">{schooladdress}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                   marginBottom:"10px"
+                }}
+              >
+                {schooladdress}
+              </Typography>
             </Grid>
           </Grid>
         </AccordionDetails>
@@ -257,30 +416,59 @@ function User(props) {
           <Typography variant="h6">Health & Supporting Information</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container spacing={2}>
+          <Grid container spacing={7}>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Medical Insurance
               </Typography>
-              <Typography variant="body1">{medicalinsurance}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {medicalinsurance}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Health Declaration
               </Typography>
-              <Typography variant="body1">{healthdeclaration}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {healthdeclaration}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Accommodation Details
               </Typography>
-              <Typography variant="body1">{accommodationdetails}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                   marginBottom:"10px"
+                }}
+              >
+                {accommodationdetails}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Travel Itinerary
               </Typography>
-              <Typography variant="body1">{travelitinerary}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {travelitinerary}
+              </Typography>
             </Grid>
           </Grid>
         </AccordionDetails>
@@ -291,24 +479,46 @@ function User(props) {
           <Typography variant="h6">Declaration and Signature</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container spacing={2}>
+          <Grid container spacing={7}>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Declaration
               </Typography>
-              <Typography variant="body1">{declaration}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {declaration}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Date of Application
               </Typography>
-              <Typography variant="body1">{dateofapplication}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                }}
+              >
+                {dateofapplication}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle2" color="textSecondary">
                 Signature
               </Typography>
-              <Typography variant="body1">{signature}</Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  margin: "-22px",
+                   marginBottom:"10px"
+                }}
+              >
+                {signature}
+              </Typography>
             </Grid>
           </Grid>
         </AccordionDetails>

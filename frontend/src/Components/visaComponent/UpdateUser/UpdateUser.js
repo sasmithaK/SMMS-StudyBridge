@@ -205,18 +205,6 @@ function UpdateUser() {
           </Typography>
           <Grid container spacing={4}>
 
-          <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Visa ID"
-                name="visaID"
-                value={inputs.visaID}
-                onChange={handleChange}
-                required
-                InputLabelProps={{ shrink: true }}
-              />
-            </Grid>
-
 
             <Grid item xs={12}>
               <TextField

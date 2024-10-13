@@ -18,6 +18,8 @@ import {
   Box,
   Button,
 } from "@mui/material";
+import plane from "./plane.png";
+import { Link } from "react-router-dom";
 
 function AddUser() {
   const navigate = useNavigate();
@@ -65,15 +67,16 @@ function AddUser() {
 
   const validate = () => {
     let tempErrors = {};
-  
+
     // Full Name Validation: First letter must be capital, no numbers allowed
     const nameRegex = /^[A-Z][a-zA-Z\s]*$/;
     if (!inputs.fullname) {
       tempErrors.fullname = "Full name is required";
     } else if (!nameRegex.test(inputs.fullname)) {
-      tempErrors.fullname = "Full name must start with a capital letter and contain no numbers";
+      tempErrors.fullname =
+        "Full name must start with a capital letter and contain no numbers";
     }
-  
+
     // Passport Expiry should be after issue date
     if (inputs.passportissuedate && inputs.passportexpirydate) {
       const issueDate = new Date(inputs.passportissuedate);
@@ -82,37 +85,42 @@ function AddUser() {
         tempErrors.passportexpirydate = "Expiry date must be after issue date";
       }
     }
-  
+
     // Email Validation
     if (!/\S+@\S+\.\S+/.test(inputs.email)) {
       tempErrors.email = "Email is not valid";
     }
-  
+
     // Phone Number Validation
     if (!/^\d{10,15}$/.test(inputs.phonenumber)) {
       tempErrors.phonenumber = "Phone number should be 10-15 digits";
     }
-  
+
     // Emergency Contact Validation
     if (!/^\d{10,15}$/.test(inputs.emergencycontact)) {
       tempErrors.emergencycontact = "Emergency contact should be 10-15 digits";
     }
-  
+
     // Intended Duration Validation (must be an integer)
-    if (!inputs.intendedduration || !Number.isInteger(Number(inputs.intendedduration))) {
+    if (
+      !inputs.intendedduration ||
+      !Number.isInteger(Number(inputs.intendedduration))
+    ) {
       tempErrors.intendedduration = "Intended duration must be an integer";
     }
-  
+
     // Study Duration Validation (must be an integer)
-    if (!inputs.studyduration || !Number.isInteger(Number(inputs.studyduration))) {
+    if (
+      !inputs.studyduration ||
+      !Number.isInteger(Number(inputs.studyduration))
+    ) {
       tempErrors.studyduration = "Study duration must be an integer";
     }
-  
+
     setErrors(tempErrors);
-  
+
     return Object.keys(tempErrors).length === 0;
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -128,8 +136,7 @@ function AddUser() {
 
   const sendRequest = async () => {
     try {
-      await axios.post("http://localhost:5000/Users",
-         {
+      await axios.post("http://localhost:5000/Users", {
         fullname: inputs.fullname,
         dob: inputs.dob,
         gender: inputs.gender,
@@ -168,163 +175,146 @@ function AddUser() {
 
   return (
     <div
-    style={{
-      backgroundColor:"#F4F7FB",
-    }}
-    >
-     <AppBar
-  position="sticky"
-  sx={{
-    backgroundColor: "#0091EA", // Background color
-    boxShadow: "none"
-  }}
->
-  <Toolbar>
-    <IconButton
-      size="large"
-      edge="start"
-      color="inherit"
-      aria-label="menu"
-      sx={{ mr: 3, color: "#FFFFFF" }} // White icon color for contrast
-    >
-      <MenuIcon />
-    </IconButton>
-    <Typography
-      variant="h6"
-      component="div"
-      sx={{ flexGrow: 1, color: "#FFFFFF" }} // White text color for contrast
-    >
-      Study Bridge
-    </Typography>
-    <Box sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1 }}>
-      <Button
-        color="inherit"
-        sx={{
-          margin: 1,
-          minWidth: 120,
-          backgroundColor: "transparent",
-          color: "#FFFFFF", // White text color
-          "&:hover": {
-            backgroundColor: "orange", // Orange hover background
-            color: "white", // Maintain white text on hover
-          },
-        }}
-      >
-        Home
-      </Button>
-      <Button
-        color="inherit"
-        sx={{
-          margin: 1,
-          minWidth: 160,
-          backgroundColor: "transparent",
-          color: "#FFFFFF", // White text color
-          "&:hover": {
-            backgroundColor: "orange", // Orange hover background
-            color: "white", // Maintain white text on hover
-          },
-        }}
-      >
-        Visa Guidance
-      </Button>
-      <Button
-        color="inherit"
-        sx={{
-          margin: 1,
-          minWidth: 120,
-          backgroundColor: "transparent",
-          color: "#FFFFFF", // White text color
-          "&:hover": {
-            backgroundColor: "orange", // Orange hover background
-            color: "white", // Maintain white text on hover
-          },
-        }}
-      >
-        Contact Us
-      </Button>
-      <Button
-        color="inherit"
-        sx={{
-          margin: 1,
-          minWidth: 160,
-          backgroundColor: "transparent",
-          color: "#FFFFFF", // White text color
-          "&:hover": {
-            backgroundColor: "orange", // Orange hover background
-            color: "white", // Maintain white text on hover
-          },
-        }}
-      >
-        Document Upload
-      </Button>
-    </Box>
-    <IconButton
-      size="large"
-      edge="end"
-      color="inherit"
-      aria-label="notifications"
-      sx={{ ml: 2, color: "#FFFFFF" }} // White icon color
-    >
-      <NotificationsIcon />
-    </IconButton>
-  </Toolbar>
-</AppBar>
-
-      <Container
-      maxWidth="md"
       style={{
-        backgroundColor: "#FFFFFF",
-        width: "1000px",
-        padding: "20px 40px",
-        marginTop: "40px",
-        borderRadius: "8px",
-        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-        transition: "transform 0.2s, box-shadow 0.2s",
-        position: 'relative' // Make container relative for positioning
+        backgroundColor: "#F4F7FB",
       }}
     >
-      {/* Add the image */}
-      <img
-        src="plane.png"
-        alt="Airplane"
+      <AppBar
+        position="sticky"
+        sx={{
+          backgroundColor: "#0091EA", // Background color
+          boxShadow: "none",
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 3, color: "#FFFFFF" }} // White icon color for contrast
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, color: "#FFFFFF" }} // White text color for contrast
+          >
+            Study Bridge
+          </Typography>
+          <Box sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1 }}>
+          <Link to="/visa">
+            <Button
+              color="inherit"
+              sx={{
+                margin: 1,
+                minWidth: 120,
+                backgroundColor: "transparent",
+                color: "#FFFFFF", // White text color
+                "&:hover": {
+                  backgroundColor: "orange", // Orange hover background
+                  color: "white", // Maintain white text on hover
+                },
+              }}
+            >
+              Home
+            </Button>
+            </Link>
+            
+            <Button
+              color="inherit"
+              sx={{
+                margin: 1,
+                minWidth: 160,
+                backgroundColor: "transparent",
+                color: "#FFFFFF", // White text color
+                "&:hover": {
+                  backgroundColor: "orange", // Orange hover background
+                  color: "white", // Maintain white text on hover
+                },
+              }}
+            >
+              Visa Guidance
+            </Button>
+            <Link to="/contactUs">
+            <Button
+              color="inherit"
+              sx={{
+                margin: 1,
+                minWidth: 120,
+                backgroundColor: "transparent",
+                color: "#FFFFFF", // White text color
+                "&:hover": {
+                  backgroundColor: "orange", // Orange hover background
+                  color: "white", // Maintain white text on hover
+                },
+              }}
+            >
+              Contact Us
+            </Button>
+            </Link>
+          </Box>
+          <IconButton
+            size="large"
+            edge="end"
+            color="inherit"
+            aria-label="notifications"
+            sx={{ ml: 2, color: "#FFFFFF" }} // White icon color
+          >
+            <NotificationsIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Container
+        maxWidth="md"
         style={{
-          position: 'absolute',
-          right: '50px',
-          width: '160px', // Adjust size as needed
-          height: 'auto',
+          backgroundColor: "#FFFFFF",
+          width: "1000px",
+          padding: "20px 40px",
+          marginTop: "40px",
+          borderRadius: "8px",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+          transition: "transform 0.2s, box-shadow 0.2s",
+          position: "relative", // Make container relative for positioning
         }}
-      />
-        <Typography variant="h5" component="h1" gutterBottom
-         style={{
-          marginTop:"30px",
-          marginBottom:"60px",
-          textAlign:"center"
-        }}
+      >
+        {/* Add the image */}
+        <img
+          src={plane}
+          alt="Airplane"
+          style={{
+            position: "absolute",
+            right: "50px",
+            width: "160px", // Adjust size as needed
+            height: "auto",
+          }}
+        />
+        <Typography
+          variant="h5"
+          component="h1"
+          gutterBottom
+          style={{
+            marginTop: "30px",
+            marginBottom: "60px",
+            textAlign: "center",
+          }}
         >
           Visa Application
         </Typography>
         <form onSubmit={handleSubmit}>
           {/* Personal Details */}
-          <Typography variant="h6" gutterBottom
-           style={{
-            marginTop:"30px",
-            marginBottom:"20px",
-          }}
+          <Typography
+            variant="h6"
+            gutterBottom
+            style={{
+              marginTop: "30px",
+              marginBottom: "20px",
+            }}
           >
             Personal Details
           </Typography>
           <Grid container spacing={4}>
-
-          <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Visa ID"
-                name="visaID"
-                value={inputs.visaID}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
 
             <Grid item xs={12}>
               <TextField
@@ -375,7 +365,7 @@ function AddUser() {
                 required
               />
             </Grid>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 label="Place of Birth"
@@ -388,11 +378,13 @@ function AddUser() {
           </Grid>
 
           {/* Passport Details */}
-          <Typography variant="h6" gutterBottom 
-          style={{
-            marginTop:"30px",
-            marginBottom:"10px"
-          }}
+          <Typography
+            variant="h6"
+            gutterBottom
+            style={{
+              marginTop: "30px",
+              marginBottom: "10px",
+            }}
           >
             Passport Details
           </Typography>
@@ -415,7 +407,6 @@ function AddUser() {
                 value={inputs.passportnumber}
                 onChange={handleChange}
                 required
-                
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -449,11 +440,13 @@ function AddUser() {
           </Grid>
 
           {/* Contact Details */}
-          <Typography variant="h6" gutterBottom
-           style={{
-            marginTop:"30px",
-            marginBottom:"10px"
-          }}
+          <Typography
+            variant="h6"
+            gutterBottom
+            style={{
+              marginTop: "30px",
+              marginBottom: "10px",
+            }}
           >
             Contact Details
           </Typography>
@@ -479,7 +472,6 @@ function AddUser() {
                 required
                 error={Boolean(errors.email)}
                 helperText={errors.email}
-                
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -511,11 +503,13 @@ function AddUser() {
           </Grid>
 
           {/* Travel Details */}
-          <Typography variant="h6" gutterBottom
-           style={{
-            marginTop:"30px",
-            marginBottom:"10px"
-          }}
+          <Typography
+            variant="h6"
+            gutterBottom
+            style={{
+              marginTop: "30px",
+              marginBottom: "10px",
+            }}
           >
             Travel Details
           </Typography>
@@ -579,11 +573,13 @@ function AddUser() {
           </Grid>
 
           {/* Educational Details */}
-          <Typography variant="h6" gutterBottom
-           style={{
-            marginTop:"30px",
-            marginBottom:"10px"
-          }}
+          <Typography
+            variant="h6"
+            gutterBottom
+            style={{
+              marginTop: "30px",
+              marginBottom: "10px",
+            }}
           >
             Educational Details
           </Typography>
@@ -633,11 +629,13 @@ function AddUser() {
           </Grid>
 
           {/* Other Details */}
-          <Typography variant="h6" gutterBottom
-           style={{
-            marginTop:"30px",
-            marginBottom:"10px"
-          }}
+          <Typography
+            variant="h6"
+            gutterBottom
+            style={{
+              marginTop: "30px",
+              marginBottom: "10px",
+            }}
           >
             Other Details
           </Typography>
@@ -692,8 +690,7 @@ function AddUser() {
                 required
               />
             </Grid>
-            <Grid item xs={12} sm={6}
-            >
+            <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
                 label="Date of Application"

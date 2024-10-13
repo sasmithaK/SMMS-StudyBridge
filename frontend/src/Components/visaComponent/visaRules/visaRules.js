@@ -10,6 +10,13 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
+import financial from "./financial.jpeg"
+import health from "./health.jpeg"
+import language from "./language.jpeg"
+import passport from "./passport.jpeg"
+import proof from "./proof.jpeg"
+import work from "./work.jpeg"
+import { Link } from "react-router-dom";
 
 function visaRules() {
   return (
@@ -18,7 +25,7 @@ function visaRules() {
         backgroundColor: "#F4F7FB",
       }}
     >
-      <AppBar
+     <AppBar
         position="sticky"
         sx={{
           backgroundColor: "#0091EA", // Background color
@@ -43,6 +50,7 @@ function visaRules() {
             Study Bridge
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1 }}>
+          <Link to="/visa">
             <Button
               color="inherit"
               sx={{
@@ -58,6 +66,8 @@ function visaRules() {
             >
               Home
             </Button>
+            </Link>
+            
             <Button
               color="inherit"
               sx={{
@@ -73,6 +83,7 @@ function visaRules() {
             >
               Visa Guidance
             </Button>
+            <Link to="/contactUs">
             <Button
               color="inherit"
               sx={{
@@ -88,6 +99,7 @@ function visaRules() {
             >
               Contact Us
             </Button>
+            </Link>
           </Box>
           <IconButton
             size="large"
@@ -134,7 +146,7 @@ function visaRules() {
           <CardMedia
             component="img"
             height="200"
-            image="work.jpeg"
+            image={work}
             alt="green iguana"
           />
         </CardActionArea>
@@ -175,7 +187,7 @@ function visaRules() {
           <CardMedia
             component="img"
             height="200"
-            image="financial.jpeg"
+            image={financial}
             alt="green iguana"
           />
         </CardActionArea>
@@ -215,7 +227,7 @@ function visaRules() {
           <CardMedia
             component="img"
             height="200"
-            image="proof.jpeg"
+            image={proof}
             alt="green iguana"
           />
         </CardActionArea>
@@ -260,7 +272,7 @@ function visaRules() {
           <CardMedia
             component="img"
             height="200"
-            image="health.jpeg"
+            image={health}
             alt="green iguana"
           />
         </CardActionArea>
@@ -300,7 +312,7 @@ function visaRules() {
           <CardMedia
             component="img"
             height="200"
-            image="language.jpeg"
+            image={language}
             alt="green iguana"
           />
         </CardActionArea>
@@ -339,7 +351,7 @@ function visaRules() {
           <CardMedia
             component="img"
             height="200"
-            image="passport.jpeg"
+            image={passport}
             alt="green iguana"
           />
         </CardActionArea>

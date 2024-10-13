@@ -13,7 +13,7 @@ const router = require("./Routes/visaRoute/visaRoute");
 //visa
 const app = express();
 const cors = require("cors");
-app.use("/files", express.static("files"));
+
 
 //cours
 app.use(express.json());
@@ -39,43 +39,3 @@ mongoose.connect("mongodb+srv://ebuysl:ebuysl@cluster0.1awm1om.mongodb.net/curd-
 })
 .catch((err) => console.log(err));
 
-//visa doc upload
-const multer = require("multer");
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null,"./files")
-    },
-    filename: function(req,file,cb){
-        const uniqueSuffix = Date.now();
-        cb(null, uniqueSuffix + file.originalname);
-    },
-});
-
-require("./Model/visaModel/PdfModel");
-const pdfSchema = mongoose.model("PdfDetails");
-const uplode = multer({storage})
-
-app.post("/uplodefile",uplode.single("file"),async(req,res)=>{
-    console.log(res.file);
-    const title = req.body.title;
-    const pdf = req.file.filename;
-    try{
-        await pdfSchema.create({ title: title, pdf: pdf });
-        console.log("pdf Uploaded successfully");
-        res.send({ status: 200});
-    }catch (err){
-        console.log(err);
-        res.status(500).send({ status: "error" });
-    }
-});
-
-//next
-app.get("/getFile", async (req, res) => {
-    try{
-        const data = await pdfSchema.find({});
-        res.send({ status: 200, data: data });
-    }catch (err) {
-        console.log(err);
-        res.status(500).send({ status: "error"});
-    }
-});

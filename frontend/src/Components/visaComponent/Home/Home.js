@@ -17,6 +17,12 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Link } from "react-router-dom";
+import Stu from "./Stu.jpeg"; 
+import uniStu2 from "./uniStu2.jpeg";
+import country from "./country.png"
+import process from "./process.png";
+import download from "./download.png";
+import rule from "./rule.png";
 
 const steps = [
   {
@@ -146,24 +152,6 @@ export default function VerticalLinearStepper() {
                 Visa manager
               </Button>
             </Link>
-
-            <Link to="/uploadPdf">
-              <Button
-                color="inherit"
-                sx={{
-                  margin: 1,
-                  minWidth: 120,
-                  backgroundColor: "transparent",
-                  color: "#003366", // Dark blue color
-                  "&:hover": {
-                    backgroundColor: "orange",
-                    color: "white",
-                  },
-                }}
-              >
-                Doc
-              </Button>
-            </Link>
           </Box>
           <IconButton
             size="large"
@@ -180,8 +168,7 @@ export default function VerticalLinearStepper() {
       {/* Background Photo */}
       <div
         style={{
-          backgroundImage:
-            "linear-gradient(to right, #3B2D69 28%, transparent 98%), url('Stu.jpeg')",
+          backgroundImage: `linear-gradient(to right, #3B2D69 28%, transparent 98%), url(${Stu})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           height: "480px",
@@ -261,7 +248,7 @@ export default function VerticalLinearStepper() {
           Your Visa Application Journey:
           <br /> Follow the Steps and Submit
         </h1>
-        <Box sx={{ maxWidth: 400, marginTop: "70px" }}>
+        <Box sx={{ maxWidth: 400, marginTop: "70px"}}>
           <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map((step, index) => (
               <Step key={step.label}>
@@ -275,7 +262,9 @@ export default function VerticalLinearStepper() {
                   {step.label}
                 </StepLabel>
                 <StepContent>
-                  <Typography>{step.description}</Typography>
+                  <Typography
+                  style={{ textAlign: "left" }}
+                  >{step.description}</Typography>
                   <Box sx={{ mb: 2 }}>
                     <Button
                       variant="contained"
@@ -359,7 +348,7 @@ export default function VerticalLinearStepper() {
           track your progress as you move closer to your visa approval.
         </p>
         <img
-          src="uniStu2.jpeg"
+          src={uniStu2}
           alt="Uni student 2"
           style={{
             borderRadius: "15px",
@@ -372,7 +361,7 @@ export default function VerticalLinearStepper() {
 
       <div
         style={{
-          marginTop: "420px",
+          marginTop: "120px",
           textAlign: "center",
         }}
       >
@@ -407,7 +396,7 @@ export default function VerticalLinearStepper() {
                 <CardMedia
                   component="img"
                   height="260"
-                  image="rule.png"
+                  image= {rule}
                   alt="Card 1"
                 />
               </Link>
@@ -428,7 +417,7 @@ export default function VerticalLinearStepper() {
                 <CardMedia
                   component="img"
                   height="260"
-                  image="process.png"
+                  image={process}
                   alt="Card 2"
                 />
               </Link>
@@ -450,7 +439,7 @@ export default function VerticalLinearStepper() {
               <CardMedia
                 component="img"
                 height="260"
-                image="country.png"
+                image= {country}
                 alt="Card 3"
               />
             </CardActionArea>
@@ -472,7 +461,7 @@ export default function VerticalLinearStepper() {
                 <CardMedia
                   component="img"
                   height="260"
-                  image="download.png"
+                  image= {download}
                   alt="Card 4"
                 />
               </Link>
@@ -492,7 +481,7 @@ export default function VerticalLinearStepper() {
               <CardMedia
                 component="img"
                 height="260"
-                image="country.png"
+                image={country}
                 alt="Card 5"
               />
             </CardActionArea>

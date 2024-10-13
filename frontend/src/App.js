@@ -32,7 +32,6 @@ import ProcessTracking from "./Components/visaComponent/ProcessTracking/ProcessT
 import EVisa from "./Components/visaComponent/EVisa/EVisa";
 import ContactUs from "./Components/visaComponent/contactUs/contactUs";
 import VisaRules from "./Components/visaComponent/visaRules/visaRules";
-import UploadPdf from "./Components/visaComponent/UploadPdf/UploadPdf";
 
 // University Components
 import Add from "./Components/universityComponent/Add";
@@ -99,7 +98,6 @@ function App() {
         <Route path="/Evisa" element={<EVisa />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/visaRules" element={<VisaRules />} />
-        <Route path="/uploadPdf" element={<UploadPdf />} />
       </Routes>
     </>
   );

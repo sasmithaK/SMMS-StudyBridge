@@ -22,28 +22,28 @@ function UserDetails() {
 
   const filteredUsers = Users.filter((user) =>
     user.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user._id.toLowerCase().includes(searchTerm.toLowerCase())
+    String(user.visaID).toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  
   const generatePDF = () => {
     const doc = new jsPDF();
-
+  
     // Set the title of the document
     doc.setFontSize(18);
     doc.text("User Directory", 14, 22);
-
-    // Define columns for the table
-    const columns = ["ID", "Full Name", "Email", "Date of Birth", "Gender"];
-    
-    // Define rows and ensure data exists for all fields
+  
+    // Define columns for the table (added "Nationality")
+    const columns = ["ID", "Full Name", "Email", "Gender", "Nationality"];
+  
+    // Define rows and ensure data exists for all fields (added Nationality field)
     const rows = filteredUsers.map(user => [
-      user._id || "N/A",           // Ensure that the value exists or fallback to "N/A"
+      user.visaID || "N/A",           // Ensure that the value exists or fallback to "N/A"
       user.fullname || "N/A",
       user.email || "N/A",
-      user.dob || "N/A",         // Assuming you have a dob field
       user.gender || "N/A",       // Assuming you have a gender field
+      user.nationality || "N/A",  // Assuming you have a nationality field
     ]);
-
+  
     // Generate table using jsPDF AutoTable plugin with columnStyles
     autoTable(doc, {
       startY: 30,
@@ -53,18 +53,19 @@ function UserDetails() {
         0: { cellWidth: 30 }, // ID
         1: { cellWidth: 40 }, // Full Name
         2: { cellWidth: 60 }, // Email
-        3: { cellWidth: 40 }, // Date of Birth
-        4: { cellWidth: 30 }, // Gender
+        3: { cellWidth: 30 }, // Gender
+        4: { cellWidth: 40 }, // Nationality
       },
       styles: {
         fontSize: 10,
         cellPadding: 3,
       },
     });
-
+  
     // Save the PDF
     doc.save("user_directory.pdf");
   };
+  
 
   return (
     <div>
