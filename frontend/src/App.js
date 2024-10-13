@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // Import your components
 import Maincview from "./Components/courseComponent/Studentcourseview/Maincview";
@@ -42,21 +43,46 @@ import UniProfile from "./Components/universityComponent/UniProfile";
 import UpdateUniversity from "./Components/universityComponent/UpdateUniversity";
 import Menu from "./Components/universityComponent/Menu";
 
+// Financial Components
+//import HeaderFin from './Components/financeComponent/HeaderFin';
+//import HomeFin from './Components/financeComponent/Home';
+import Transactions from './Components/financeComponent/Transactions';
+import PaymentPlans from './Components/financeComponent/PaymentPlans';
+import Scholarships from './Components/financeComponent/Scholarships';
+import MakePayment from './Components/financeComponent/MakePayment';
+import PaymentOptions from './Components/financeComponent/PaymentOptions';
+import AddAccount from './Components/financeComponent/AddAccount';
+import GetStarted from './Components/financeComponent/GetStarted';
+import PaymentPlanDetails from './Components/financeComponent/PaymentPlanDetails';
+import Monthly from './Components/financeComponent/PaymentProceses/Monthly';
+
+
 // Importing the Navbar for Exam routes
 import Navbar from "./Components/examComponent/Navbar"; // Adjust the path as necessary
 
 function App() {
   return (
     <>
-       {/* Display the header on all pages */}
-      <Routes>
-        {/* Course Routes */}
-        <Route path="/course-page" element={<><Header /><Maincview /></>} />
-        <Route path="/course-view/:id" element={<><Header /><CourseView /></>} />
-        <Route path="/university-portfolio" element={<><Header /><Cportfolio /></>} />
-        <Route path="/university-course/:id" element={<><Header /><UcourseView /></>} />
-        <Route path="/course-update/:id" element={<><Header /><UpdateCourseForm /></>} />
-        <Route path="/add-course" element={<><Header /><AddCourseForm /></>} />
+      
+    <Routes>
+        <Route path="/course-page" element={<Maincview />} />
+        <Route path="/course-view/:id" element={<CourseView />} />
+      {/* <Header /> */}
+     
+      
+      {/* Course Routes */}
+      <Route path="/course-page" element={<Maincview />} />
+      <Route path="/course-view/:id" element={<CourseView />} />
+      <Route path="/university-portfolio/:universityId" element={<Cportfolio />} />
+      <Route path="university-course/:id/:universityId" element={<UcourseView />} />
+      <Route path="course-update/:id/:universityId" element={<UpdateCourseForm />} />
+      <Route path="add-course" element={<AddCourseForm />} />
+
+      {/* Work Routes */}
+      <Route path="/workregister" element={<Register />} />
+      <Route path="/addworkers" element={<Home />} />
+      <Route path="/workersupdate" element={<Update />} />
+      <Route path="/adduser" element={<AddUser/>} />
 
         {/* Work Routes */}
         <Route path="/workregister" element={<Register />} />
@@ -94,6 +120,19 @@ function App() {
         <Route path="/userdetails/:id" element={<UpdateUser />} />
         <Route path="/Tracking" element={<ProcessTracking />} />
         <Route path="/Evisa" element={<EVisa />} />
+
+
+        {/* Financial Routes */}
+        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/getstarted" element={<GetStarted />} />
+        <Route path="/paymentplandetails" element={<PaymentPlanDetails />} />
+        <Route path="/paymentplans" element={<PaymentPlans />} />
+        <Route path="/scholarships" element={<Scholarships />} /> 
+        <Route path="/mkpayment" element={<MakePayment />} />
+        <Route path="/payment-options" element={<PaymentOptions />} />
+        <Route path="/add-account" element={<AddAccount />} />
+        <Route path="/monthly" element={<Monthly />} />
+
       </Routes>
     </>
   );
