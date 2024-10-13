@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Payment = require('../Models/financeModel/PaymentModel');
+let Payment = require('../../Model/financeModel/PaymentModel');
 
 // create - add payment ..............................................
 // http://localhost:5000/payment/add
