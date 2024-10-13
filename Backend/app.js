@@ -15,7 +15,7 @@ const router = require("./Routes/visaRoute/visaRoute");
 const app = express();
 const cors = require("cors");
 
-//cours
+//course
 app.use(express.json());
 app.use(cors());
 app.use("/courses", courseRouter);
@@ -32,7 +32,10 @@ app.use('/auth',UserRoutes);
 app.use("/Users",router);
 
 
-mongoose.connect("mongodb+srv://ebuysl:ebuysl@cluster0.1awm1om.mongodb.net/curd-database")
+//mongoose.connect("mongodb+srv://ebuysl:ebuysl@cluster0.1awm1om.mongodb.net/curd-database")
+
+
+mongoose.connect("mongodb+srv://kavindugunasena:<db_password>@cluster1.0wgjcbr.mongodb.net/curd-database")
 .then(() => console.log("Connected to MongoDB"))
 .then(() => {
     app.listen(5000);
