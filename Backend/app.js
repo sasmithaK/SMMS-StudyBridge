@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-//cours
+//coures
 const courseRouter = require("./Routes/courseRoute/CourseRoutes");
 const universityRouter = require("./Routes/courseRoute/UniversityRoutes");
 const questionRoutes = require("./Routes/examRoute/question.routes");
@@ -11,7 +11,6 @@ const UserRoutes=require('./Routes/workRoute/UserRoute');
 const router = require("./Routes/visaRoute/visaRoute");
 
 //visa
-
 const app = express();
 const cors = require("cors");
 
@@ -31,11 +30,14 @@ app.use('/auth',UserRoutes);
 //visa
 app.use("/Users",router);
 
+//financial mng 
+const paymentRouter = require("./Routes/financeRoute/paymentRoute");
+app.use("/payment", paymentRouter);
 
 //mongoose.connect("mongodb+srv://ebuysl:ebuysl@cluster0.1awm1om.mongodb.net/curd-database")
 
 
-mongoose.connect("mongodb+srv://kavindugunasena:<db_password>@cluster1.0wgjcbr.mongodb.net/curd-database")
+mongoose.connect("mongodb+srv://kavindugunasena:Wys3oVeZJ2TanVc8@cluster1.0wgjcbr.mongodb.net/curd-database")
 .then(() => console.log("Connected to MongoDB"))
 .then(() => {
     app.listen(5000);
