@@ -47,14 +47,21 @@ import UniProfile from "./Components/universityComponent/UniProfile";
 import UpdateUniversity from "./Components/universityComponent/UpdateUniversity";
 import Menu from "./Components/universityComponent/Menu";
 
+import ApplyStudents from "./Components/universityComponent/ApplyStudents";
+import StudentList from "./Components/universityComponent/StudentList"
+import ApplyStudent from "./Components/universityComponent/ApplyStudent";
+import RegisterStudent from "./Components/universityComponent/RegisterStudent";
+
+
+
 // Financial Components
 //import HeaderFin from './Components/financeComponent/HeaderFin';
 //import HomeFin from './Components/financeComponent/Home';
 import Transactions from './Components/financeComponent/Transactions';
 import PaymentPlans from './Components/financeComponent/PaymentPlans';
-import Scholarships from './Components/financeComponent/Scholarships';
+//import Scholarships from './Components/financeComponent/Scholarships';
 import MakePayment from './Components/financeComponent/MakePayment';
-import PaymentOptions from './Components/financeComponent/PaymentOptions';
+//import PaymentOptions from './Components/financeComponent/PaymentOptions';
 import AddAccount from './Components/financeComponent/AddAccount';
 import GetStarted from './Components/financeComponent/GetStarted';
 import PaymentPlanDetails from './Components/financeComponent/PaymentPlanDetails';
@@ -109,8 +116,11 @@ function App() {
         <Route path="/adminProfile" element={<AdminProfile />} />
         <Route path="/profile" element={<AdminProfile />} />
         <Route path="/allUniversities" element={<AllUniversities />} />
-        <Route path="/allStudents" element={<AllStudents />} />
-
+        <Route path="/allStudents" element={<AllStudents />} /> 
+        <Route path="/applystudents" element={<ApplyStudents />} />
+        <Route path="/studentlist/:id" element={<StudentList />} />
+        <Route path="/applyStudent/:id" element={<ApplyStudent />} />
+        <Route path="/registerstudent" element={<RegisterStudent />} />
         {/* Visa Routes */}
         <Route path="/visa" element={<Visa />} />
         <Route path="/mainhome" element={<Home />} />
@@ -126,9 +136,9 @@ function App() {
         <Route path="/getstarted" element={<GetStarted />} />
         <Route path="/paymentplandetails" element={<PaymentPlanDetails />} />
         <Route path="/paymentplans" element={<PaymentPlans />} />
-        <Route path="/scholarships" element={<Scholarships />} />
+        {/* <Route path="/scholarships" element={<Scholarships />} /> */}
         <Route path="/mkpayment" element={<MakePayment />} />
-        <Route path="/payment-options" element={<PaymentOptions />} />
+        {/* <Route path="/payment-options" element={<PaymentOptions />} /> */}
         <Route path="/add-account" element={<AddAccount />} />
         <Route path="/monthly" element={<Monthly />} />
         <Route path="/contactUs" element={<ContactUs />} />

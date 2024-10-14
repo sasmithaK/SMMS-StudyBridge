@@ -3,6 +3,7 @@ import './Style/issues.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AdminProfileHeader from "./AdminProfileHeader";
+import backgroundImage from './back.jpg';
 
 function AllUniversities(){
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ function AllUniversities(){
         
         axios.get("http://localhost:5000/posts/posts")
             .then(response => {
-                setUniversity(response.data.existingPosts);  
+                setUniversity(response.data.existingPosts);
             })
             .catch(error => {
                 console.error("There was an error fetching the universities!", error);
@@ -37,13 +38,28 @@ function AllUniversities(){
                 });
         }
     };
+    const styles ={
+        backgroundWrapper: {
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            padding: "20px",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: -1,
+          },
+    }
 
     return(
+        
         <div>
             <AdminProfileHeader></AdminProfileHeader>
-
+            
             <h1 className="title" style={{marginLeft:0,marginTop:"3%"}}><u>Registerd Universities</u></h1>
             <br />
+            <div style={styles.backgroundWrapper}>
             <div className="container">
                 {university.length === 0 ? (
                     <p>No universities registered yet.</p>
@@ -65,6 +81,7 @@ function AllUniversities(){
                 )}
             </div>
 
+        </div>
         </div>
     )
 

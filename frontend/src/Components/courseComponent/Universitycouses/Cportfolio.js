@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom"; // Added useNavigate
 
 const Cportfolio = () => {
   const [courses, setCourses] = useState([]);
@@ -8,6 +8,7 @@ const Cportfolio = () => {
   const [error, setError] = useState(null);
   const [universityName, setUniversityName] = useState("");
   const { universityId } = useParams();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -56,6 +57,17 @@ const Cportfolio = () => {
   return (
     <div className="container mt-5">
       <h1 className="mb-4 text-center">{universityName} Course Portfolio</h1>
+
+      {/* Button to go back to the University Profile */}
+      <div className="text-center mb-4">
+        <button
+          className="btn btn-secondary"
+          onClick={() => navigate(`/uniProfile`)} // Navigate back to the University Profile
+        >
+          Go to University Profile
+        </button>
+      </div>
+
       <div className="row">
         {courses.map((course) => (
           <div key={course._id} className="col-md-4 mb-4">
@@ -72,7 +84,7 @@ const Cportfolio = () => {
                   <strong>Duration:</strong> {course.courseduration} years
                 </p>
                 <Link
-                  to={`/university-course/${course._id}/${universityId}`} // Pass universityId in the URL
+                  to={`/university-course/${course._id}/${universityId}`}
                   className="btn btn-primary mt-auto"
                 >
                   View Details
