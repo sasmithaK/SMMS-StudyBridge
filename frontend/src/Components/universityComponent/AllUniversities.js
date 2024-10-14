@@ -12,7 +12,7 @@ function AllUniversities(){
         
         axios.get("http://localhost:5000/posts/posts")
             .then(response => {
-                setUniversity(response.data.existingPosts);  
+                setUniversity(response.data.existingPosts);
             })
             .catch(error => {
                 console.error("There was an error fetching the universities!", error);
