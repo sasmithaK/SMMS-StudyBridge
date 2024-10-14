@@ -51,6 +51,10 @@ import UniProfile from "./Components/universityComponent/UniProfile";
 import UpdateUniversity from "./Components/universityComponent/UpdateUniversity";
 import Menu from "./Components/universityComponent/Menu";
 
+import ApplyStudents from "./Components/universityComponent/ApplyStudents";
+import StudentList from "./Components/universityComponent/StudentList"
+import ApplyStudent from "./Components/universityComponent/ApplyStudent";
+import RegisterStudent from "./Components/universityComponent/RegisterStudent";
 // Financial Components
 //import HeaderFin from './Components/financeComponent/HeaderFin';
 //import HomeFin from './Components/financeComponent/Home';
@@ -118,8 +122,11 @@ function App() {
         <Route path="/adminProfile" element={<AdminProfile />} />
         <Route path="/profile" element={<AdminProfile />} />
         <Route path="/allUniversities" element={<AllUniversities />} />
-        <Route path="/allStudents" element={<AllStudents />} />
-
+        <Route path="/allStudents" element={<AllStudents />} /> 
+        <Route path="/applystudents" element={<ApplyStudents />} />
+        <Route path="/studentlist/:id" element={<StudentList />} />
+        <Route path="/applyStudent/:id" element={<ApplyStudent />} />
+        <Route path="/registerstudent" element={<RegisterStudent />} />
         {/* Visa Routes */}
         <Route path="/visa" element={<Visa />} />
         <Route path="/mainhome" element={<Home />} />
