@@ -13,30 +13,56 @@ const QuestionForm = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [existingTopics, setExistingTopics] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const fetchQuestion = useCallback(async () => {
+  const fetchExistingTopics = useCallback(async () => {
     try {
-      setLoading(true);
-      const response = await api.get(`/api/questions/${id}`);
-      setQuestion(response.data);
-      setLoading(false);
+      const response = await api.get(`/api/questions`);
+      const topics = response.data.map((question) => question.topic);
+      setExistingTopics(topics);
     } catch (error) {
-      console.error("Error fetching question:", error);
-      setError("Failed to fetch question. Please try again later.");
-      setLoading(false);
+      console.error("Error fetching existing topics:", error);
+      setError("Failed to fetch existing topics. Please try again later.");
+    }
+  }, []);
+
+  const fetchQuestion = useCallback(async () => {
+    if (id) {
+      try {
+        setLoading(true);
+        const response = await api.get(`/api/questions/${id}`);
+        setQuestion(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching question:", error);
+        setError("Failed to fetch question. Please try again later.");
+        setLoading(false);
+      }
     }
   }, [id]);
 
   useEffect(() => {
-    if (id) {
-      fetchQuestion();
-    }
-  }, [id, fetchQuestion]);
+    fetchExistingTopics();
+    fetchQuestion();
+  }, [fetchExistingTopics, fetchQuestion]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validation for correct answer
+    if (!question.options.includes(question.correctAnswer)) {
+      setError("Correct answer must be one of the provided options.");
+      return; 
+    }
+
+    // Validation for unique topic
+    if (existingTopics.includes(question.topic)) {
+      setError("Topic must be unique. Please choose a different topic.");
+      return;
+    }
+
     try {
       setLoading(true);
       if (id) {
@@ -65,7 +91,7 @@ const QuestionForm = () => {
 
   const styles = {
     backgroundWrapper: {
-      backgroundImage: `url(${uniis})`, // Apply the background here
+      backgroundImage: `url(${uniis})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
       padding: "20px",
@@ -113,87 +139,87 @@ const QuestionForm = () => {
 
   return (
     <div style={styles.backgroundWrapper}>
-    <form onSubmit={handleSubmit} style={styles.form}>
-      <h2 style={styles.title}>
-        {id ? "Update Question" : "Create New Question"}
-      </h2>
-      <div style={styles.inputGroup}>
-        <label htmlFor="topic" style={styles.label}>
-          Topic
-        </label>
-        <input
-          type="text"
-          id="topic"
-          name="topic"
-          value={question.topic}
-          onChange={handleChange}
-          style={styles.input}
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <label htmlFor="text" style={styles.label}>
-          Question Text
-        </label>
-        <textarea
-          id="text"
-          name="text"
-          value={question.text}
-          onChange={handleChange}
-          style={styles.input}
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <label htmlFor="type" style={styles.label}>
-          Question Type
-        </label>
-        <select
-          id="type"
-          name="type"
-          value={question.type}
-          onChange={handleChange}
-          style={styles.input}
-        >
-          <option>Multiple Choice</option>
-          <option>True/False</option>
-        </select>
-      </div>
-      {question.type === "Multiple Choice" && (
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <h2 style={styles.title}>
+          {id ? "Update Question" : "Create New Question"}
+        </h2>
         <div style={styles.inputGroup}>
-          <label style={styles.label}>Options</label>
-          {question.options.map((option, index) => (
-            <input
-              key={index}
-              type="text"
-              value={option}
-              onChange={(e) => handleOptionChange(index, e.target.value)}
-              placeholder={`Option ${index + 1}`}
-              style={{ ...styles.input, marginBottom: "5px" }}
-              required
-            />
-          ))}
+          <label htmlFor="topic" style={styles.label}>
+            Topic
+          </label>
+          <input
+            type="text"
+            id="topic"
+            name="topic"
+            value={question.topic}
+            onChange={handleChange}
+            style={styles.input}
+            required
+          />
         </div>
-      )}
-      <div style={styles.inputGroup}>
-        <label htmlFor="correctAnswer" style={styles.label}>
-          Correct Answer
-        </label>
-        <input
-          type="text"
-          id="correctAnswer"
-          name="correctAnswer"
-          value={question.correctAnswer}
-          onChange={handleChange}
-          style={styles.input}
-          required
-        />
-      </div>
-      <button type="submit" style={styles.button} disabled={loading}>
-        {loading ? "Saving..." : id ? "Update Question" : "Add Question"}
-      </button>
-      {error && <p style={styles.error}>{error}</p>}
-    </form>
+        <div style={styles.inputGroup}>
+          <label htmlFor="text" style={styles.label}>
+            Question Text
+          </label>
+          <textarea
+            id="text"
+            name="text"
+            value={question.text}
+            onChange={handleChange}
+            style={styles.input}
+            required
+          />
+        </div>
+        <div style={styles.inputGroup}>
+          <label htmlFor="type" style={styles.label}>
+            Question Type
+          </label>
+          <select
+            id="type"
+            name="type"
+            value={question.type}
+            onChange={handleChange}
+            style={styles.input}
+          >
+            <option>Multiple Choice</option>
+            <option>True/False</option>
+          </select>
+        </div>
+        {question.type === "Multiple Choice" && (
+          <div style={styles.inputGroup}>
+            <label style={styles.label}>Options</label>
+            {question.options.map((option, index) => (
+              <input
+                key={index}
+                type="text"
+                value={option}
+                onChange={(e) => handleOptionChange(index, e.target.value)}
+                placeholder={`Option ${index + 1}`}
+                style={{ ...styles.input, marginBottom: "5px" }}
+                required
+              />
+            ))}
+          </div>
+        )}
+        <div style={styles.inputGroup}>
+          <label htmlFor="correctAnswer" style={styles.label}>
+            Correct Answer
+          </label>
+          <input
+            type="text"
+            id="correctAnswer"
+            name="correctAnswer"
+            value={question.correctAnswer}
+            onChange={handleChange}
+            style={styles.input}
+            required
+          />
+        </div>
+        <button type="submit" style={styles.button} disabled={loading}>
+          {loading ? "Saving..." : id ? "Update Question" : "Add Question"}
+        </button>
+        {error && <p style={styles.error}>{error}</p>}
+      </form>
     </div>
   );
 };
