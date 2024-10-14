@@ -45,7 +45,6 @@ const Navi = () => {
           a:hover {
             font-weight: bold;
             color: skyblue;
-            border-radius: 15px;
           }
 
           .dropdown {
@@ -77,7 +76,7 @@ const Navi = () => {
             color: darkblue;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 35px;
           }
 
           .apply-now:hover {
@@ -95,7 +94,7 @@ const Navi = () => {
           
           {/* Explore section with a dropdown */}
           <li className="dropdown" onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
-            <a href="/explore" className="dropbtn">Explore</a>
+            <a href="/https://www.youtube.com/@uassl" className="dropbtn">Explore</a>
             {isDropdownOpen && (
               <div className="dropdown-content">
                 <a href="/unihome">University</a>

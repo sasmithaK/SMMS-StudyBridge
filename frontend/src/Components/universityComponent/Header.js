@@ -16,7 +16,7 @@ function Header() {
                     &ensp;
                     <li style={{backgroundColor: "#113fd5"}} onClick={() => navigate("/universities")}>Universities</li>
                     &ensp;
-                    <li style={{backgroundColor: "#113fd5"}} onClick={() => navigate("/Cportfolio")}>Course</li>
+                    <li style={{backgroundColor: "#113fd5"}} onClick={() => navigate("/course-page")}>Course</li>
                     &ensp;
                     <li style={{backgroundColor: "#113fd5"}} onClick={() => navigate("/workregister")}>Application</li>
                     &ensp;

@@ -82,7 +82,7 @@ const styles = {
   button: {
     padding: '15px 30px',
     fontSize: '1.5em',
-    backgroundColor: 'rgba(255, 255, 255, 0.6)', // Semi-transparent white background
+    backgroundColor: 'rgba(255, 255, 255, 0.6)', 
     color: 'black',
     border: 'none',
     borderRadius: '5px',
