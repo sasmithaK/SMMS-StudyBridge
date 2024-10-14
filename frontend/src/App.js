@@ -55,7 +55,7 @@ import RegisterStudent from "./Components/universityComponent/RegisterStudent";
 
 
 // Financial Components
-//import HeaderFin from './Components/financeComponent/HeaderFin';
+import FinHeader from './Components/financeComponent/FinHeader';
 //import HomeFin from './Components/financeComponent/Home';
 import Transactions from './Components/financeComponent/Transactions';
 import PaymentPlans from './Components/financeComponent/PaymentPlans';
@@ -132,6 +132,7 @@ function App() {
 
 
         {/* Financial Routes */}
+        <Route path="/finHeader" element={<FinHeader />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/getstarted" element={<GetStarted />} />
         <Route path="/paymentplandetails" element={<PaymentPlanDetails />} />
