@@ -1,19 +1,12 @@
 import React from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+//import { BrowserRouter as Router } from "react-router-dom";
 
-
-//home componets 
-import Navigationbar from './Components/HomeComp/Navigationbar';
-import HeroSection from './Components/HomeComp/HeroSection';
-import ContentBlocks from './Components/HomeComp/ContentBlocks';
-import HomeMain from './Components/HomeComp/HomeMain';
-import Footer from './Components/HomeComp/Footer';
 
 // Import your components
 import Maincview from "./Components/courseComponent/Studentcourseview/Maincview";
-import Header from "./Components/courseComponent/Nav/Header";
+//import Header from "./Components/courseComponent/Nav/Header";
 import CourseView from "./Components/courseComponent/Studentcourseview/CourseView";
 import Cportfolio from "./Components/courseComponent/Universitycouses/Cportfolio";
 import UcourseView from "./Components/courseComponent/Universitycouses/Ucousreview";
@@ -22,6 +15,7 @@ import AddCourseForm from "./Components/courseComponent/Universitycouses/AddCour
 import Home from "./Components/workComponent/Home/Home";
 import Register from "./Components/workComponent/Register/Register";
 import Update from "./Components/workComponent/Update/Update";
+import HomeA from "./Components/HomeComponent/HomeA"; 
 
 import QuestionList from "./Components/examComponent/QuestionList";
 import QuestionForm from "./Components/examComponent/QuestionForm";
@@ -73,31 +67,26 @@ import Navbar from "./Components/examComponent/Navbar";
 function App() {
   return (
     <>
-    
-    <Routes>
+      <Routes>
+        <Route path="/" element={<HomeA/>}/>
+        <Route path="/course-page" element={<Maincview />} />
+        <Route path="/course-view/:id" element={<CourseView />} />
+        {/* <Header /> */}
 
-      {/* Home Routes */}
-      <Route path="/" element={<HomeMain />} />
 
+        {/* Course Routes */}
+        <Route path="/course-page" element={<Maincview />} />
+        <Route path="/course-view/:id" element={<CourseView />} />
+        <Route path="/university-portfolio/:universityId" element={<Cportfolio />} />
+        <Route path="university-course/:id/:universityId" element={<UcourseView />} />
+        <Route path="course-update/:id/:universityId" element={<UpdateCourseForm />} />
+        <Route path="add-course" element={<AddCourseForm />} />
 
-     <Route path="/course-page" element={<Maincview />} />
-     <Route path="/course-view/:id" element={<CourseView />} />
-      {/* <Header /> */}
-     
-      
-      {/* Course Routes */}
-      <Route path="/course-page" element={<Maincview />} />
-      <Route path="/course-view/:id" element={<CourseView />} />
-      <Route path="/university-portfolio/:universityId" element={<Cportfolio />} />
-      <Route path="university-course/:id/:universityId" element={<UcourseView />} />
-      <Route path="course-update/:id/:universityId" element={<UpdateCourseForm />} />
-      <Route path="add-course" element={<AddCourseForm />} />
-
-      {/* Work Routes */}
-      <Route path="/workregister" element={<Register />} />
-      <Route path="/addworkers" element={<Home />} />
-      <Route path="/workersupdate" element={<Update />} />
-      <Route path="/adduser" element={<AddUser/>} />
+        {/* Work Routes */}
+        <Route path="/workregister" element={<Register />} />
+        <Route path="/addworkers" element={<Home />} />
+        <Route path="/workersupdate" element={<Update />} />
+        <Route path="/adduser" element={<AddUser />} />
 
 
         {/* Examination Routes */}
@@ -137,7 +126,7 @@ function App() {
         <Route path="/getstarted" element={<GetStarted />} />
         <Route path="/paymentplandetails" element={<PaymentPlanDetails />} />
         <Route path="/paymentplans" element={<PaymentPlans />} />
-        <Route path="/scholarships" element={<Scholarships />} /> 
+        <Route path="/scholarships" element={<Scholarships />} />
         <Route path="/mkpayment" element={<MakePayment />} />
         <Route path="/payment-options" element={<PaymentOptions />} />
         <Route path="/add-account" element={<AddAccount />} />
