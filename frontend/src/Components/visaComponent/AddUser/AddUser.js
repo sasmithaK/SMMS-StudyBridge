@@ -22,6 +22,7 @@ import plane from "./plane.png";
 import { Link } from "react-router-dom";
 
 function AddUser() {
+  
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     fullname: "",
@@ -67,7 +68,7 @@ function AddUser() {
 
   const validate = () => {
     let tempErrors = {};
-
+  
     // Full Name Validation: First letter must be capital, no numbers allowed
     const nameRegex = /^[A-Z][a-zA-Z\s]*$/;
     if (!inputs.fullname) {
@@ -76,7 +77,16 @@ function AddUser() {
       tempErrors.fullname =
         "Full name must start with a capital letter and contain no numbers";
     }
-
+  
+    // Passport Number Validation: Required, alphanumeric, length between 6-15
+    const passportNumberRegex = /^[A-Za-z0-9]{6,15}$/; // Adjust regex as necessary
+    if (!inputs.passportnumber) {
+      tempErrors.passportnumber = "Passport number is required";
+    } else if (!passportNumberRegex.test(inputs.passportnumber)) {
+      tempErrors.passportnumber =
+        "Passport number must be alphanumeric and between 6-15 characters";
+    }
+  
     // Passport Expiry should be after issue date
     if (inputs.passportissuedate && inputs.passportexpirydate) {
       const issueDate = new Date(inputs.passportissuedate);
@@ -85,22 +95,22 @@ function AddUser() {
         tempErrors.passportexpirydate = "Expiry date must be after issue date";
       }
     }
-
+  
     // Email Validation
     if (!/\S+@\S+\.\S+/.test(inputs.email)) {
       tempErrors.email = "Email is not valid";
     }
-
+  
     // Phone Number Validation
     if (!/^\d{10,15}$/.test(inputs.phonenumber)) {
       tempErrors.phonenumber = "Phone number should be 10-15 digits";
     }
-
+  
     // Emergency Contact Validation
     if (!/^\d{10,15}$/.test(inputs.emergencycontact)) {
       tempErrors.emergencycontact = "Emergency contact should be 10-15 digits";
     }
-
+  
     // Intended Duration Validation (must be an integer)
     if (
       !inputs.intendedduration ||
@@ -108,7 +118,7 @@ function AddUser() {
     ) {
       tempErrors.intendedduration = "Intended duration must be an integer";
     }
-
+  
     // Study Duration Validation (must be an integer)
     if (
       !inputs.studyduration ||
@@ -116,27 +126,40 @@ function AddUser() {
     ) {
       tempErrors.studyduration = "Study duration must be an integer";
     }
-
+  
     setErrors(tempErrors);
-
+  
     return Object.keys(tempErrors).length === 0;
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      try {
-        await sendRequest();
-        navigate("/userdetails");
-      } catch (error) {
-        console.error("Error submitting form:", error);
+
+    // Show confirmation alert
+    const confirmSubmit = window.confirm(
+      "Your visa application has been successfully submitted. To proceed with the next steps, a visa application fee is required. Would you like to proceed with the payment now to avoid delays in processing your application?"
+    );
+
+    // If the user clicks "OK" on the alert
+    if (confirmSubmit) {
+      if (validate("")) {
+        try {
+          await sendRequest();
+          alert("Application submitted successfully!");
+          navigate(""); // Navigate to the desired page after submission
+        } catch (error) {
+          console.error("Error submitting form:", error);
+        }
       }
+    } else {
+      alert("Submission cancelled.");
     }
   };
 
   const sendRequest = async () => {
     try {
-      await axios.post("http://localhost:5000/Users", {
+      await axios.post("http://localhost:5000/VisaApplication", {
         fullname: inputs.fullname,
         dob: inputs.dob,
         gender: inputs.gender,
@@ -179,8 +202,6 @@ function AddUser() {
         backgroundColor: "#F4F7FB",
       }}
     >
-
-      
       <AppBar
         position="sticky"
         sx={{
@@ -206,24 +227,24 @@ function AddUser() {
             Study Bridge
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1 }}>
-          <Link to="/visa">
-            <Button
-              color="inherit"
-              sx={{
-                margin: 1,
-                minWidth: 120,
-                backgroundColor: "transparent",
-                color: "#FFFFFF", // White text color
-                "&:hover": {
-                  backgroundColor: "orange", // Orange hover background
-                  color: "white", // Maintain white text on hover
-                },
-              }}
-            >
-              Home
-            </Button>
+            <Link to="/visa">
+              <Button
+                color="inherit"
+                sx={{
+                  margin: 1,
+                  minWidth: 120,
+                  backgroundColor: "transparent",
+                  color: "#FFFFFF", // White text color
+                  "&:hover": {
+                    backgroundColor: "orange", // Orange hover background
+                    color: "white", // Maintain white text on hover
+                  },
+                }}
+              >
+                Home
+              </Button>
             </Link>
-            
+
             <Button
               color="inherit"
               sx={{
@@ -240,21 +261,21 @@ function AddUser() {
               Visa Guidance
             </Button>
             <Link to="/contactUs">
-            <Button
-              color="inherit"
-              sx={{
-                margin: 1,
-                minWidth: 120,
-                backgroundColor: "transparent",
-                color: "#FFFFFF", // White text color
-                "&:hover": {
-                  backgroundColor: "orange", // Orange hover background
-                  color: "white", // Maintain white text on hover
-                },
-              }}
-            >
-              Contact Us
-            </Button>
+              <Button
+                color="inherit"
+                sx={{
+                  margin: 1,
+                  minWidth: 120,
+                  backgroundColor: "transparent",
+                  color: "#FFFFFF", // White text color
+                  "&:hover": {
+                    backgroundColor: "orange", // Orange hover background
+                    color: "white", // Maintain white text on hover
+                  },
+                }}
+              >
+                Contact Us
+              </Button>
             </Link>
           </Box>
           <IconButton
@@ -317,7 +338,6 @@ function AddUser() {
             Personal Details
           </Typography>
           <Grid container spacing={4}>
-
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -409,6 +429,8 @@ function AddUser() {
                 value={inputs.passportnumber}
                 onChange={handleChange}
                 required
+                error={Boolean(errors.passportnumber)}
+                helperText={errors.passportnumber}
               />
             </Grid>
             <Grid item xs={12} sm={6}>

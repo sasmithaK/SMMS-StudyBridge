@@ -9,6 +9,7 @@ const postRoutes = require("./Routes/universityRoute/route");
 //workers
 const UserRoutes=require('./Routes/workRoute/UserRoute');
 const router = require("./Routes/visaRoute/visaRoute");
+const Demorouter = require("./Routes/DemoRoutes/DemoRoutes");
 
 //visa
 const app = express();
@@ -28,7 +29,8 @@ app.use('/UserUploads',express.static("UserUploads/"));
 app.use('/auth',UserRoutes);
 
 //visa
-app.use("/Users",router);
+app.use("/VisaApplication",router);
+app.use("/DemoStu",Demorouter);
 
 //financial mng 
 const paymentRouter = require("./Routes/financeRoute/paymentRoute");

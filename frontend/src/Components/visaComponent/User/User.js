@@ -55,7 +55,7 @@ function User(props) {
 
   const deleteHandler = async () => {
     await axios
-      .delete(`http://localhost:5000/Users/${_id}`)
+      .delete(`http://localhost:5000/VisaApplication/${_id}`)
       .then((res) => res.data)
       .then(() => history("/"))
       .then(() => history("/userdetails"));

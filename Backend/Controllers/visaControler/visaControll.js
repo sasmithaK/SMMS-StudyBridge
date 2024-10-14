@@ -2,20 +2,20 @@ const User = require("../../Model/visaModel/visaModel");
 
 //Display part
 const getAllUsers = async (req, res, next) => {
-  let Users;
+  let VisaApplication;
   //Get all users
   try {
-    Users = await User.find();
+    VisaApplication = await User.find();
   } catch (err) {
     console.log(err);
   }
   //not found Users
-  if (!Users) {
+  if (!VisaApplication) {
     return res.status(404).json({ message: "Users not found" });
   }
 
   //Display all Users
-  return res.status(200).json({ Users });
+  return res.status(200).json({ VisaApplication });
 };
 
 exports.getAllUsers = getAllUsers;

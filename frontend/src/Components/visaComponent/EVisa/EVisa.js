@@ -13,23 +13,23 @@ import axios from "axios";
 import visaImg from "./visaImg.jpeg";
 import { Link } from "react-router-dom";
 
-const URL = "http://localhost:5000/Users";
+const URL = "http://localhost:5000/VisaApplication";
 
 const fetchHandler = async () => {
   return await axios.get(URL).then((res) => res.data);
 };
 
 function EVisa() {
-  const [Users, setUsers] = useState([]);
+  const [VisaApplication, setUsers] = useState([]);
 
   useEffect(() => {
-    fetchHandler().then((data) => setUsers(data.Users));
+    fetchHandler().then((data) => setUsers(data.VisaApplication));
   }, []);
 
   const generateReport = async () => {
     const doc = new jsPDF();
 
-    const user = Users.length > 0 ? Users[Users.length - 1] : {};
+    const user = VisaApplication.length > 0 ? VisaApplication[VisaApplication.length - 1] : {};
 
       // Title
       doc.setFontSize(15);
@@ -308,74 +308,159 @@ function EVisa() {
           />
         </div>
       </div>
-      <footer className="bg-body-tertiary text-center">
-        <div className="container p-4 pb-0">
-          <section className="mb-4">
-            <a
-              className="btn text-white btn-floating m-1"
-              style={{ backgroundColor: "#3b5998" }}
-              href="#!"
-              role="button"
-            >
-              <i className="fab fa-facebook-f"></i>
-            </a>
-
-            <a
-              className="btn text-white btn-floating m-1"
-              style={{ backgroundColor: "#55acee" }}
-              href="#!"
-              role="button"
-            >
-              <i className="fab fa-twitter"></i>
-            </a>
-
-            <a
-              className="btn text-white btn-floating m-1"
-              style={{ backgroundColor: "#dd4b39" }}
-              href="#!"
-              role="button"
-            >
-              <i className="fab fa-google"></i>
-            </a>
-
-            <a
-              className="btn text-white btn-floating m-1"
-              style={{ backgroundColor: "#ac2bac" }}
-              href="#!"
-              role="button"
-            >
-              <i className="fab fa-instagram"></i>
-            </a>
-
-            <a
-              className="btn text-white btn-floating m-1"
-              style={{ backgroundColor: "#0082ca" }}
-              href="#!"
-              role="button"
-            >
-              <i className="fab fa-linkedin-in"></i>
-            </a>
-
-            <a
-              className="btn text-white btn-floating m-1"
-              style={{ backgroundColor: "#333333" }}
-              href="#!"
-              role="button"
-            >
-              <i className="fab fa-github"></i>
-            </a>
-          </section>
-        </div>
-        <div
-          className="text-center p-3"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
-        >
-          © 2020 Copyright:
-          <a className="text-body" href="StudyBridge">
-            StudyBridge
+      <footer style={{ backgroundColor: '#f8f9fa', textAlign: 'center', padding: '20px 0' }}>
+      {/* Grid container */}
+      <div style={{ padding: '20px 0' }}>
+        {/* Section: Social media */}
+        <section style={{ marginBottom: '20px' }}>
+          {/* Facebook */}
+          <a
+            href="#!"
+            role="button"
+            style={{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: '#fff',
+              margin: '5px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              textDecoration: 'none',
+              fontSize: '18px',
+              backgroundColor: '#3b5998',
+            }}
+          >
+            <i className="fab fa-facebook-f"></i>
           </a>
-        </div>
-      </footer>
+
+          {/* Twitter */}
+          <a
+            href="#!"
+            role="button"
+            style={{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: '#fff',
+              margin: '5px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              textDecoration: 'none',
+              fontSize: '18px',
+              backgroundColor: '#55acee',
+            }}
+          >
+            <i className="fab fa-twitter"></i>
+          </a>
+
+          {/* Google */}
+          <a
+            href="#!"
+            role="button"
+            style={{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: '#fff',
+              margin: '5px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              textDecoration: 'none',
+              fontSize: '18px',
+              backgroundColor: '#dd4b39',
+            }}
+          >
+            <i className="fab fa-google"></i>
+          </a>
+
+          {/* Instagram */}
+          <a
+            href="#!"
+            role="button"
+            style={{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: '#fff',
+              margin: '5px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              textDecoration: 'none',
+              fontSize: '18px',
+              backgroundColor: '#ac2bac',
+            }}
+          >
+            <i className="fab fa-instagram"></i>
+          </a>
+
+          {/* Linkedin */}
+          <a
+            href="#!"
+            role="button"
+            style={{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: '#fff',
+              margin: '5px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              textDecoration: 'none',
+              fontSize: '18px',
+              backgroundColor: '#0082ca',
+            }}
+          >
+            <i className="fab fa-linkedin-in"></i>
+          </a>
+
+          {/* Github */}
+          <a
+            href="#!"
+            role="button"
+            style={{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: '#fff',
+              margin: '5px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              textDecoration: 'none',
+              fontSize: '18px',
+              backgroundColor: '#333333',
+            }}
+          >
+            <i className="fab fa-github"></i>
+          </a>
+        </section>
+        {/* Section: Social media */}
+      </div>
+      {/* Grid container */}
+
+      {/* Copyright */}
+      <div
+        style={{
+          textAlign: 'center',
+          padding: '15px',
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        }}
+      >
+        © 2020 Copyright:
+        <a
+          href="https://yourwebsite.com"
+          style={{ color: '#000', textDecoration: 'none', marginLeft: '5px' }}
+        >
+          StudyBridge
+        </a>
+      </div>
+      {/* Copyright */}
+    </footer>
     </div>
   );
 }
