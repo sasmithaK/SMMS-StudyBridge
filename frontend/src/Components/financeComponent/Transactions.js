@@ -5,6 +5,7 @@ import {
     Container, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, 
     TableRow, Paper, CircularProgress, Alert, Box, TextField
 } from "@mui/material";
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 function Transactions() {
     const [transactions, setTransactions] = useState([]);
@@ -61,21 +62,60 @@ function Transactions() {
 
     const generateSummaryPDF = () => {
         const doc = new jsPDF();
+        
+        // Add title and styling
         doc.setFontSize(18);
-        doc.text("Filtered Transaction Summary", 20, 20);
-
+        doc.text("Filtered Transaction Summary", 14, 20);
+        doc.setFontSize(12);
+        doc.setTextColor(40);
+        doc.setDrawColor(0);
+    
+        // Header background color and text
+        doc.setFillColor(211, 211, 211);
+        doc.rect(14, 28, 182, 10, 'F'); // Light gray background for the table header
+        doc.text("University", 16, 35);
+        doc.text("Student Number", 70, 35);
+        doc.text("Course", 115, 35);
+        doc.text("Purpose", 150, 35);
+        doc.text("Amount", 192, 35, { align: 'right' });
+    
+        // Set initial Y position for the first row of data
+        let y = 45;
+    
+        // Iterate through the filtered transactions
         filteredTransactions.forEach((transaction, index) => {
-            doc.setFontSize(12);
-            doc.text(
-                `#${index + 1} University: ${transaction.university}, Student: ${transaction.studentNumber}, Course: ${transaction.course}, Purpose: ${transaction.purpose}, Amount: $${transaction.amount}`,
-                20,
-                40 + index * 10
-            );
+            doc.setFontSize(11);
+            doc.setFillColor(index % 2 === 0 ? 245 : 255); // Alternate row colors
+            doc.rect(14, y - 5, 182, 10, 'F');
+            
+            // Handle long text with wrapping
+            const courseText = doc.splitTextToSize(transaction.course, 30); 
+            const purposeText = doc.splitTextToSize(transaction.purpose, 30);
+    
+            // Add transaction details with adjusted positions
+            doc.text(transaction.university, 16, y);
+            doc.text(transaction.studentNumber, 72, y); 
+            doc.text(courseText, 115, y); 
+            doc.text(purposeText, 150, y); 
+    
+            // Align amount to the right of the table
+            doc.text(`$${transaction.amount.toFixed(2)}`, 192, y, { align: 'right' });
+    
+            y += 10; // Move Y position down for the next row
         });
-
-        // Save the PDF with a generic name
+    
+        // Add a total amount summary at the bottom
+        const totalAmount = filteredTransactions.reduce((sum, transaction) => sum + transaction.amount, 0);
+        doc.setFontSize(12);
+        doc.setFillColor(211, 211, 211);
+        doc.rect(14, y - 5, 182, 10, 'F');
+        doc.text("Total", 150, y);
+        doc.text(`$${totalAmount.toFixed(2)}`, 192, y, { align: 'right' });
+    
+        // Save the PDF with a descriptive filename
         doc.save('filtered_transaction_summary.pdf');
-    };
+    };       
+    
 
     const filteredTransactions = transactions.filter(transaction =>
         transaction.university.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -86,6 +126,19 @@ function Transactions() {
         transaction.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
         transaction.amount.toString().includes(searchQuery)
     );
+
+    // Prepare data for the pie chart
+    const pieData = filteredTransactions.reduce((acc, transaction) => {
+        const existing = acc.find(item => item.name === transaction.university);
+        if (existing) {
+            existing.value += transaction.amount;
+        } else {
+            acc.push({ name: transaction.university, value: transaction.amount });
+        }
+        return acc;
+    }, []);
+
+    const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF", "#EA3546"];
 
     if (loading) {
         return (
@@ -125,7 +178,7 @@ function Transactions() {
                     Download Summary
                 </Button>
             </Box>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} sx={{ mb: 3 }}>
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -181,6 +234,27 @@ function Transactions() {
                     </TableBody>
                 </Table>
             </TableContainer>
+            {pieData.length > 0 && (
+                <Box display="flex" justifyContent="center" mb={5}>
+                    <PieChart width={500} height={400}>
+                        <Pie
+                            data={pieData}
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={150}
+                            fill="#8884d8"
+                            dataKey="value"
+                            label
+                        >
+                            {pieData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                        </Pie>
+                        <Tooltip />
+                        <Legend />
+                    </PieChart>
+                </Box>
+            )}
         </Container>
     );
 }
