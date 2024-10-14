@@ -1,15 +1,40 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 let Payment = require('../../Model/financeModel/PaymentModel');
 
-// create - add payment ..............................................
-// http://localhost:5000/payment/add
+// Middleware to parse JSON request bodies
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+
+// Create - Add Payment .................................................
+// POST: http://localhost:5000/payment/add
 router.route('/add').post((req, res) => {
+    console.log("Received data:", req.body);  // Log incoming data
+
     const {
-        university, studentName, studentNumber, course, purpose,
-        email, phone, amount, paymentMethod,
-        fundTransferDetails, creditCardDetails
+        university,
+        studentName,
+        studentNumber,
+        course,
+        purpose,
+        email,
+        phone,
+        amount,
+        paymentMethod,
+        fundTransferDetails,
+        creditCardDetails,
     } = req.body;
 
+    // Ensure required fields based on payment method
+    if (paymentMethod === 'Fund Transfer' && (!fundTransferDetails || !fundTransferDetails.bankName || !fundTransferDetails.accountNumber)) {
+        return res.status(400).send({ status: "Fund Transfer details are incomplete." });
+    }
+    
+    if (paymentMethod === 'Credit Card' && (!creditCardDetails || !creditCardDetails.cardNumber || !creditCardDetails.securityCode)) {
+        return res.status(400).send({ status: "Credit Card details are incomplete." });
+    }
+
+    // Create new payment object
     const newPayment = new Payment({
         university,
         studentName,
@@ -21,107 +46,93 @@ router.route('/add').post((req, res) => {
         amount,
         paymentMethod,
         fundTransferDetails,
-        creditCardDetails
+        creditCardDetails,
     });
 
-    // Save the new payment
-    newPayment.save().then(() => {
-        res.json('Payment added successfully!');
-    }).catch((err) => {
-        console.log(err);
-        res.status(500).send({ status: "Error with adding payment", error: err.message });
-    });
+    // Save to the database
+    newPayment.save()
+        .then(() => res.json('Payment added successfully!'))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send({ status: "Error with adding payment", error: err.message });
+        });
 });
 
-// read - get all payments .............................................
-// http://localhost:5000/payment/
+// Read - Get All Payments ...............................................
+// GET: http://localhost:5000/payment/
 router.route('/').get((req, res) => {
-    Payment.find().then((payments) => {
-        res.json(payments);
-    }).catch((err) => {
-        console.log(err);
-        res.status(500).send({ status: "Error with fetching payments", error: err.message });
-    });
+    Payment.find()
+        .then((payments) => res.json(payments))
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send({ status: "Error with fetching payments", error: err.message });
+        });
 });
 
-// update - edit payment details .........................................
-// http://localhost:5000/payment/update/:id
+// Update - Edit Payment Details ..........................................
+// PUT: http://localhost:5000/payment/update/:id
 router.route('/update/:id').put(async (req, res) => {
-    let paymentId = req.params.id;
+    const paymentId = req.params.id;
+    const updateData = req.body;
 
-    const {
-        university, studentName, studentNumber, course, purpose,
-        email, phone, amount, paymentMethod,
-        fundTransferDetails, creditCardDetails
-    } = req.body;
+    // Ensure that necessary fields for payment method are included
+    if (updateData.paymentMethod === 'Fund Transfer' && (!updateData.fundTransferDetails || !updateData.fundTransferDetails.bankName || !updateData.fundTransferDetails.accountNumber)) {
+        return res.status(400).send({ status: "Fund Transfer details are incomplete." });
+    }
 
-    const updatePayment = {
-        university,
-        studentName,
-        studentNumber,
-        course,
-        purpose,
-        email,
-        phone,
-        amount,
-        paymentMethod,
-        fundTransferDetails,
-        creditCardDetails
-    };
+    if (updateData.paymentMethod === 'Credit Card' && (!updateData.creditCardDetails || !updateData.creditCardDetails.cardNumber || !updateData.creditCardDetails.securityCode)) {
+        return res.status(400).send({ status: "Credit Card details are incomplete." });
+    }
 
-    // Update payment details
-    await Payment.findByIdAndUpdate(paymentId, updatePayment).then(() => {
+    try {
+        await Payment.findByIdAndUpdate(paymentId, updateData);
         res.status(200).send({ status: "Payment updated successfully" });
-    }).catch((err) => {
-        console.log(err);
+    } catch (err) {
+        console.error(err);
         res.status(500).send({ status: "Error with updating payment", error: err.message });
-    });
+    }
 });
 
-// delete - remove payment ...............................................
-// http://localhost:5000/payment/delete/:id
+// Delete - Remove Payment .................................................
+// DELETE: http://localhost:5000/payment/delete/:id
 router.route('/delete/:id').delete(async (req, res) => {
-    let paymentId = req.params.id;
+    const paymentId = req.params.id;
 
-    await Payment.findByIdAndDelete(paymentId).then(() => {
+    try {
+        await Payment.findByIdAndDelete(paymentId);
         res.status(200).send({ status: "Payment deleted successfully" });
-    }).catch((err) => {
-        console.log(err.message);
+    } catch (err) {
+        console.error(err);
         res.status(500).send({ status: "Error with deleting payment", error: err.message });
-    });
+    }
 });
 
-// get one payment's details .............................................
-// http://localhost:5000/payment/get/:id
+// Get One Payment's Details ...............................................
+// GET: http://localhost:5000/payment/get/:id
 router.route('/get/:id').get(async (req, res) => {
-    let paymentId = req.params.id;
+    const paymentId = req.params.id;
 
-    await Payment.findById(paymentId).then((payment) => {
+    try {
+        const payment = await Payment.findById(paymentId);
         res.status(200).send({ status: "Payment fetched successfully", payment });
-    }).catch((err) => {
-        console.log(err.message);
+    } catch (err) {
+        console.error(err);
         res.status(500).send({ status: "Error with fetching payment", error: err.message });
-    });
+    }
 });
 
-// check if student number exists .............................................
-// http://localhost:5000/payment/check/:studentNumber
+// Check if Student Number Exists ..........................................
+// GET: http://localhost:5000/payment/check/:studentNumber
 router.route('/check/:studentNumber').get(async (req, res) => {
     const studentNumber = req.params.studentNumber;
 
     try {
-        const payment = await Payment.findOne({ studentNumber: studentNumber });
-
-        if (payment) {
-            res.status(200).json({ exists: true });
-        } else {
-            res.status(200).json({ exists: false });
-        }
+        const payment = await Payment.findOne({ studentNumber });
+        res.status(200).json({ exists: !!payment });
     } catch (err) {
-        console.log(err.message);
+        console.error(err);
         res.status(500).send({ status: "Error with checking student number", error: err.message });
     }
 });
-
 
 module.exports = router;
