@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 
 function UpdateUser() {
-  
   const [inputs, setInputs] = useState({});
   const history = useNavigate();
   const id = useParams().id;
@@ -65,6 +64,8 @@ function UpdateUser() {
         travelitinerary: String(inputs.travelitinerary),
         declaration: String(inputs.declaration),
         dateofapplication: Date(inputs.dateofapplication),
+        signature:String(inputs.signature),
+        visaID:String(inputs.visaID),
       })
       .then((res) => res.data);
   };
@@ -98,15 +99,6 @@ function UpdateUser() {
     } else if (!nameRegex.test(inputs.fullname)) {
       tempErrors.fullname =
         "Full name must start with a capital letter and contain no numbers";
-    }
-
-    // Passport Number Validation (alphanumeric)
-    const passportRegex = /^[a-zA-Z0-9]+$/;
-    if (!inputs.passportnumber) {
-      tempErrors.passportnumber = "Passport number is required";
-    } else if (!passportRegex.test(inputs.passportnumber)) {
-      tempErrors.passportnumber =
-        "Passport number should only contain alphanumeric characters";
     }
 
     // Passport Expiry should be after issue date
@@ -212,6 +204,8 @@ function UpdateUser() {
             Personal Details
           </Typography>
           <Grid container spacing={4}>
+
+
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -239,20 +233,19 @@ function UpdateUser() {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-  <InputLabel shrink>Gender</InputLabel>
-  <Select
-    name="gender"
-    value={inputs.gender || ''} // Fallback to empty string if value is null/undefined
-    onChange={handleChange}
-    required
-  >
-    <MenuItem value="male">Male</MenuItem>
-    <MenuItem value="female">Female</MenuItem>
-    <MenuItem value="other">Other</MenuItem>
-  </Select>
-</FormControl>
-
+              <FormControl fullWidth>
+                <InputLabel shrink>Gender</InputLabel>
+                <Select
+                  name="gender"
+                  value={inputs.gender || ""} // Fallback to empty string if value is null/undefined
+                  onChange={handleChange}
+                  required
+                >
+                  <MenuItem value="male">Male</MenuItem>
+                  <MenuItem value="female">Female</MenuItem>
+                  <MenuItem value="other">Other</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -309,8 +302,6 @@ function UpdateUser() {
                 value={inputs.passportnumber}
                 onChange={handleChange}
                 required
-                error={Boolean(errors.passportnumber)}
-                helperText={errors.passportnumber}
                 InputLabelProps={{ shrink: true }}
               />
             </Grid>
@@ -472,11 +463,7 @@ function UpdateUser() {
                 label="Arrival Date"
                 name="arrivaldate"
                 type="date"
-                value={
-                  inputs.arrivaldate
-                    ? formatDate(inputs.arrivaldate)
-                    : ""
-                }
+                value={inputs.arrivaldate ? formatDate(inputs.arrivaldate) : ""}
                 onChange={handleChange}
                 InputLabelProps={{ shrink: true }}
                 required
@@ -489,14 +476,11 @@ function UpdateUser() {
                 name="depaturedate"
                 type="date"
                 value={
-                  inputs.depaturedate
-                    ? formatDate(inputs.depaturedate)
-                    : ""
+                  inputs.depaturedate ? formatDate(inputs.depaturedate) : ""
                 }
                 onChange={handleChange}
                 InputLabelProps={{ shrink: true }}
                 required
-                
               />
             </Grid>
           </Grid>
@@ -644,6 +628,19 @@ function UpdateUser() {
                 required
               />
             </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Signature"
+                name="signature"
+                value={inputs.signature}
+                onChange={handleChange}
+                required
+                InputLabelProps={{ shrink: true }}
+              />
+            </Grid>
+
           </Grid>
 
           {/* Submit Button */}

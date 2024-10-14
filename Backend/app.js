@@ -43,3 +43,4 @@ mongoose.connect("mongodb+srv://kavindugunasena:Wys3oVeZJ2TanVc8@cluster1.0wgjcb
     app.listen(5000);
 })
 .catch((err) => console.log(err));
+

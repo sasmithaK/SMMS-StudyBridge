@@ -55,6 +55,7 @@ const addUsers = async (req, res, next) => {
     declaration,
     dateofapplication,
     signature,
+    visaID,
   } = req.body;
 
   let users;
@@ -91,6 +92,7 @@ const addUsers = async (req, res, next) => {
       declaration,
       dateofapplication,
       signature,
+      visaID,
     });
 
     await users.save();
@@ -160,16 +162,14 @@ const updateUser = async (req, res, next) => {
     declaration,
     dateofapplication,
     signature,
+    visaID,
   } = req.body;
 
   let users;
 
   try {
     users = await User.findByIdAndUpdate(id, {
-      /*name: name,
-      gmail: gmail,
-      age: age,
-      address: address*/
+
       fullname: fullname,
       dob: dob,
       gender: gender,
@@ -199,6 +199,7 @@ const updateUser = async (req, res, next) => {
       declaration: declaration,
       dateofapplication: dateofapplication,
       signature: signature,
+      visaID: visaID,
     });
     users = await users.save();
   } catch (err) {
