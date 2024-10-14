@@ -40,6 +40,7 @@ function CourseView() {
         ['University', 'N/A'],
         ['Course Type', course.coursetype || 'N/A'],
         ['Faculty', course.faculty || 'N/A'],
+        ['Duration', course.courseduration ? `${course.courseduration} years` : 'N/A'], // Added Duration
         ['Total Fee', course.totalfee ? `$${parseInt(course.totalfee).toLocaleString()}` : 'N/A'],
         ['Semester Fee', course.semesterfee ? `$${parseInt(course.semesterfee).toLocaleString()}` : 'N/A']
       ],
@@ -78,10 +79,11 @@ function CourseView() {
           <p><strong>Faculty:</strong> {course.faculty || 'N/A'}</p>
           <p><strong>Total Fee:</strong> {course.totalfee ? `$${parseInt(course.totalfee).toLocaleString()}` : 'N/A'}</p>
           <p><strong>Semester Fee:</strong> {course.semesterfee ? `$${parseInt(course.semesterfee).toLocaleString()}` : 'N/A'}</p>
+          <p><strong>Duration:</strong> {course.courseduration ? `${course.courseduration} years` : 'N/A'}</p>
         </div>
 
         <div className="card-footer">
-          <button onClick={() => alert('Button clicked!')} className="btn btn-primary">Schoolerships</button>
+          <button onClick={() => alert('Button clicked!')} className="btn btn-primary">Scholarships</button>
           <button onClick={() => alert('Button clicked!')} className="btn btn-primary">Apply</button>
           <button onClick={downloadPDF} className="btn btn-primary">Download PDF</button>
         </div>

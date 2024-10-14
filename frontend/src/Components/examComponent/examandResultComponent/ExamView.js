@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+// Import the image
+import backgroundImage from './back.jpg';
 
 const ExamView = () => {
   const [questions, setQuestions] = useState([]);
@@ -11,13 +13,25 @@ const ExamView = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Fetch questions on component mount
     fetchQuestions();
+
+    // Set the background image for the body
+    document.body.style.backgroundImage = `url(${backgroundImage})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundRepeat = 'no-repeat';
+
+    // Cleanup: remove background image when component unmounts
+    return () => {
+      document.body.style.backgroundImage = '';
+    };
   }, []);
 
   const fetchQuestions = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5001/api/questions');
+      const response = await axios.get('http://localhost:5000/api/questions');
       setQuestions(response.data);
       setLoading(false);
     } catch (error) {
@@ -37,7 +51,7 @@ const ExamView = () => {
         alert('Please enter a Student ID before submitting.');
         return;
       }
-      const response = await axios.post('http://localhost:5001/api/submit', { answers, studentId });
+      const response = await axios.post('http://localhost:5000/api/submit', { answers, studentId });
       const { score, totalQuestions, details } = response.data;
 
       const report = {
@@ -59,7 +73,7 @@ const ExamView = () => {
 
   return (
     <div style={styles.examContainer}>
-      <h1 style={styles.title}>Exam</h1>
+      <h1 style={styles.title}>UAS Examination 2024</h1>
       <input
         type="text"
         placeholder="Enter Student ID"
@@ -96,10 +110,12 @@ const styles = {
     margin: '0 auto',
     padding: '20px',
     fontFamily: 'Arial, sans-serif',
+    backgroundColor: 'lightblue',
   },
   title: {
     textAlign: 'center',
     color: '#333',
+    backgroundColor: 'white',
   },
   questionContainer: {
     backgroundColor: '#f0f0f0',
@@ -126,12 +142,13 @@ const styles = {
     padding: '15px 32px',
     textAlign: 'center',
     textDecoration: 'none',
-    display: 'inline-block',
+    display: 'block',
     fontSize: '16px',
-    margin: '20px 0',
+    margin: '20px auto',
     cursor: 'pointer',
-    borderRadius: '4px',
+    borderRadius: '14px',
     transition: 'background-color 0.3s',
+    marginTop: '35px',
   },
   loading: {
     textAlign: 'center',
