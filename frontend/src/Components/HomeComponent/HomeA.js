@@ -1,8 +1,8 @@
 import React from 'react';
-import Navi from '../HomeComponent/Navi'; 
+import Navi from './Navi'; 
 import backgroundVideo from './uas.mp4';
 
-function Home() {
+function HomeA() {
   return (
     <div style={styles.wrapper}>
       {/* Video as a background */}
@@ -85,4 +85,4 @@ const styles = {
   },
 };
 
-export default Home;
+export default HomeA;

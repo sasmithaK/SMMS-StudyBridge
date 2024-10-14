@@ -15,6 +15,7 @@ import AddCourseForm from "./Components/courseComponent/Universitycouses/AddCour
 import Home from "./Components/workComponent/Home/Home";
 import Register from "./Components/workComponent/Register/Register";
 import Update from "./Components/workComponent/Update/Update";
+import HomeA from "./Components/HomeComponent/HomeA"; 
 
 import QuestionList from "./Components/examComponent/QuestionList";
 import QuestionForm from "./Components/examComponent/QuestionForm";
@@ -65,7 +66,7 @@ function App() {
   return (
     <>
       <Routes>
-
+        <Route path="/" element={<HomeA/>}/>
         <Route path="/course-page" element={<Maincview />} />
         <Route path="/course-view/:id" element={<CourseView />} />
         {/* <Header /> */}

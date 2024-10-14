@@ -43,7 +43,9 @@ const Navi = () => {
           }
 
           a:hover {
-            text-decoration: underline;
+            font-weight: bold;
+            color: skyblue;
+            border-radius: 15px;
           }
 
           .dropdown {
@@ -65,21 +67,22 @@ const Navi = () => {
           }
 
           .dropdown-content a:hover {
-            background-color: lightblue;
+            background-color: skyblue;
           }
 
           .apply-now {
             padding: 10px 20px;
-            background-color: #f39c12;
+            background-color: skyblue;
             border: none;
-            color: white;
+            color: darkblue;
             font-weight: bold;
             cursor: pointer;
             border-radius: 5px;
           }
 
           .apply-now:hover {
-            background-color: #e67e22;
+            background-color: darkblue;
+            color: skyblue;
           }
         `}
       </style>
@@ -87,7 +90,7 @@ const Navi = () => {
       <nav className="navi">
         
         <ul>
-          <li><a href="/">Home</a></li>
+          <li><a href="/">Profile</a></li>
           <li><a href="/getregister">Get Registered</a></li>
           
           {/* Explore section with a dropdown */}
@@ -95,7 +98,7 @@ const Navi = () => {
             <a href="/explore" className="dropbtn">Explore</a>
             {isDropdownOpen && (
               <div className="dropdown-content">
-                <a href="/university">University</a>
+                <a href="/unihome">University</a>
                 <a href="/courses">Courses</a>
                 <a href="/scholarship">Scholarship</a>
               </div>
