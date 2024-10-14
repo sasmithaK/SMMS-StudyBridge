@@ -3,6 +3,14 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
+
+//home componets 
+import Navigationbar from './Components/HomeComp/Navigationbar';
+import HeroSection from './Components/HomeComp/HeroSection';
+import ContentBlocks from './Components/HomeComp/ContentBlocks';
+import HomeMain from './Components/HomeComp/HomeMain';
+import Footer from './Components/HomeComp/Footer';
+
 // Import your components
 import Maincview from "./Components/courseComponent/Studentcourseview/Maincview";
 import Header from "./Components/courseComponent/Nav/Header";
@@ -58,15 +66,20 @@ import Monthly from './Components/financeComponent/PaymentProceses/Monthly';
 
 
 // Importing the Navbar for Exam routes
-import Navbar from "./Components/examComponent/Navbar"; // Adjust the path as necessary
+import Navbar from "./Components/examComponent/Navbar";
 
 function App() {
   return (
     <>
-      
+    
     <Routes>
-        <Route path="/course-page" element={<Maincview />} />
-        <Route path="/course-view/:id" element={<CourseView />} />
+
+      {/* Home Routes */}
+      <Route path="/" element={<HomeMain />} />
+
+
+     <Route path="/course-page" element={<Maincview />} />
+     <Route path="/course-view/:id" element={<CourseView />} />
       {/* <Header /> */}
      
       
@@ -84,11 +97,6 @@ function App() {
       <Route path="/workersupdate" element={<Update />} />
       <Route path="/adduser" element={<AddUser/>} />
 
-        {/* Work Routes */}
-        <Route path="/workregister" element={<Register />} />
-        <Route path="/addworkers" element={<Home />} />
-        <Route path="/workersupdate" element={<Update />} />
-        <Route path="/adduser" element={<AddUser />} />
 
         {/* Examination Routes */}
         <Route path="/questionlist" element={<><Navbar /><QuestionList /></>} />
