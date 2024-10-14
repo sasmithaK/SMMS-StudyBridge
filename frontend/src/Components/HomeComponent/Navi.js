@@ -90,7 +90,7 @@ const Navi = () => {
       <nav className="navi">
         
         <ul>
-          <li><a href="/">Profile</a></li>
+          <li><a href="/Login">Login</a></li>
           <li><a href="/getregister">Get Registered</a></li>
           
           {/* Explore section with a dropdown */}
@@ -99,7 +99,7 @@ const Navi = () => {
             {isDropdownOpen && (
               <div className="dropdown-content">
                 <a href="/unihome">University</a>
-                <a href="/courses">Courses</a>
+                <a href="/course-page">Courses</a>
                 <a href="/scholarship">Scholarship</a>
               </div>
             )}
