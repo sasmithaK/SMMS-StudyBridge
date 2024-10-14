@@ -6,31 +6,35 @@ function UcourseView() {
   const [course, setCourse] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { id } = useParams();
+  const { id, universityId } = useParams(); // Get both course ID and university ID
   const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`http://localhost:5000/courses/${id}`)
-      .then(response => {
+
+    // Fetch the course data using the course ID
+    axios
+      .get(`http://localhost:5000/courses/${id}?universityId=${universityId}`)
+      .then((response) => {
         setCourse(response.data.course);
         setIsLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching course:', error);
         setError('Failed to load course details. Please try again.');
         setIsLoading(false);
       });
-  }, [id]);
+  }, [id, universityId]); // Add universityId as a dependency
 
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this course?')) {
-      axios.delete(`http://localhost:5000/courses/${id}`)
-        .then(response => {
+      axios
+        .delete(`http://localhost:5000/courses/${id}?universityId=${universityId}`)
+        .then((response) => {
           alert('Course deleted successfully!');
-          navigate('/course-page'); // Redirect after deletion
+          navigate(`/university-portfolio/${universityId}`); // Redirect to the university portfolio after deletion
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error deleting course:', error);
           alert('Failed to delete course. Please try again.');
         });
@@ -48,7 +52,7 @@ function UcourseView() {
           <h1 className="card-title">{course.coursetitle || 'Untitled Course'}</h1>
         </div>
         <div className="card-body">
-          {/* Removed the 'University' section because Uid is no longer available */}
+          <p><strong>Duration:</strong> {course.courseduration ? `${course.courseduration} years` : 'N/A'}</p>
           <p><strong>Course Type:</strong> {course.coursetype || 'N/A'}</p>
           <p><strong>Faculty:</strong> {course.faculty || 'N/A'}</p>
           <p><strong>Total Fee:</strong> {course.totalfee ? `$${parseInt(course.totalfee).toLocaleString()}` : 'N/A'}</p>
@@ -56,10 +60,9 @@ function UcourseView() {
         </div>
 
         <div className="card-footer">
-          <button onClick={() => navigate(`/course-update/${course._id}`)} className="sch">Update</button>
+          <button onClick={() => navigate(`/course-update/${course._id}/${universityId}`)} className="sch">Update</button>
           <button onClick={() => handleDelete(course._id)} className="btn-apply">Delete</button>
         </div>
-
       </div>
     </div>
   );
