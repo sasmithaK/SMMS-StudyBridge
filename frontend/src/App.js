@@ -15,6 +15,7 @@ import AddCourseForm from "./Components/courseComponent/Universitycouses/AddCour
 import Home from "./Components/workComponent/Home/Home";
 import Register from "./Components/workComponent/Register/Register";
 import Update from "./Components/workComponent/Update/Update";
+import HomeA from "./Components/HomeComponent/HomeA"; 
 
 import QuestionList from "./Components/examComponent/QuestionList";
 import QuestionForm from "./Components/examComponent/QuestionForm";
@@ -32,6 +33,8 @@ import UpdateUser from "./Components/visaComponent/UpdateUser/UpdateUser";
 import DocumentUpload from "./Components/visaComponent/DocumentUpload/DocumentUpload";
 import ProcessTracking from "./Components/visaComponent/ProcessTracking/ProcessTracking";
 import EVisa from "./Components/visaComponent/EVisa/EVisa";
+import ContactUs from "./Components/visaComponent/contactUs/contactUs";
+import VisaRules from "./Components/visaComponent/visaRules/visaRules";
 
 // University Components
 import Add from "./Components/universityComponent/Add";
@@ -65,7 +68,7 @@ function App() {
   return (
     <>
       <Routes>
-
+        <Route path="/" element={<HomeA/>}/>
         <Route path="/course-page" element={<Maincview />} />
         <Route path="/course-view/:id" element={<CourseView />} />
         {/* <Header /> */}
@@ -128,6 +131,8 @@ function App() {
         <Route path="/payment-options" element={<PaymentOptions />} />
         <Route path="/add-account" element={<AddAccount />} />
         <Route path="/monthly" element={<Monthly />} />
+        <Route path="/contactUs" element={<ContactUs />} />
+        <Route path="/visaRules" element={<VisaRules />} />
 
       </Routes>
     </>

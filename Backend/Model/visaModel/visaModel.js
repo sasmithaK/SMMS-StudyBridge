@@ -1,150 +1,142 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const AutoIncrement = require('mongoose-sequence')(mongoose); // Import mongoose-sequence
 
 const userSchema = new Schema({
-    /*name:{
-        type:String,//DataType
-        required:true,//Validate
-    },
-    gmail:{
-        type:String,//DataType
-        required:true,//Validate
-    },
-    age:{
-        type:Number,//DataType
-        required:true,//Validate
-    },
-    address:{
-        type:String,//DataType
-        required:true,//Validate
-    }*/
 
-    //visa
-    //personal information
-    fullname:{
-        type:String,//DataType
-        required:true,//Validate
+    // visa
+    // personal information
+    fullname: {
+        type: String,
+        required: true,
     },
-    dob:{
-        type:Date,//DataType
-        required:true,//Validate
+    dob: {
+        type: Date,
+        required: true,
     },
-    gender:{
-        type:String,//DataType
-        required:true,//Validate
+    gender: {
+        type: String,
+        required: true,
     },
-    countryresidence:{
-        type:String,//DataType
-        required:true,//Validate
+    countryresidence: {
+        type: String,
+        required: true,
     },
-    placeofbirth:{
-        type:String,//DataType
-        required:true,//Validate
+    placeofbirth: {
+        type: String,
+        required: true,
     },
-    nationality:{
-        type:String,//DataType
-        required:true,//Validate
+    nationality: {
+        type: String,
+        required: true,
     },
-    passportnumber:{
-        type:Number,//DataType
-        required:true,//Validate
+    passportnumber: {
+        type: String, // Changed to String for better flexibility
+        required: true,
     },
-    passportissuedate:{
-        type:Date,//DataType
-        required:true,//Validate
+    passportissuedate: {
+        type: Date,
+        required: true,
     },
-    passportexpirydate:{
-        type:Date,//DataType
-        required:true,//Validate
+    passportexpirydate: {
+        type: Date,
+        required: true,
     },
-    //contact information
-    residetialaddress:{
-        type:String,//DataType
-        required:true,//Validate
+    // contact information
+    residetialaddress: {
+        type: String,
+        required: true,
     },
-    email:{
-        type:String,//DataType
-        required:true,//Validate
+    email: {
+        type: String,
+        required: true,
     },
-    phonenumber:{
-        type:Number,//DataType
-        required:true,//Validate
+    phonenumber: {
+        type: String, // Changed to String for better flexibility
+        required: true,
     },
-    emergencycontact:{
-        type:Number,//DataType
-        required:true,//Validate
+    emergencycontact: {
+        type: String, // Changed to String for better flexibility
+        required: true,
     },
-    //traveldetails
-    purposeofvisit:{
-        type:String,//DataType
-        required:true,//Validate
+    // travel details
+    purposeofvisit: {
+        type: String,
+        required: true,
     },
-    intendedduration:{
-        type:Number,//DataType
-        required:true,//Validate
+    intendedduration: {
+        type: Number,
+        required: true,
     },
-    addressinthedestination:{
-        type:String,//DataType
-        required:true,//Validate
+    addressinthedestination: {
+        type: String,
+        required: true,
     },
-    arrivaldate:{
-        type:Date,//DataType
-        required:true,//Validate
+    arrivaldate: {
+        type: Date,
+        required: true,
     },
-    depaturedate:{
-        type:Date,//DataType
-        required:true,//Validate
+    depaturedate: {
+        type: Date,
+        required: true,
     },
-    //eductiondetails
-    schoolname:{
-        type:String,//DataType
-        required:true,//Validate
+    // education details
+    schoolname: {
+        type: String,
+        required: true,
     },
-    courseofstudy:{
-        type:String,//DataType
-        required:true,//Validate
+    courseofstudy: {
+        type: String,
+        required: true,
     },
-    studyduration:{
-        type:Number,//DataType
-        required:true,//Validate
+    studyduration: {
+        type: Number,
+        required: true,
     },
-    schooladdress:{
-        type:String,//DataType
-        required:true,//Validate
+    schooladdress: {
+        type: String,
+        required: true,
     },
-    //health
-    medicalinsurance:{
-        type:String,//DataType
-        required:true,//Validate
+    // health
+    medicalinsurance: {
+        type: String,
+        required: true,
     },
-    healthdeclaration:{
-        type:String,//DataType
-        required:true,//Validate
+    healthdeclaration: {
+        type: String,
+        required: true,
     },
-    accommodationdetails:{
-        type:String,//DataType
-        required:true,//Validate
+    accommodationdetails: {
+        type: String,
+        required: true,
     },
-    travelitinerary:{
-        type:String,//DataType
-        required:true,//Validate
+    travelitinerary: {
+        type: String,
+        required: true,
     },
-    //declaration
-    declaration:{
-        type:String,//DataType
-        required:true,//Validate
+    // declaration
+    declaration: {
+        type: String,
+        required: true,
     },
-    dateofapplication:{
-        type:Date,//DataType
-        required:true,//Validate
+    dateofapplication: {
+        type: Date,
+        required: true,
+        default: Date.now, // Default to current date
     },
-    signature:{
-        type:String,//DataType
-        required:true,//Validate
+    signature: {
+        type: String,
+        required: true,
+    },
+    // Auto-incremented visaID field
+    visaID: {
+        type: Number,
+        unique: true, // Ensure uniqueness
     }
 });
 
-module.exports = mongoose.model(
-    "visaModel",//File name
-    userSchema//Function name
-)
+// Apply the auto-increment plugin to visaID
+userSchema.plugin(AutoIncrement, { inc_field: 'visaID' });
+
+
+module.exports = mongoose.model("visaModel", userSchema);

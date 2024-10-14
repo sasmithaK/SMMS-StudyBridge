@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -9,18 +9,28 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import QRCode from "qrcode";
+import axios from "axios";
+import visaImg from "./visaImg.jpeg";
+import { Link } from "react-router-dom";
+
+const URL = "http://localhost:5000/Users";
+
+const fetchHandler = async () => {
+  return await axios.get(URL).then((res) => res.data);
+};
 
 function EVisa() {
+  const [Users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetchHandler().then((data) => setUsers(data.Users));
+  }, []);
 
   const generateReport = async () => {
     const doc = new jsPDF();
-  
-    // Adding Logo
-    const img = new Image();
-    img.src = "slLogo.png";
-    img.onload = async () => {
-      doc.addImage(img, "PNG", 0, 10, 50, 30); // x, y, width, height
-  
+
+    const user = Users.length > 0 ? Users[Users.length - 1] : {};
+
       // Title
       doc.setFontSize(15);
       doc.setTextColor("#A818A6");
@@ -31,7 +41,7 @@ function EVisa() {
         { align: "center" }
       );
       doc.text("of E-Visa Issued Notice", 110, 30, { align: "center" });
-  
+
       // Main description
       doc.setFontSize(13);
       doc.setTextColor("#150E15");
@@ -41,46 +51,50 @@ function EVisa() {
         50,
         { maxWidth: 190 }
       );
-  
+
       // Particulars header
       doc.setFontSize(13);
-      doc.text("The particulars submitted by you are appended as follows:", 10, 75);
-  
+      doc.text(
+        "The particulars submitted by you are appended as follows:",
+        10,
+        75
+      );
+
       doc.setFont("helvetica", "bold"); // Set font to Helvetica and bold
       doc.setFontSize(14);
       doc.text("Visa Information", 10, 90);
-  
+
       doc.setFont("helvetica", "normal");
       doc.setFontSize(13);
-      doc.text("Visa Number: ", 10, 98);
-      doc.text("Visa Type: ", 10, 106);
-  
+      doc.text("Visa Number: 123456", 10, 98);
+      doc.text("Visa Type: Study", 10, 106);
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
       doc.text("Personal Details", 10, 121);
       doc.setFont("helvetica", "normal");
-  
+
       doc.setFontSize(13);
-      doc.text("Date of Birth: ", 10, 129);
-      doc.text("Full Name: ", 10, 138);
-      doc.text("Passport Number: ", 10, 146);
-      doc.text("Nationality: ", 10, 154);
-  
+      doc.text(`Date of Birth:${user.dob || "N/A"}`, 10, 129);
+      doc.text(`Full Name: ${user.fullname || "N/A"}`, 10, 138);
+      doc.text(`Passport Number: ${user.passportnumber || "N/A"}`, 10, 146);
+      doc.text(`Nationality: ${user.nationality || "N/A"}`, 10, 154);
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
       doc.text("Additional Visa Info", 10, 169);
-  
+
       doc.setFont("helvetica", "normal");
       doc.setFontSize(13);
-      doc.text("Date Issued: ", 10, 176);
-      doc.text("Duration of Stay: ", 10, 184);
-      doc.text("Visa Issuing Authority: ", 10, 192);
-      doc.text("Validity Period: ", 10, 200);
-  
+      doc.text(`Date Issued: ${user.passportissuedate || "N/A"}`, 10, 176);
+      doc.text(`Duration of Stay: ${user.intendedduration || "N/A"}`, 10, 184);
+      doc.text("Visa Issuing Authority: Department of Immigration", 10, 192);
+      doc.text(`Expiry Date: ${user.passportexpirydate || "N/A"}`, 10, 200);
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(13);
       doc.text("Purpose of Travel: ", 10, 212);
-  
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(13);
       doc.text(
@@ -93,28 +107,27 @@ function EVisa() {
         10,
         233
       );
-  
+
       // Generate QR Code (e.g., using some visa information as data)
       const qrData = "E-visa issued for John Doe, Visa Number: 123456";
       const qrCodeBase64 = await QRCode.toDataURL(qrData);
-  
+
       // Add QR Code to the PDF after the text
       doc.addImage(qrCodeBase64, "PNG", 10, 245, 40, 40); // x, y, width, height for QR
-  
-            // Footer text at bottom-right corner
-            doc.setFontSize(12);
-            doc.setTextColor("#000000");
-            doc.text("Authorized by: Department of Immigration", 90, 254);
-      
-            // Additional contact info or reference number in smaller font
-            doc.setFontSize(10);
-            doc.text("Ref No: 123456 | Contact: +123456789", 90, 270);
-      
+
+      // Footer text at bottom-right corner
+      doc.setFontSize(12);
+      doc.setTextColor("#000000");
+      doc.text("Authorized by: Department of Immigration", 90, 254);
+
+      // Additional contact info or reference number in smaller font
+      doc.setFontSize(10);
+      doc.text("Ref No: 123456 | Contact: +123456789", 90, 270);
+
       // Save the PDF
       doc.save("e-visa-report.pdf");
-    };
+
   };
-  
 
   return (
     <div
@@ -122,7 +135,7 @@ function EVisa() {
         backgroundColor: "#F4F7FB",
       }}
     >
-      <AppBar
+   <AppBar
         position="sticky"
         sx={{
           backgroundColor: "#0091EA", // Background color
@@ -147,6 +160,7 @@ function EVisa() {
             Study Bridge
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1 }}>
+          <Link to="/visa">
             <Button
               color="inherit"
               sx={{
@@ -162,6 +176,8 @@ function EVisa() {
             >
               Home
             </Button>
+            </Link>
+            
             <Button
               color="inherit"
               sx={{
@@ -177,6 +193,7 @@ function EVisa() {
             >
               Visa Guidance
             </Button>
+            <Link to="/contactUs">
             <Button
               color="inherit"
               sx={{
@@ -192,6 +209,7 @@ function EVisa() {
             >
               Contact Us
             </Button>
+            </Link>
           </Box>
           <IconButton
             size="large"
@@ -223,9 +241,10 @@ function EVisa() {
               color: "#2F62C0",
               fontWeight: "bold",
               fontFamily: "sans-serif",
+              textAlign:"left"
             }}
           >
-            Online E-visa{" "}
+            Online E-visa
             <span
               style={{
                 color: "#1E1E1E",
@@ -240,6 +259,7 @@ function EVisa() {
               fontSize: "16px",
               color: "#838383",
               marginTop: "15px",
+              textAlign:"left"
             }}
           >
             Apply for your visa online with our streamlined E-visa application
@@ -277,7 +297,7 @@ function EVisa() {
         </div>
         <div>
           <img
-            src="visaImg.jpeg"
+            src={visaImg}
             alt="visa UI img"
             style={{
               margin: "70px 20px 30px 100px",
@@ -356,8 +376,7 @@ function EVisa() {
           </a>
         </div>
       </footer>
-
-   </div>
+    </div>
   );
 }
 
