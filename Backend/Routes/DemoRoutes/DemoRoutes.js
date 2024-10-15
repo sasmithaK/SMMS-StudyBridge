@@ -1,12 +1,8 @@
 const express = require("express");
 const router = express.Router();
-//Insert Model
-const User = require("../../Model/DemoModel/DemoModel");
-//Insert user controller
 const DemoControll = require("../../Controllers/DemoControll/DemoControll");
 
-router.get("/",DemoControll.getAllUsers);
-router.get("/:id",DemoControll.getById);
+// Route to get user by email
+router.get("/email/:email", DemoControll.getUserByEmail);
 
-//Export
 module.exports = router;
