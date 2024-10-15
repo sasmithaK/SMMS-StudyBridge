@@ -63,7 +63,7 @@ function UniProfile() {
 
                 <nav className="navbar">
                     <ul className="nav-list" style={styles.navList}>
-                        <li onClick={() => navigate("/profile")}>Profile</li>
+                        <li onClick={() => navigate("/uniProfile")}>Profile</li>
                         <li onClick={() => navigate("/applyStudents")}>Students</li>
                         <li onClick={() => navigate(`/add-course?universityId=${filteredUniversities[0]._id}`)}>+Courses</li>
                         <li>Report</li>
