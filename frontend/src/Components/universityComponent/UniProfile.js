@@ -1,3 +1,5 @@
+// UniProfile.js
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +12,7 @@ function UniProfile() {
 
     useEffect(() => {
         // Fetch the universities data from the server
-        axios.get("http://localhost:8000/posts/posts")
+        axios.get("http://localhost:5000/posts/posts")
             .then(response => {
                 setUniversities(response.data.existingPosts);
 
@@ -30,7 +32,7 @@ function UniProfile() {
 
     // Delete function
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:8000/posts/posts/delete/${id}`)
+        axios.delete(`http://localhost:5000/posts/posts/delete/${id}`)
             .then(() => {
                 // Filter out the deleted university from the state
                 setFilteredUniversities(prev => prev.filter(uni => uni._id !== id));
@@ -44,90 +46,92 @@ function UniProfile() {
 
     // Logout function
     const handleLogout = () => {
-        // Clear user data from local storage
         localStorage.removeItem('userName');
-        localStorage.removeItem('otherUserData'); // Clear any other relevant user data if needed
-        // Redirect to the home page
+        localStorage.removeItem('otherUserData');
         navigate("/");
     };
 
     return (
         <div style={styles.backgroundWrapper}>
-        <div style={styles.container}>
-            <div style={styles.header}>
-                <h1>Welcome {filteredUniversities.length > 0 ? filteredUniversities[0].uniName : "Name"} University Dashboard!</h1>
-                <button onClick={handleLogout} style={styles.logoutButton}>Logout</button> {/* Logout button added to header */}
-            </div>
+            <div style={styles.container}>
+                <div style={styles.header}>
+                    <h1>Welcome {filteredUniversities.length > 0 ? filteredUniversities[0].uniName : "Name"} University Dashboard!</h1>
+                    <button onClick={handleLogout} style={styles.logoutButton}>
+                        <i className="fa fa-sign-out" aria-hidden="true"></i> Logout
+                    </button>
+                </div>
 
-            <nav className="navbar">
-                <ul className="nav-list" style={styles.navList}>
-                    <li onClick={() => navigate("/uniProfile")}>Profile</li>
-                    <li onClick={() => navigate("/applyStudents")}>Students</li>
-                    <li onClick={() => navigate("/add-course")}>+Courses</li>
-                    <li>Report</li>
-                    <li onClick={() => navigate("/")}>Home</li>
-                    <li onClick={() => navigate("//university-portfolio/:universityId")}>Course</li>
-                </ul>
-            </nav>
+                <nav className="navbar">
+                    <ul className="nav-list" style={styles.navList}>
+                        <li onClick={() => navigate("/profile")}>Profile</li>
+                        <li onClick={() => navigate("/applyStudents")}>Students</li>
+                        <li onClick={() => navigate(`/add-course?universityId=${filteredUniversities[0]._id}`)}>+Courses</li>
+                        <li>Report</li>
+                        <li onClick={() => navigate("/")}>Home</li>
+                        <li onClick={() => navigate(`/university-portfolio/${filteredUniversities[0]._id}`)}>courses</li>
+                    </ul>
+                </nav>
 
-            <div className="gallery" style={styles.gallery}>
-                {filteredUniversities.map(uni => (
-                    <div style={styles.card} key={uni._id}>
-                        <h2 style={styles.uniName}>{uni.uniName}</h2>
-                        <img style={styles.cardImg} src={uni.image} alt="University" />
-                        <p><strong>Uni Rank:</strong> {uni.rank}</p>
-                        <p><strong>Location:</strong> {uni.location}</p>
-                        <p><strong>Contact:</strong> {uni.contact}</p>
-                        <p><strong>About:</strong><br /> {uni.description}</p>
-                        <p><strong>UserName:</strong> {uni.userName}</p>
-                        <p><strong>Password:</strong> {uni.password}</p>
+                <div className="gallery" style={styles.gallery}>
+                    {filteredUniversities.map(uni => (
+                        <div style={styles.card} key={uni._id}>
+                            <h2 style={styles.uniName}>{uni.uniName}</h2>
+                            <img style={styles.cardImg} src={uni.image} alt="University" />
+                            <p><strong>Uni Rank:</strong> {uni.rank}</p>
+                            <p><strong>Location:</strong> {uni.location}</p>
+                            <p><strong>Contact:</strong> {uni.contact}</p>
+                            <p><strong>About:</strong><br /> {uni.description}</p>
+                            <p><strong>UserName:</strong> {uni.userName}</p>
+                            <p><strong>Password:</strong> {uni.password}</p>
 
-                        <div style={styles.buttonContainer}>
-                            <button onClick={() => navigate(`/updateUni/${uni._id}`)} style={styles.updateButton}>Update</button>
-                            <button onClick={() => handleDelete(uni._id)} style={styles.deleteButton}>Delete</button>
+                            <div style={styles.buttonContainer}>
+                                <button onClick={() => navigate(`/updateUni/${uni._id}`)} style={styles.updateButton}>
+                                    Update
+                                </button>
+                                <button onClick={() => handleDelete(uni._id)} style={styles.deleteButton}>
+                                    Delete
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-        </div>
         </div>
     );
 }
 
 const styles = {
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '100%', // Full width
-        padding: 0,
-        margin: 0,
-        backgroundColor: '#f0f0f0', // Optional background
-    },
+
     backgroundWrapper: {
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        minHeight: "100vh", // Full screen height
         padding: "20px",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: -1,
-      },
+    },
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+        padding: 0,
+        margin: 0,
+        backgroundColor: 'transparent', // Make it transparent to allow background to show through
+        overflow: 'auto', // Allow scrolling if needed
+    },
+    
     header: {
-        justifyContent: "space-between", // Align items with space between
+        justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: "#000000e2",
         color: "white",
         width: '100%',
         textAlign: 'center',
         padding: '1rem 0',
-        position: 'relative', // Make header position relative for absolute positioning of logout
+        position: 'relative',
     },
     logoutButton: {
-        position: 'absolute', // Position logout button at the top right
+        position: 'absolute',
         right: '20px',
         top: '20px',
         backgroundColor: '#ff4d4d',
@@ -143,7 +147,7 @@ const styles = {
         listStyleType: 'none',
         padding: 0,
         margin: 0,
-        fontSize: '14px', // Adjusted font size for navigation items
+        fontSize: '14px',
     },
     gallery: {
         display: 'flex',
@@ -154,11 +158,13 @@ const styles = {
     },
     card: {
         margin: "10px",
-        width: "30%", // Adjust width for responsiveness
-        backgroundColor: 'white',
+        width: "30%",
+        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Slightly more opaque for visibility
         borderRadius: '8px',
-        boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
-        padding: '10px',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)', // Stronger shadow for depth
+        padding: '20px',
+        overflow: 'hidden', // Prevent child elements from overflowing
+        backdropFilter: 'blur(5px)', // Optional: Adds a blur effect for a glassy look
     },
     uniName: {
         fontWeight: "bold",
@@ -166,8 +172,8 @@ const styles = {
         textAlign: 'center',
     },
     cardImg: {
-        width: "100%", // Full width of the card
-        height: 'auto', // Maintain aspect ratio
+        width: "100%",
+        height: 'auto',
         borderRadius: '8px',
     },
     buttonContainer: {

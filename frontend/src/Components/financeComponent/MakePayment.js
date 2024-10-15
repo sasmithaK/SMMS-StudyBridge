@@ -1,259 +1,416 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import FinHeader from './FinHeader';
+import Header from '../universityComponent/Header';
 
-function MakePayment() {
-  const navigate = useNavigate();
-
+const MakePayment = () => {
   const [formData, setFormData] = useState({
     university: '',
-    name: 'Sasmitha Kavindu', 
-    studentNumber: '12345678', 
+    studentName: '',
+    studentNumber: '',
     course: '',
     purpose: '',
+    amount: '',
     email: '',
     phone: '',
-    amount: ''
+    paymentMethod: '',
+    creditCardDetails: {
+      cardNumber: '',
+      expiryMonth: '',
+      expiryYear: '',
+      securityCode: '',
+      cardholderName: '',
+    },
+    fundTransferDetails: {
+      bankName: '',
+      accountNumber: '',
+    },
   });
 
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [id]: value,
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
     }));
   };
 
-  const validate = () => {
-    let tempErrors = {};
-    let isValid = true;
-
-    if (!formData.university) {
-      tempErrors.university = "Please select a university.";
-      isValid = false;
-    }
-    if (!formData.name) {
-      tempErrors.name = "Name is required.";
-      isValid = false;
-    }
-    if (!formData.studentNumber) {
-      tempErrors.studentNumber = "Student Number is required.";
-      isValid = false;
-    }
-    if (!formData.course) {
-      tempErrors.course = "Please select a course.";
-      isValid = false;
-    }
-    if (!formData.purpose) {
-      tempErrors.purpose = "Purpose of payment is required.";
-      isValid = false;
-    }
-    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
-      tempErrors.email = "A valid email is required.";
-      isValid = false;
-    }
-    if (!formData.phone || !/^\d{10}$/.test(formData.phone)) {
-      tempErrors.phone = "A valid 10-digit phone number is required.";
-      isValid = false;
-    }
-    if (!formData.amount || parseFloat(formData.amount) <= 0) {
-      tempErrors.amount = "Please enter a valid amount.";
-      isValid = false;
-    }
-
-    setErrors(tempErrors);
-    return isValid;
+  const handlePaymentMethodChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      paymentMethod: value,
+    }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (validate()) {
-      try {
-        // Check if student number exists
-        const checkResponse = await axios.get(`http://localhost:5000/student/check/${formData.studentNumber}`);
-        
-        if (checkResponse.data.exists) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            studentNumber: "Student number already exists in the database."
-          }));
-        } else {
-          // Proceed with form submission
-          const response = await axios.post('http://localhost:5000/payment/add', {
-            university: formData.university,
-            studentName: formData.name,
-            studentNumber: formData.studentNumber,
-            course: formData.course,
-            purpose: formData.purpose,
-            email: formData.email,
-            phone: formData.phone,
-            amount: formData.amount,
-            paymentMethod: 'N/A',
-            fundTransferDetails: {},
-            creditCardDetails: {}
-          });
-          console.log("Form data submitted:", response.data);
-          navigate("/payment-options");
-        }
-      } catch (error) {
-        console.error("There was an error submitting the payment!", error);
+  const handleCreditCardChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      creditCardDetails: {
+        ...prevData.creditCardDetails,
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleFundTransferChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      fundTransferDetails: {
+        ...prevData.fundTransferDetails,
+        [name]: value,
+      },
+    }));
+  };
+
+  const validateForm = () => {
+    let formErrors = {};
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const phonePattern = /^\d{10,15}$/;
+    const cardNumberPattern = /^\d{16}$/;
+    const expiryMonthPattern = /^(0[1-9]|1[0-2])$/; // Validates MM (01-12)
+    const expiryYearPattern = /^\d{2}$/; // Validates YY (e.g., 24 for 2024)
+    const securityCodePattern = /^\d{3}$/; // Validates security code (3 digits)
+
+    // Email validation
+    if (!formData.email || !emailPattern.test(formData.email)) {
+      formErrors.email = 'Please enter a valid email address.';
+    }
+
+    // Phone validation
+    if (!formData.phone || !phonePattern.test(formData.phone)) {
+      formErrors.phone = 'Please enter a valid phone number (10-15 digits).';
+    }
+
+    // Payment Method validation
+    if (formData.paymentMethod === 'Credit Card') {
+      if (!formData.creditCardDetails.cardNumber || !cardNumberPattern.test(formData.creditCardDetails.cardNumber)) {
+        formErrors.cardNumber = 'Card number must be 16 digits.';
+      }
+      if (!formData.creditCardDetails.expiryMonth || !expiryMonthPattern.test(formData.creditCardDetails.expiryMonth)) {
+        formErrors.expiryMonth = 'Expiry month must be valid (01-12).';
+      }
+      if (!formData.creditCardDetails.expiryYear || !expiryYearPattern.test(formData.creditCardDetails.expiryYear)) {
+        formErrors.expiryYear = 'Expiry year must be valid (last two digits of year).';
+      }
+      if (!formData.creditCardDetails.securityCode || !securityCodePattern.test(formData.creditCardDetails.securityCode)) {
+        formErrors.securityCode = 'Security code must be 3 digits.';
       }
     }
+
+    if (formData.paymentMethod === 'Fund Transfer') {
+      if (!formData.fundTransferDetails.bankName) {
+        formErrors.bankName = 'Please provide the bank name for fund transfer.';
+      }
+      if (!formData.fundTransferDetails.accountNumber) {
+        formErrors.accountNumber = 'Please provide the account number for fund transfer.';
+      }
+    }
+
+    setErrors(formErrors);
+    return Object.keys(formErrors).length === 0; // Return true if no errors
   };
-  
+
+  const handleProcessPayment = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      alert('Please correct the errors in the form.');
+      return;
+    }
+
+    try {
+      await axios.post('http://localhost:5000/payment/add', formData);
+      alert('Payment processed successfully!');
+      setFormData({
+        university: '',
+        studentName: '',
+        studentNumber: '',
+        course: '',
+        purpose: '',
+        amount: '',
+        email: '',
+        phone: '',
+        paymentMethod: '',
+        creditCardDetails: {
+          cardNumber: '',
+          expiryMonth: '',
+          expiryYear: '',
+          securityCode: '',
+          cardholderName: '',
+        },
+        fundTransferDetails: {
+          bankName: '',
+          accountNumber: '',
+        },
+      });
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      alert('There was an error processing your payment. Please try again.');
+    }
+  };
 
   return (
-    <div className="container py-5" style={{ maxWidth: "800px", margin: "auto" }}>
-      <h1 className="text-center mb-5">Make payments</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="row mb-4">
-          <div className="col-md-8">
-            <label htmlFor="university" className="form-label text-primary">
-              University / Institute
-            </label>
-            <select
-              className="form-control"
-              id="university"
+    <div>
+      
+      <Container>
+      <FinHeader />
+        <h2 className="my-4">Make Payments</h2>
+        <Form onSubmit={handleProcessPayment}>
+          {/* Payment Form Fields */}
+          <Form.Group controlId="university">
+            <Form.Label>University / Institute</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Select University"
+              name="university"
               value={formData.university}
               onChange={handleChange}
-            >
-              <option value="">Select University</option>
-              <option value="NSBM Green University">NSBM Green University</option>
-              <option value="ICBT">ICBT</option>
-            </select>
-            {errors.university && (
-              <small className="text-danger">{errors.university}</small>
-            )}
-          </div>
-        </div>
-
-        {/* Student Name and Student Number (with default values) */}
-        <div className="row mb-4">
-          <div className="col-md-6">
-            <label htmlFor="name" className="form-label text-primary">
-              Student Name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              value={formData.name}
-              onChange={handleChange}
+              required
             />
-            {errors.name && <small className="text-danger">{errors.name}</small>}
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="studentNumber" className="form-label text-primary">
-              Student Number
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="studentNumber"
-              value={formData.studentNumber}
-              onChange={handleChange}
-            />
-            {errors.studentNumber && (
-              <small className="text-danger">{errors.studentNumber}</small>
-            )}
-          </div>
-        </div>
+          </Form.Group>
 
-        {/* Course Dropdown */}
-        <div className="row mb-4">
-          <div className="col-md-6">
-            <label htmlFor="course" className="form-label text-primary">
-              Course
-            </label>
-            <select
-              className="form-control"
-              id="course"
-              value={formData.course}
-              onChange={handleChange}
-            >
-              <option value="">Select Course</option>
-              <option value="Computer Science">Computer Science</option>
-              <option value="Software Engineering">Software Engineering</option>
-              <option value="Information Technology">Information Technology</option>
-            </select>
-            {errors.course && <small className="text-danger">{errors.course}</small>}
-          </div>
+          <Row>
+            <Col>
+              <Form.Group controlId="studentName">
+                <Form.Label>Student Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="studentName"
+                  value={formData.studentName}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="studentNumber">
+                <Form.Label>Student Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="studentNumber"
+                  value={formData.studentNumber}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
 
-          <div className="col-md-6">
-            <label htmlFor="purpose" className="form-label text-primary">
-              Purpose of payment
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="purpose"
-              value={formData.purpose}
-              onChange={handleChange}
-            />
-            {errors.purpose && (
-              <small className="text-danger">{errors.purpose}</small>
-            )}
-          </div>
-        </div>
+          <Row>
+            <Col>
+              <Form.Group controlId="course">
+                <Form.Label>Course</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Select Course"
+                  name="course"
+                  value={formData.course}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="purpose">
+                <Form.Label>Purpose of Payment</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="purpose"
+                  value={formData.purpose}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
 
-        {/* Email and Phone */}
-        <div className="row mb-4">
-          <div className="col-md-6">
-            <label htmlFor="email" className="form-label text-primary">
-              Email
-            </label>
-            <input
+          {/* New Fields for Email and Phone */}
+          <Form.Group controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
               type="email"
-              className="form-control"
-              id="email"
+              name="email"
               value={formData.email}
               onChange={handleChange}
+              isInvalid={!!errors.email}
+              required
             />
-            {errors.email && <small className="text-danger">{errors.email}</small>}
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="phone" className="form-label text-primary">
-              Phone number
-            </label>
-            <input
-              type="tel"
-              className="form-control"
-              id="phone"
+            <Form.Control.Feedback type="invalid">
+              {errors.email}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group controlId="phone">
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control
+              type="text"
+              name="phone"
               value={formData.phone}
               onChange={handleChange}
+              isInvalid={!!errors.phone}
+              required
             />
-            {errors.phone && <small className="text-danger">{errors.phone}</small>}
-          </div>
-        </div>
+            <Form.Control.Feedback type="invalid">
+              {errors.phone}
+            </Form.Control.Feedback>
+          </Form.Group>
 
-        {/* Amount */}
-        <div className="mb-4">
-          <label htmlFor="amount" className="form-label text-primary">
-            Payment amount
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="amount"
-            value={formData.amount}
-            onChange={handleChange}
-          />
-          {errors.amount && <small className="text-danger">{errors.amount}</small>}
-        </div>
+          <Form.Group controlId="amount">
+            <Form.Label>Payment Amount</Form.Label>
+            <Form.Control
+              type="number"
+              name="amount"
+              value={formData.amount}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
 
-        <div className="d-grid">
-          <button type="submit" className="btn btn-primary btn-lg">
-            Next
-          </button>
-        </div>
-      </form>
+          {/* Payment Options */}
+          <h2 className="my-4">Payment Options</h2>
+          <Form.Group controlId="paymentMethod">
+            <Form.Label>Select Payment Method</Form.Label>
+            <Form.Control
+              as="select"
+              name="paymentMethod"
+              value={formData.paymentMethod}
+              onChange={handlePaymentMethodChange}
+              required
+            >
+              <option value="">Select Payment Method</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="Fund Transfer">Fund Transfer</option>
+            </Form.Control>
+          </Form.Group>
+
+          {formData.paymentMethod === 'Credit Card' && (
+            <>
+              <Form.Group controlId="cardNumber">
+                <Form.Label>Card Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="cardNumber"
+                  value={formData.creditCardDetails.cardNumber}
+                  onChange={handleCreditCardChange}
+                  isInvalid={!!errors.cardNumber}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.cardNumber}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Row>
+                <Col>
+                  <Form.Group controlId="expiryMonth">
+                    <Form.Label>Expiry Month</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="MM"
+                      name="expiryMonth"
+                      value={formData.creditCardDetails.expiryMonth}
+                      onChange={handleCreditCardChange}
+                      isInvalid={!!errors.expiryMonth}
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.expiryMonth}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group controlId="expiryYear">
+                    <Form.Label>Expiry Year</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="YY"
+                      name="expiryYear"
+                      value={formData.creditCardDetails.expiryYear}
+                      onChange={handleCreditCardChange}
+                      isInvalid={!!errors.expiryYear}
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.expiryYear}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group controlId="securityCode">
+                    <Form.Label>Security Code</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="securityCode"
+                      value={formData.creditCardDetails.securityCode}
+                      onChange={handleCreditCardChange}
+                      isInvalid={!!errors.securityCode}
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.securityCode}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Form.Group controlId="cardholderName">
+                <Form.Label>Cardholder Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="cardholderName"
+                  value={formData.creditCardDetails.cardholderName}
+                  onChange={handleCreditCardChange}
+                  required
+                />
+              </Form.Group>
+            </>
+          )}
+
+          {formData.paymentMethod === 'Fund Transfer' && (
+            <>
+              <Form.Group controlId="bankName">
+                <Form.Label>Bank Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="bankName"
+                  value={formData.fundTransferDetails.bankName}
+                  onChange={handleFundTransferChange}
+                  isInvalid={!!errors.bankName}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.bankName}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group controlId="accountNumber">
+                <Form.Label>Account Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="accountNumber"
+                  value={formData.fundTransferDetails.accountNumber}
+                  onChange={handleFundTransferChange}
+                  isInvalid={!!errors.accountNumber}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.accountNumber}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </>
+          )}
+
+          <Button variant="primary" type="submit" className="mt-3">
+            Process Payment
+          </Button>
+        </Form>
+      </Container>
     </div>
   );
-
-
-}
+};
 
 export default MakePayment;

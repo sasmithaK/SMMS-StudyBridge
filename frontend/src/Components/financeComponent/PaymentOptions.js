@@ -104,7 +104,7 @@ function PaymentOptions() {
         fundTransferDetails: paymentMethod === "fundTransfer" ? fundTransferData : {},
         creditCardDetails: paymentMethod === "creditCard" ? creditCardData : {},
       };
-  
+
       try {
         const response = await axios.post('http://localhost:5000/payment/add', paymentDetails);
         console.log("Payment submitted successfully:", response.data);
@@ -117,7 +117,7 @@ function PaymentOptions() {
       }
     }
   };
-  
+
 
   return (
     <div className="container py-5" style={{ maxWidth: "800px", margin: "auto" }}>

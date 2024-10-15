@@ -6,21 +6,21 @@ import User from "../User/User";
 import { TextField, InputAdornment, Typography, Box, Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-const URL = "http://localhost:5000/Users";
+const URL = "http://localhost:5000/VisaApplication";
 
 const fetchHandler = async () => {
   return await axios.get(URL).then((res) => res.data);
 };
 
 function UserDetails() {
-  const [Users, setUsers] = useState([]);
+  const [VisaApplication, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetchHandler().then((data) => setUsers(data.Users));
+    fetchHandler().then((data) => setUsers(data.VisaApplication));
   }, []);
 
-  const filteredUsers = Users.filter((user) =>
+  const filteredUsers = VisaApplication.filter((user) =>
     user.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
     String(user.visaID).toLowerCase().includes(searchTerm.toLowerCase())
   );

@@ -25,7 +25,7 @@ function UpdateUser() {
   useEffect(() => {
     const fetchHandler = async () => {
       await axios
-        .get(`http://localhost:5000/Users/${id}`)
+        .get(`http://localhost:5000/VisaApplication/${id}`)
         .then((res) => res.data)
         .then((data) => setInputs(data.user));
     };
@@ -34,7 +34,7 @@ function UpdateUser() {
 
   const sendRequest = async () => {
     await axios
-      .put(`http://localhost:5000/Users/${id}`, {
+      .put(`http://localhost:5000/VisaApplication/${id}`, {
         //visa
         fullname: String(inputs.fullname),
         dob: Date(inputs.dob),
@@ -91,7 +91,7 @@ function UpdateUser() {
 
   const validate = () => {
     let tempErrors = {};
-
+  
     // Full Name Validation: First letter must be capital, no numbers allowed
     const nameRegex = /^[A-Z][a-zA-Z\s]*$/;
     if (!inputs.fullname) {
@@ -100,7 +100,16 @@ function UpdateUser() {
       tempErrors.fullname =
         "Full name must start with a capital letter and contain no numbers";
     }
-
+  
+    // Passport Number Validation: Required, alphanumeric, length between 6-15
+    const passportNumberRegex = /^[A-Za-z0-9]{6,15}$/; // Adjust regex as necessary
+    if (!inputs.passportnumber) {
+      tempErrors.passportnumber = "Passport number is required";
+    } else if (!passportNumberRegex.test(inputs.passportnumber)) {
+      tempErrors.passportnumber =
+        "Passport number must be alphanumeric and between 6-15 characters";
+    }
+  
     // Passport Expiry should be after issue date
     if (inputs.passportissuedate && inputs.passportexpirydate) {
       const issueDate = new Date(inputs.passportissuedate);
@@ -109,22 +118,22 @@ function UpdateUser() {
         tempErrors.passportexpirydate = "Expiry date must be after issue date";
       }
     }
-
+  
     // Email Validation
     if (!/\S+@\S+\.\S+/.test(inputs.email)) {
       tempErrors.email = "Email is not valid";
     }
-
+  
     // Phone Number Validation
     if (!/^\d{10,15}$/.test(inputs.phonenumber)) {
       tempErrors.phonenumber = "Phone number should be 10-15 digits";
     }
-
+  
     // Emergency Contact Validation
     if (!/^\d{10,15}$/.test(inputs.emergencycontact)) {
       tempErrors.emergencycontact = "Emergency contact should be 10-15 digits";
     }
-
+  
     // Intended Duration Validation (must be an integer)
     if (
       !inputs.intendedduration ||
@@ -132,7 +141,7 @@ function UpdateUser() {
     ) {
       tempErrors.intendedduration = "Intended duration must be an integer";
     }
-
+  
     // Study Duration Validation (must be an integer)
     if (
       !inputs.studyduration ||
@@ -140,9 +149,9 @@ function UpdateUser() {
     ) {
       tempErrors.studyduration = "Study duration must be an integer";
     }
-
+  
     setErrors(tempErrors);
-
+  
     return Object.keys(tempErrors).length === 0;
   };
 
@@ -302,7 +311,8 @@ function UpdateUser() {
                 value={inputs.passportnumber}
                 onChange={handleChange}
                 required
-                InputLabelProps={{ shrink: true }}
+                error={Boolean(errors.passportnumber)}
+                helperText={errors.passportnumber}
               />
             </Grid>
             <Grid item xs={12} sm={6}>

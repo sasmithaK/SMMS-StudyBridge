@@ -139,4 +139,4 @@ const userSchema = new Schema({
 userSchema.plugin(AutoIncrement, { inc_field: 'visaID' });
 
 
-module.exports = mongoose.model("visaModel", userSchema);
+module.exports = mongoose.model("VisaApplication", userSchema);

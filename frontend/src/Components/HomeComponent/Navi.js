@@ -104,7 +104,7 @@ const Navi = () => {
             )}
           </li>
           
-          <li><a href="/mkpayment">Payment</a></li>
+          <li><a href="/mkpayment">Payment portal</a></li>
           <li><a href="/visa">Visa Center</a></li>
           <li><a href="/contact">HelpDesk</a></li>
         </ul>
