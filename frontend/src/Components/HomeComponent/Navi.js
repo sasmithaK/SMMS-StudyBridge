@@ -109,7 +109,7 @@ const Navi = () => {
           <li><a href="/contact">HelpDesk</a></li>
         </ul>
         {/* Apply Now Button */}
-        <button className="apply-now">Apply Now</button>
+        <button className="apply-now"><a href="/contact">Apply Now</a></button>
       </nav>
     </>
   );
