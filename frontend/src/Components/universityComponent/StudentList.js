@@ -7,7 +7,7 @@ function StudentList({ universityName }) {
 
   useEffect(() => {
     // Fetch courses based on the university name
-    axios.get(`http://localhost:8000/students?university=${universityName}`)
+    axios.get(`http://localhost:5000/appstudents?university=${universityName}`)
       .then(response => {
         setStudents(response.data.students); // Ensure this matches your backend response
       })
