@@ -61,10 +61,6 @@ app.use("/VisaApplication", visaRouter); // Renamed to VisaApplication
 const paymentRouter = require("./Routes/financeRoute/paymentRoute");
 app.use("/payment", paymentRouter);
 
-// Demo Routes
-const Demorouter = require("./Routes/DemoRoutes/DemoRoutes");
-app.use("/DemoStu", Demorouter);
-
 // Student Routes (from the second app)
 const studentRoutes = require('./Routes/StudentRoutes');
 app.use('/api', studentRoutes); // Using distinct path for students
