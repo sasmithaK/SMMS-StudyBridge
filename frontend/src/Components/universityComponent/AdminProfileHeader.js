@@ -85,7 +85,7 @@ function AdminProfileHeader() {
                         style={styles.navItem}
                         onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.navItemHover.backgroundColor}
                         onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.navItem.backgroundColor}
-                        onClick={() => navigate("/allStudents")}
+                        onClick={() => navigate("/allStudentsStd")}
                     >
                         Students
                     </li>

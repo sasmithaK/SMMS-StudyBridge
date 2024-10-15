@@ -52,6 +52,11 @@ import StudentList from "./Components/universityComponent/StudentList"
 import ApplyStudent from "./Components/universityComponent/ApplyStudent";
 import RegisterStudent from "./Components/universityComponent/RegisterStudent";
 
+import HelpDesk from "./Components/HelpDesk/HelpDesk";
+import RegisterStudentstd from './Components/RegisterStudentstd';
+import StdLogin from './Components/StdLogin';
+import StdProfile from './Components/StdProfile';
+import StdstudentList from "./Components/StdstudentList";
 
 
 // Financial Components
@@ -144,6 +149,15 @@ function App() {
         <Route path="/monthly" element={<Monthly />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/visaRules" element={<VisaRules />} />
+
+
+{/*student */}
+
+<Route path ="stdlogin" element={<StdLogin/>}/>
+        <Route path ="helpdesk" element={<HelpDesk/>}/>
+        <Route path ="myProfile" element={<StdProfile/>}/>
+        <Route path="registerStudentstd" element={<RegisterStudentstd/>}/>
+        <Route path="allStudentsStd" element ={<StdstudentList/>}/>
 
       </Routes>
     </>

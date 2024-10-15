@@ -90,7 +90,7 @@ const Navi = () => {
         
         <ul>
           <li><a href="/Login">Login</a></li>
-          <li><a href="/getregister">Get Registered</a></li>
+          <li><a href="/registerStudentstd">Get Registered</a></li>
           
           {/* Explore section with a dropdown */}
           <li className="dropdown" onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
@@ -106,7 +106,7 @@ const Navi = () => {
           
           <li><a href="/mkpayment">Payment portal</a></li>
           <li><a href="/visa">Visa Center</a></li>
-          <li><a href="/contact">HelpDesk</a></li>
+          <li><a href="/helpdesk">HelpDesk</a></li>
         </ul>
         {/* Apply Now Button */}
         <button className="apply-now"><a href="/workregister">Apply Now</a></button>
