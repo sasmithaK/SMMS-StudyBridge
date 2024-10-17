@@ -63,24 +63,33 @@ function Transactions() {
     const generateSummaryPDF = () => {
         const doc = new jsPDF();
         
+        // Get current date and time
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString(); // Format: MM/DD/YYYY (adjust if needed)
+        const formattedTime = now.toLocaleTimeString(); // Format: HH:MM:SS AM/PM
+    
         // Add title and styling
         doc.setFontSize(18);
         doc.text("Filtered Transaction Summary", 14, 20);
-        doc.setFontSize(12);
-        doc.setTextColor(40);
-        doc.setDrawColor(0);
+    
+        // Add the generated date and time below the title
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.text(`Generated on: ${formattedDate} at ${formattedTime}`, 14, 28);
     
         // Header background color and text
         doc.setFillColor(211, 211, 211);
-        doc.rect(14, 28, 182, 10, 'F'); // Light gray background for the table header
-        doc.text("University", 16, 35);
-        doc.text("Student Number", 70, 35);
-        doc.text("Course", 115, 35);
-        doc.text("Purpose", 150, 35);
-        doc.text("Amount", 192, 35, { align: 'right' });
+        doc.rect(14, 35, 182, 10, 'F'); // Light gray background for the table header
+        doc.setFontSize(12);
+        doc.setTextColor(40);
+        doc.text("University", 16, 42);
+        doc.text("Student Number", 70, 42);
+        doc.text("Course", 115, 42);
+        doc.text("Purpose", 150, 42);
+        doc.text("Amount", 192, 42, { align: 'right' });
     
         // Set initial Y position for the first row of data
-        let y = 45;
+        let y = 52;
     
         // Iterate through the filtered transactions
         filteredTransactions.forEach((transaction, index) => {
@@ -113,8 +122,9 @@ function Transactions() {
         doc.text(`$${totalAmount.toFixed(2)}`, 192, y, { align: 'right' });
     
         // Save the PDF with a descriptive filename
-        doc.save('filtered_transaction_summary.pdf');
-    };       
+        doc.save(`filtered_transaction_summary_${formattedDate}.pdf`);
+    };
+         
     
 
     const filteredTransactions = transactions.filter(transaction =>
