@@ -38,7 +38,7 @@ function Login(){
             <h1 style={{fontWeight:"600"}}><center>Login</center></h1>
             </div>
             <center>
-            <button className="loginBtn">As a Student</button><br /><br />
+            <button className="loginBtn" onClick={() => navigate('/StdLogin')}>As a Student</button><br /><br />
             <button className="loginBtn"  onClick={() => navigate('/uniLog')}>As an University</button><br /><br />
             <button className="loginBtn" onClick={() => navigate('/adminProfile')}>As a Admin</button><br /><br />
             </center>

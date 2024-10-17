@@ -16,13 +16,11 @@ function Header() {
                     &emsp;&ensp;
                     <li style={{backgroundColor: "#113fd5"}} onClick={() => navigate("/")}>Home</li>
                     &ensp;
-                    <li style={{backgroundColor: "#113fd5"}} onClick={() => navigate("/universities")}>Universities</li>
+                    <li style={{backgroundColor: "#113fd5"}} onClick={() => navigate("/unihome")}>Universities</li>
                     &ensp;
                     <li style={{backgroundColor: "#113fd5"}} onClick={() => navigate("/course-page")}>Course</li>
                     &ensp;
                     <li style={{backgroundColor: "#113fd5"}} onClick={() => navigate("/workregister")}>Application</li>
-                    &ensp;
-                    <li style={{backgroundColor: "#113fd5"}} onClick={() => navigate("/questionlist")}>Exams</li>
                     &ensp;
                     <img onClick={() => navigate("/login")} src={proPic} alt="Profile" className="header-image" />
                 </ul>

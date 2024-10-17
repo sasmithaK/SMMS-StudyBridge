@@ -12,6 +12,7 @@ const fetchHandler = async () => {
   return await axios.get(URL).then((res) => res.data);
 };
 
+
 function UserDetails() {
   const [VisaApplication, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

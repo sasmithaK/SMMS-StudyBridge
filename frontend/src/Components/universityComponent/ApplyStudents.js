@@ -13,7 +13,7 @@ function ApplyStudents() {
 
     useEffect(() => {
         // Fetch universities from the server
-        axios.get("http://localhost:8000/posts/posts")
+        axios.get("http://localhost:5000/posts/posts")
             .then(response => {
                 const universities = response.data.existingPosts;
                 setUniversities(universities);
@@ -24,7 +24,7 @@ function ApplyStudents() {
                 
                 // Fetch students for each university
                 const universitiesWithStudents = matchedUniversities.map(uni => {
-                    return axios.get(`http://localhost:8000/students?university=${uni.uniName}`)
+                    return axios.get(`http://localhost:5000/appstudents?university=${uni.uniName}`)
                         .then(studentResponse => ({
                             ...uni,  // Keep existing university data
                             students: studentResponse.data.students || []  // Attach students data
@@ -46,7 +46,7 @@ function ApplyStudents() {
     }, []);
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:8000/posts/posts/delete/${id}`)
+        axios.delete(`http://localhost:5000/posts/posts/delete/${id}`)
             .then(() => {
                 setFilteredUniversities(prev => prev.filter(uni => uni._id !== id));
                 alert("University deleted successfully!");
