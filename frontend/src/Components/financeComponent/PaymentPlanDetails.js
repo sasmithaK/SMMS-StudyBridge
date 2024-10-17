@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardActions, Button, Typography, Grid } from '@mui/material';
+import { Card, CardContent, CardActions, Button, Typography, Grid, Box, Stack } from '@mui/material';
 
 function PaymentPlanDetails() {
     const [selectedPlan, setSelectedPlan] = useState(null);
@@ -66,7 +66,7 @@ function PaymentPlanDetails() {
     };
 
     return (
-        <div className="container py-5">
+        <Box p={5}>
             <Typography variant="h4" component="h2" color="primary" gutterBottom>
                 Choose Your Payment Plan
             </Typography>
@@ -94,7 +94,7 @@ function PaymentPlanDetails() {
             </Grid>
 
             {selectedPlan && (
-                <div className="mt-5">
+                <Box mt={5}>
                     <Typography variant="h5" component="h3" color="primary">
                         {selectedPlan.type} Details
                     </Typography>
@@ -103,13 +103,13 @@ function PaymentPlanDetails() {
                     </Typography>
 
                     <Typography variant="h6">Features:</Typography>
-                    <ul>
+                    <Stack spacing={1}>
                         {selectedPlan.features.map((feature, index) => (
-                            <li key={index}>
-                                <Typography variant="body2">{feature}</Typography>
-                            </li>
+                            <Typography variant="body2" key={index}>
+                                - {feature}
+                            </Typography>
                         ))}
-                    </ul>
+                    </Stack>
 
                     <Typography variant="h6">Eligibility:</Typography>
                     <Typography variant="body1" paragraph>
@@ -125,13 +125,13 @@ function PaymentPlanDetails() {
                         variant="contained" 
                         color="primary" 
                         onClick={() => handlePlanAction(selectedPlan.id)} 
-                        className="mt-4"
+                        sx={{ mt: 2 }}
                     >
                         Proceed with {selectedPlan.type}
                     </Button>
-                </div>
+                </Box>
             )}
-        </div>
+        </Box>
     );
 }
 
