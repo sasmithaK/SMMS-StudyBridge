@@ -147,7 +147,7 @@ function AddUser() {
         try {
           await sendRequest();
           alert("Application submitted successfully!");
-          navigate(""); // Navigate to the desired page after submission
+          navigate("/mkpayment"); // Navigate to the desired page after submission
         } catch (error) {
           console.error("Error submitting form:", error);
         }

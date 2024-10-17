@@ -10,6 +10,7 @@ const postRoutes = require("./Routes/universityRoute/route");
 const UserRoutes=require('./Routes/workRoute/UserRoute');
 const router = require("./Routes/visaRoute/visaRoute");
 const Demorouter = require("./Routes/DemoRoutes/DemoRoutes");
+const RouteStudent = require("./Routes/universityRoute/Stroute");
 
 //visa
 const app = express();
@@ -24,6 +25,7 @@ app.use("/api/questions", questionRoutes);
 app.use("/api", examRoutes);
 app.use("/posts", postRoutes);
 app.use('/UserUploads',express.static("UserUploads/"));
+app.use("/appstudents",RouteStudent);
 
 //workers
 app.use('/auth',UserRoutes);

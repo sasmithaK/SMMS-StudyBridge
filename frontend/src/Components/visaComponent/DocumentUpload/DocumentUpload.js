@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-//import "./DocumentUpload.css";
-//import Box from "@mui/material/Box";
-//import Button from "@mui/material/Button";
-//import Typography from "@mui/material/Typography";
-//import AppBar from "@mui/material/AppBar";
-//import Toolbar from "@mui/material/Toolbar";
-//import IconButton from "@mui/material/IconButton";
-//import MenuIcon from "@mui/icons-material/Menu";
-//import NotificationsIcon from "@mui/icons-material/Notifications";
-//import { Link } from "react-router-dom";
+import "./DocumentUpload.css";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import { Link } from "react-router-dom";
 
 function DocumentUpload() {
   
-    /*
   // State for storing the uploaded file names
   const [passportFile, setPassportFile] = useState("");
   const [accommodationFile, setAccommodationFile] = useState("");
@@ -25,34 +24,16 @@ function DocumentUpload() {
     if (file) {
       setFile(file.name); // Update state with the file name
     }
-  };*/
-  const [title, setTitle] = useState("");
-  const [file, setFile] = useState("");
-
- const submitImage = async (e) => {
-  e.preventDefault();
-  const formData = new FormData();
-  formData.append("title", title);
-  formData.append("file", file);
-  console.log(title,file);
- }
+  };
+ 
   return (
     <div
       style={{
         backgroundColor: "#F4F7FB",
       }}
     >
-      <form onSubmit={submitImage}>
-        <h4>Upload PDF</h4>
-        <br></br>
-        <input type="text" placeholder="Title" required  onChange={(e) => setTitle(e.target.value)}/>
-        <input type="file" accept="application/pdf" required onChange={(e) => setFile(e.target.files[0])}/>
-
-        <br></br>
-        <button type="submit">Submit</button>
-      </form>
-
-      {/*
+    
+      
       <AppBar
         position="sticky"
         sx={{
@@ -316,9 +297,11 @@ function DocumentUpload() {
           </Button>
         </div>
       </div>
-      */}
-    </div>
+         </div>
+         
+          
   );
 }
+
 
 export default DocumentUpload;

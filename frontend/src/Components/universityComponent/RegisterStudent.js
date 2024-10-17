@@ -38,6 +38,12 @@ function RegisterStudent() {
       setError('Age must be a positive number.');
       return;
     }
+
+    const age = parseInt(studentData.age, 10);
+    if (age <= 12 || age >= 50) {
+      setError('Age must be above 12 and below 50.');
+      return;
+    }
     
     if (!/^\d{10}$/.test(studentData.contact)) {
       setError('Contact number must be exactly 10 digits.');
@@ -47,7 +53,7 @@ function RegisterStudent() {
     // Reset the error if validation passes
     setError(null);
 
-    axios.post('http://localhost:8000/students', studentData)
+    axios.post('http://localhost:5000/appstudents', studentData)
       .then(response => {
         alert('Student added successfully!');
         navigate(`/`); // Redirect to the home or success page
